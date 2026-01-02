@@ -222,6 +222,13 @@ Conflict resolution order:
 
 No exceptions are allowed.
 
+## Naming Convention
+
+<level>-<number>-<name>.spec.md
+
+Examples:
+- 
+
 ## Summary
 
 The Zero Specification defines a **strict layered contract system** for specifications.
