@@ -222,12 +222,21 @@ Conflict resolution order:
 
 No exceptions are allowed.
 
-## Naming Convention
+## Specification File Naming Conventions
 
 <level>-<number>-<name>.spec.md
 
 Examples:
-- 
+- 0-0-zero.spec.md
+
+## Mandatory Front Matter
+
+- id: string
+- version: string following semver
+- level: number, following this specification
+- status: canonical, regular
+- scope: global, 
+- dependencies: list of dependencies
 
 ## Summary
 
