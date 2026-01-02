@@ -3,7 +3,6 @@ id: zero
 version: 0.0.1
 level: 0
 status: canonical
-scope: global
 dependencies: none
 ---
 
@@ -84,9 +83,9 @@ Define global, cross‑cutting constraints that apply to the entire system.
 
 #### Constraints
 
-- MAY restrict lower‑level behavior  
-- MUST NOT describe implementation details  
-- MUST be referenced by all Level 2+ specs  
+- Level 1 specifications MAY restrict lower‑level behavior.
+- Level 1 specifications MUST NOT describe implementation details.
+- Level 2+ specifications MUST explicitly declare dependency on at least one Level 1 specification in their front matter.
 
 ### Level 2 — Domain Specifications
 
@@ -235,7 +234,6 @@ Examples:
 - version: string (following semver)
 - level: number (following this specification)
 - status: canonical | regular | draft | deprecated
-- scope: global | domain | integration | meta
 - dependencies: none | string[] (references specifications on what the current specification depend)
 
 ## Summary
