@@ -16,8 +16,6 @@ A specification is considered **invalid** if any mandatory check fails.
 
 This document defines **validation rules**, not implementation.
 
----
-
 ## How to Use This Checklist
 
 For every specification file:
@@ -29,8 +27,6 @@ For every specification file:
    - VALID
    - CONDITIONALLY VALID
    - INVALID
-
----
 
 ## 1. General Checks (All Levels)
 
@@ -61,8 +57,6 @@ Validation rules:
 
 Failure of any rule → INVALID
 
----
-
 ### 1.2 File Naming Validation
 
 File name MUST follow:
@@ -77,8 +71,6 @@ Rules:
 
 Failure → INVALID
 
----
-
 ### 1.3 Dependency Validation
 
 Dependencies MUST satisfy:
@@ -90,8 +82,6 @@ Dependencies MUST satisfy:
 
 Failure → INVALID
 
----
-
 ### 1.4 Rule Language Validation
 
 The specification MUST:
@@ -102,8 +92,6 @@ The specification MUST:
 
 Failure → CONDITIONALLY VALID
 
----
-
 ### 1.5 Duplication Check
 
 The specification MUST NOT:
@@ -112,8 +100,6 @@ The specification MUST NOT:
 - Rephrase higher-level rules as new ones
 
 Failure → INVALID
-
----
 
 ## 2. Level 0 — Zero Specification Checklist
 
@@ -127,8 +113,6 @@ A Level 0 spec MAY define:
 - Versioning policy
 - Validation criteria
 
----
-
 ### 2.2 Forbidden Content
 
 A Level 0 spec MUST NOT:
@@ -140,18 +124,14 @@ A Level 0 spec MUST NOT:
 
 Failure → INVALID
 
----
-
 ### 2.3 Authority Check
 
 Zero Spec MUST:
 
 - Explicitly define conflict resolution order
-- Declare itself as highest authority
+- Declare itself as the highest authority
 
 Failure → INVALID
-
----
 
 ## 3. Level 1 — Global Guardrails Checklist
 
@@ -165,8 +145,6 @@ A Level 1 spec MAY define:
 - Retry and fallback limits
 - Input sanitization rules
 
----
-
 ### 3.2 Forbidden Content
 
 A Level 1 spec MUST NOT:
@@ -178,8 +156,6 @@ A Level 1 spec MUST NOT:
 
 Failure → INVALID
 
----
-
 ### 3.3 Downward Restriction Check
 
 Level 1 rules MUST:
@@ -188,8 +164,6 @@ Level 1 rules MUST:
 - Never depend on lower-level behavior
 
 Failure → INVALID
-
----
 
 ## 4. Level 2 — Domain Specification Checklist
 
@@ -202,8 +176,6 @@ A Level 2 spec MAY define:
 - Transformation rules
 - Validation logic
 
----
-
 ### 4.2 Required References
 
 A Level 2 spec MUST:
@@ -212,8 +184,6 @@ A Level 2 spec MUST:
 - Comply with all Level 1 constraints
 
 Failure → INVALID
-
----
 
 ### 4.3 Forbidden Content
 
@@ -224,8 +194,6 @@ A Level 2 spec MUST NOT:
 - Define infrastructure behavior
 
 Failure → INVALID
-
----
 
 ## 5. Level 3 — Integration Specification Checklist
 
@@ -238,8 +206,6 @@ A Level 3 spec MAY define:
 - Failure propagation rules
 - Interface contracts
 
----
-
 ### 5.2 Forbidden Content
 
 A Level 3 spec MUST NOT:
@@ -249,8 +215,6 @@ A Level 3 spec MUST NOT:
 - Introduce new domain constraints
 
 Failure → INVALID
-
----
 
 ## 6. Level 4 — Implementation Notes Checklist
 
@@ -262,8 +226,6 @@ A Level 4 spec MAY include:
 - Clarifications
 - Rationale
 
----
-
 ### 6.2 Forbidden Content
 
 A Level 4 spec MUST NOT:
@@ -273,8 +235,6 @@ A Level 4 spec MUST NOT:
 - Be referenced as normative dependency
 
 Failure → INVALID
-
----
 
 ## 7. Versioning Validation
 
@@ -288,8 +248,6 @@ Breaking changes MUST be documented.
 
 Failure → CONDITIONALLY VALID
 
----
-
 ## 8. Final Validation Result
 
 A specification is:
@@ -300,8 +258,6 @@ A specification is:
 
 Invalid specifications MUST NOT be used.
 
----
-
 ## Summary
 
 This checklist provides a **formal, repeatable validation mechanism** for all specifications.
@@ -311,6 +267,6 @@ Its goals are to:
 - Enforce Zero Specification authority
 - Prevent rule duplication
 - Preserve determinism
-- Make specification review mechanical and objective
+- Make a specification review mechanical and objective
 
 All current and future specifications MUST pass this checklist.
