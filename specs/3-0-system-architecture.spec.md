@@ -63,7 +63,6 @@ The system is designed as a modular, service-oriented architecture with clear se
 ```mermaid
 graph TD
     %% External Systems
-    User[User]
     Strava[Strava]
     ImageGenAPI[External AI Image Generation API]
     
@@ -75,25 +74,22 @@ graph TD
     ImageGenerationService[Image Generation Service]
     
     %% Data Flow and Dependencies
-    User -->|1. Upload activity| Strava
-    Strava -->|2. Provide an activity ID via a web hook| ActivityService
-    ActivityService -->|3. Fetch activity by ID from the web hook| Strava
-    ActivityService -->|4. Validate raw activity data| GuardrailsService
-    ActivityService -->|5. Raw activity data| ActivitySignalsService
-    ActivitySignalsService -->|6. Validate extracted activity signals| GuardrailsService
-    ActivitySignalsService -->|7. Extracted activity signals| PromptGenerationService
+    Strava -->|1. Provide an activity ID via a web hook| ActivityService
+    ActivityService -->|2. Fetch full activity data by ID| Strava
+    ActivityService -->|3. Validate raw activity data| GuardrailsService
+    ActivityService -->|4. Raw activity data| ActivitySignalsService
+    ActivitySignalsService -->|5. Validate extracted activity signals| GuardrailsService
+    ActivitySignalsService -->|6. Extracted activity signals| PromptGenerationService
     PromptGenerationService -->|7. Validate prepared image generation prompt| GuardrailsService
-    PromptGenerationService -->|9. Image generation prompt| ImageGenerationService
-    ImageGenerationService -->|10. API Request| ImageGenAPI
-    ImageGenerationService -->|11. Provide user with an AI-generated image| User
-    User -->|12. Upload an image| Strava
+    PromptGenerationService -->|8. Image generation prompt| ImageGenerationService
+    ImageGenerationService -->|9. API Request| ImageGenAPI
     
     %% Styling
     classDef external fill:#ffcccc,stroke:#cc0000,stroke-width:2px,color:#000
     classDef core fill:#ccddff,stroke:#0066cc,stroke-width:2px,color:#000
     classDef data fill:#ffffcc,stroke:#cccc00,stroke-width:1px,stroke-dasharray: 5 5
     
-    class User,Strava,ImageGenAPI external
+    class Strava,ImageGenAPI external
     class GuardrailsService,ActivityService,ActivitySignalsService,PromptGenerationService,ImageGenerationService core
 ```
 
@@ -124,7 +120,7 @@ graph TD
 ```typescript
 interface GuardrailsService {
   validateActivity(activity: Activity): ValidationResult
-  validateActivitySignals(signals: ActivitySignals): ValidationResults
+  validateActivitySignals(signals: ActivitySignals): ValidationResult
   validateActivityImagePrompt(prompt: ActivityImagePrompt): ValidationResult
 }
 ```
