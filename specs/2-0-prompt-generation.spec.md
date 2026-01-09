@@ -1,6 +1,6 @@
 ---
 id: prompt-generation
-version: 1.0.0
+version: 1.1.0
 level: 2
 status: regular
 dependencies:
@@ -65,14 +65,12 @@ Absence of optional fields **MUST NOT** cause failure.
 
 Prompt generation **MUST** return:
 
-```typescript
-type PromptOutput = {
-  subject: string; // Main prompt text (≤ 400 chars).
-  style: string;   // Visual style from allowed set.
-  mood: string;    // Emotional descriptor.
-  scene: string;   // Environment description.
-};
-```
+| Field   | Type   | Field Description              |
+|---------|--------|--------------------------------|
+| Subject | string | Main prompt text.              |
+| Style   | string | Visual style from allowed set. |
+| Mood    | string | Emotion description.           |
+| Scene   | string | Environment description.       |
 
 All fields **MUST** be present and non-empty.
 
@@ -109,10 +107,6 @@ Brand names **MUST NOT**:
 
 ### Activity Type Classification
 
-```typescript
-type StravaActivityType = string;
-```
-
 | Activity Type | Subject Description    | Default Environment |
 |---------------|------------------------|---------------------|
 | Run           | runner                 | outdoor trail       |
@@ -124,13 +118,26 @@ type StravaActivityType = string;
 | Swim          | swimmer                | pool or open water  |
 | Workout       | athlete training       | gym                 |
 
-Unknown types **MUST** be reviewed for safety and used if they don't look dangerous.
+### Unknown Activity Type Handling
+
+For activity types not in the above table:
+
+1. **Safety Review**: The activity type **MUST** be evaluated for safety:
+  - Check against forbidden content list from _Level 1_ guardrails
+  - Verify it represents a legitimate physical activity
+  - Ensure it doesn't imply violence, combat, or dangerous behavior
+
+2. **If Safe**: Unknown types that pass safety review:
+  - **MUST** use generic subject: "athlete" or "person exercising"
+  - **MUST** use neutral environment: "outdoor setting" or "training area"
+  - **MAY** incorporate safe contextual signals from other fields
+
+3. **If Unsafe or Ambiguous**:
+  - **MUST** fall back to generic activity prompt
+  - **MUST** log the unknown type for review
+  - **MUST** use the fallback prompt structure defined in Fallback Behavior
 
 ### Intensity Classification
-
-```typescript
-type StravaActivityIntensity = string;
-```
 
 Intensity **MUST** be classified as one of:
 - `low` - easy, relaxed, recovery
@@ -162,6 +169,55 @@ Default: `medium`
 
 Unknown → neutral daylight
 
+## Weather Influence
+
+### Weather Condition Mapping
+
+Weather conditions **MUST** influence scene composition through:
+
+#### 1. Lighting Adjustments
+
+| Weather     | Lighting Modifier                    |
+|-------------|--------------------------------------|
+| sunny       | bright, clear, high contrast        |
+| cloudy      | soft, diffused, even lighting       |
+| overcast    | muted, gray, low contrast           |
+| rainy       | wet surfaces, reflections, dim      |
+| stormy      | dramatic, dark, high contrast       |
+| foggy       | limited visibility, mysterious       |
+| snowy       | bright, white, soft shadows         |
+
+#### 2. Environmental Elements
+
+| Weather     | Scene Elements to Add                |
+|-------------|--------------------------------------|
+| sunny       | clear skies, defined shadows        |
+| cloudy      | cloud coverage, neutral atmosphere  |
+| rainy       | rain effects, puddles, wet surfaces |
+| stormy      | dark clouds, wind effects           |
+| foggy       | mist, reduced visibility layers     |
+| snowy       | snow coverage, winter atmosphere    |
+| windy       | motion blur, flowing elements       |
+
+#### 3. Mood Modifiers
+
+| Weather     | Mood Influence                      |
+|-------------|--------------------------------------|
+| sunny       | energetic, positive, vibrant        |
+| cloudy      | neutral, steady, focused            |
+| rainy       | contemplative, persistent, moody    |
+| stormy      | intense, challenging, dramatic      |
+| foggy       | mysterious, calm, introspective     |
+| snowy       | peaceful, quiet, serene             |
+
+### Weather Application Rules
+
+1. Weather **MUST** be applied as a scene modifier, not as the primary subject
+2. Weather effects **MUST NOT** obscure the main activity
+3. If weather conflicts with other signals (e.g., indoor activity), weather **MUST** be ignored
+4. Unknown weather conditions **MUST** default to neutral atmosphere
+5. Weather **MAY** override default lighting only when explicitly specified
+
 ## Tag Processing
 
 ### Recognized Tags
@@ -179,7 +235,17 @@ The system **MUST** recognize these Strava tags:
 | workout      | focused        | high      | training-oriented   |
 | intervals    | dynamic        | high      | structured          |
 
-Unrecognized tags **MUST** be processed safely in the appropriate manner.
+### Unrecognized Tag Handling
+
+Unrecognized tags **MUST** be processed as follows:
+
+1. **Safety Check**: Verify the tag doesn't contain forbidden content
+2. **Signal Extraction**: Extract safe semantic signals if possible:
+  - Emotional indicators → mood influence
+  - Location hints → scene modifiers
+  - Intensity signals → intensity classification
+3. **If No Safe Signal**: Ignore the tag completely
+4. **Logging**: Unknown tags **SHOULD** be logged for future recognition
 
 ## Style Selection
 
@@ -198,7 +264,9 @@ Style selection **MUST** be deterministic:
 1. If intensity = `high` AND activity ∈ {Run, Ride, Trail Run} → `illustrated`
 2. If tags contain `recovery` OR `easy` → `minimal`
 3. If elevation > 500m → `illustrated`
-4. Default → `cartoon`
+4. If weather ∈ {stormy, dramatic} → `illustrated`
+5. If weather = `foggy` → `abstract`
+6. Default → `cartoon`
 
 Fallback style: `minimal`
 
@@ -220,11 +288,14 @@ Valid moods include:
 
 ### Mood Mapping
 
-Mood **MUST** align with:
-- Intensity level
-- Tag signals
-- Time of day
-- Weather conditions (if available)
+Mood **MUST** align with (in priority order):
+1. Explicit tag signals
+2. Intensity level
+3. Weather conditions (if available)
+4. Time of day
+5. Activity duration
+
+Conflicts **MUST** be resolved by priority order.
 
 ## Scene Composition
 
@@ -234,7 +305,7 @@ Scene **MUST** include:
 - Primary environment based on activity type
 - Terrain features based on elevation
 - Lighting based on time of day
-- Weather elements (if specified)
+- Weather elements (if specified and applicable)
 
 ### Composition Rules
 
@@ -243,11 +314,23 @@ Scenes **MUST**:
 - Avoid cluttered backgrounds
 - Maintain focus on the activity
 - Be appropriate for the selected style
+- Incorporate weather effects when specified
 
 Scenes **MUST NOT**:
 - Include text or typography
 - Show identifiable locations
 - Contain forbidden content per _Level 1_ guardrails
+
+### Scene Building Priority
+
+Scene elements **MUST** be added in this order:
+1. Base environment (from activity type)
+2. Terrain modifiers (from elevation)
+3. Weather effects (if specified)
+4. Time-based lighting
+5. Mood-based atmosphere
+
+If conflicts arise, earlier elements take precedence.
 
 ## Prompt Assembly
 
@@ -284,16 +367,17 @@ If validation fails:
 
 ### Fallback Prompt
 
-If a valid prompt cannot be generated, the fallback **MUST** always be valid and safe. E.g.,
+If a valid prompt cannot be generated, the fallback **MUST** always be valid and safe:
+- Subject: A simple abstract illustration of an outdoor activity.
+- Style: Minimal.
+- Mood: Calm.
+- Scene: Neutral outdoor atmosphere with soft colors.
 
-```json
-{
-  "subject": "A simple abstract illustration of an outdoor activity",
-  "style": "minimal",
-  "mood": "calm",
-  "scene": "neutral outdoor atmosphere with soft colors"
-}
-```
+This fallback **MUST**:
+- Be used for any unrecoverable error
+- Be used for unsafe or ambiguous activity types
+- Never violate guardrails
+- Always produce a valid image
 
 ## Determinism Requirements
 
