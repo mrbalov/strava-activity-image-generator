@@ -1,8 +1,11 @@
 'use client';
 
-import { useActivities } from '@/api/hooks';
 import Preloader from '@/components/atoms/Preloader';
 import Deferred from '@/components/atoms/Deferred';
+import {
+  useFetchAuthStatus,
+  useFetchStravaActivities,
+} from '@/api';
 
 import Activities from './Activities';
 import Guest from './Guest';
@@ -13,19 +16,29 @@ import Error from './Error';
  * @returns {JSX.Element} Activities page.
  */
 const ActivitiesPage = (): JSX.Element => {
-  const { activities, loading, error, isUnauthorized, refetch } = useActivities();
+  const authStatusData = useFetchAuthStatus();
+  const stravaActivitiesData = useFetchStravaActivities();
+  const isLoading = authStatusData.isLoading || stravaActivitiesData.isLoading;
 
   return (
-    <Deferred ready={!loading} fallback={<Preloader message="Loading your activities..." />}>
+    <Deferred
+      ready={!isLoading}
+      fallback={<Preloader message="Loading your activities..." />}
+    >
       {(() => {
-        if (isUnauthorized) {
+        if (!authStatusData.data) {
           return <Guest />;
-        } else if (error) {
-          return <Error error={error} refetchActivities={refetch} />;
+        } else if (stravaActivitiesData.error) {
+          return (
+            <Error
+              error={stravaActivitiesData.error.message}
+              refetchActivities={stravaActivitiesData.refetch}
+            />
+          );
         } else {
           return (
             <Activities
-              activities={activities ?? []}
+              activities={stravaActivitiesData.data ?? []}
             />
           );
         }

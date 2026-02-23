@@ -1,6 +1,7 @@
 import { StravaActivitySignals } from '@torq/get-strava-activity-signals';
 
 import { apiRequest } from '../client';
+import { API_ENDPOINTS } from '../constants';
 
 /**
  * Fetch specific activity signals by activity ID.
@@ -8,6 +9,6 @@ import { apiRequest } from '../client';
  * @returns {Promise<StravaActivitySignals>} Activity signals.
  */
 const fetchActivitySignals = (activityId: string): Promise<StravaActivitySignals> =>
-  apiRequest<StravaActivitySignals>(`/strava/activities/${activityId}/signals`);
+  apiRequest<StravaActivitySignals>(API_ENDPOINTS.STRAVA_ACTIVITY_SIGNALS(activityId));
 
 export default fetchActivitySignals;
