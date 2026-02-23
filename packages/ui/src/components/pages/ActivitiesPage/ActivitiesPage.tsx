@@ -8,19 +8,11 @@ import Activities from './Activities';
 import Guest from './Guest';
 import Error from './Error';
 
-interface ActivitiesPageProps {
-  withImageGeneration: boolean;
-}
-
 /**
  * Activities page.
- * @param {ActivitiesPageProps} props - Component props.
- * @param {boolean} props.withImageGeneration - Whether to allow image generation activities.
  * @returns {JSX.Element} Activities page.
  */
-const ActivitiesPage = ({
-  withImageGeneration,
-}: ActivitiesPageProps): JSX.Element => {
+const ActivitiesPage = (): JSX.Element => {
   const { activities, loading, error, isUnauthorized, refetch } = useActivities();
 
   return (
@@ -34,7 +26,6 @@ const ActivitiesPage = ({
           return (
             <Activities
               activities={activities ?? []}
-              withImageGeneration={withImageGeneration}
             />
           );
         }

@@ -5,6 +5,7 @@ import {
   useStravaActivityImageGenerationPrompt,
   useStravaActivitySignals,
 } from '@/api';
+import { useEffect } from 'react';
 
 /**
  * Generates Strava activity image.
@@ -30,6 +31,12 @@ const useGenerateImage = (withImageGeneration: boolean, activityId?: string) => 
   }, {
     skip: shouldSkipImageGeneration,
   });
+
+  useEffect(() => {
+    if (!withImageGeneration) {
+      console.warn('Image generation is disabled by env settings.');
+    }
+  }, [withImageGeneration]);
 
   return {
     isLoading: signalsData.isLoading || promptData.isLoading || imageData.isLoading,

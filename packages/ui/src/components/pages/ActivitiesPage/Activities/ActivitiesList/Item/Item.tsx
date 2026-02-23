@@ -1,7 +1,8 @@
 'use client';
 
-import { Activity as ActivityIcon, Navigation, Clock, TrendingUp, Zap } from 'lucide-react';
+import Link from 'next/link';
 import { StravaActivity } from '@torq/strava-api';
+import { Activity as ActivityIcon, Navigation, Clock, TrendingUp, Zap } from 'lucide-react';
 
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -10,18 +11,16 @@ import formatActivityType from './formatActivityType';
 
 interface ItemProps {
   activity: StravaActivity;
-  onGenerateImage: (activityId: string) => void;
 }
 
 /**
  * Activity list item.
  * @param {ItemProps} props - Component props.
  * @param {StravaActivity} props.activity - Activity to display.
- * @param {Function} props.onGenerateImage - Function to open the activity image generation view.
  * @returns {JSX.Element} Activity list item.
  */
-const Item = ({ activity, onGenerateImage }: ItemProps) => (
-  <div className="w-full w-[calc(50%-8px)] md:w-[calc(33.333%-11px)]">
+const Item = ({ activity }: ItemProps) => (
+  <div className="w-[calc(50%-8px)] md:w-[calc(33.333%-11px)]">
     <Card className="h-full flex flex-col hover:shadow-md transition-shadow">
       <CardContent className="pt-6 flex-1">
         <h4 className="text-base font-semibold mb-1">{activity.name}</h4>
@@ -52,16 +51,15 @@ const Item = ({ activity, onGenerateImage }: ItemProps) => (
         </div>
       </CardContent>
       <CardFooter>
-        <Button
+        <Link
+          href={`/activities/${activity.id}/art`}
           className="w-full"
-          size="sm"
-          onClick={() => {
-            onGenerateImage(String(activity.id));
-          }}
         >
-          <Zap size={14} />
-          Generate Image
-        </Button>
+          <Button className="w-full" size="sm">
+            <Zap size={14} />
+            Generate Image
+          </Button>
+        </Link>
       </CardFooter>
     </Card>
   </div>

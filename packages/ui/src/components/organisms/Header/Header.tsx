@@ -23,8 +23,8 @@ const Logo = () => (
  * @returns {JSX.Element} Header component.
  */
 const Header = () => (
-  <header className="fixed top-0 left-0 right-0 h-[60px] w-full flex items-center justify-center bg-background px-4 box-border z-[999]">
-    <div className="flex items-center justify-between w-full h-full max-w-[1000px] border-b border-border">
+  <header className="fixed top-0 left-0 right-0 h-(--header-height) w-full flex items-center justify-center bg-background px-4 box-border z-[999]">
+    <div className="flex items-center justify-between w-full h-full max-w-(--page-max-width) border-b border-border">
       <Logo />
       <HeaderActions />
     </div>

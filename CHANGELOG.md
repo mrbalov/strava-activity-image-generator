@@ -6,6 +6,27 @@ Please, document here only changes visible to the client app.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.2.0] - 2026-02-23
+
+### [65 Refactored Image Generation to Dedicated Activity Art Page](https://github.com/mrbalov/pace/issues/65)
+
+### Added
+- New dedicated route `/activities/[activityId]/art` for activity image generation
+- `ActivityArtPage` component for full-page image generation experience
+- Direct navigation from activities list to activity art page using Next.js Link components
+
+### Changed
+- Image generation moved from drawer-based UI to dedicated page for better user experience
+- Activities list items now link directly to the art generation page instead of triggering a drawer
+- `StravaActivityImageGenerator` component layout updated to support full-page display with flex container
+- Content component now accepts optional `className` prop for flexible styling
+
+### Removed
+- `ImageGenerationDrawer` component and all its sub-components
+- Drawer state management from Activities page
+- `onGenerateImage` callback prop from Activities list components
+- `withImageGeneration` prop dependency from Activities page component
+
 ## [5.1.0] - 2026-02-23
 
 ### [65 Added Configurable Image Generation Environment Variable](https://github.com/mrbalov/pace/issues/65)

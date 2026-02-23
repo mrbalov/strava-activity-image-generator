@@ -19,7 +19,7 @@ const Preloader = ({ message = undefined, withFullHeight = true }: PreloaderProp
   <div
     className={[
       'flex flex-col items-center justify-center gap-6 w-full bg-background',
-      withFullHeight ? 'min-h-[calc(100vh-60px)]' : 'py-8',
+      withFullHeight ? 'min-h-[calc(100vh-var(--header-height))]' : 'py-8',
     ].join(' ')}
   >
     <div className="animate-preloader-pulse opacity-90 flex items-center justify-center">
