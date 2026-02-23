@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [5.3.0] - 2026-02-23
 
-### Authentication and API Architecture Refactoring
+### [65 Authentication and API Architecture Refactoring](https://github.com/mrbalov/pace/issues/65)
 
 ### Added
 - `STATUS_CODES` constant for HTTP status code definitions
