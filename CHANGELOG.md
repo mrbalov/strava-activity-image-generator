@@ -6,6 +6,27 @@ Please, document here only changes visible to the client app.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.0] - 2026-02-23
+
+### Authentication and API Architecture Refactoring
+
+### Added
+- `STATUS_CODES` constant for HTTP status code definitions
+- `API_ENDPOINTS` constant replacing the previous `ENDPOINTS` naming convention
+- New API module structure with dedicated folders for each API operation
+- `authUrl` prop to HomePage component for configurable authentication URL
+
+### Changed
+- Renamed `ENDPOINTS` to `API_ENDPOINTS` for better naming consistency
+- Moved authentication hooks from `/hooks` directory to `/api` directory for better organization
+- Refactored `useAuthStatus` to `useFetchAuthStatus` with improved data fetching pattern
+- Updated HomePage to receive authentication URL as a prop instead of hardcoding
+- Reorganized API exports to centralize all API-related functionality in the `/api` module
+
+### Removed
+- Legacy `/hooks/useAuth.ts` and `/hooks/useAuthStatus.ts` files
+- `/api/hooks.ts` file in favor of direct exports from API modules
+
 ## [5.2.0] - 2026-02-23
 
 ### [65 Refactored Image Generation to Dedicated Activity Art Page](https://github.com/mrbalov/pace/issues/65)
