@@ -1,11 +1,11 @@
 'use client';
 
+import { cn } from '@/lib/utils';
 import { StravaActivitySignals } from '@torq/get-strava-activity-signals';
 
 import Prompt from './Prompt';
 import Signals from './Signals';
 import Image from './Image';
-import { cn } from '@/lib/utils';
 
 interface ContentProps {
   isSignalsLoading: boolean;
