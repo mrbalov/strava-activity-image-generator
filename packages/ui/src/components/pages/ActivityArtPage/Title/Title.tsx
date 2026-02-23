@@ -26,7 +26,7 @@ const Title = ({ isLoading, isLoaded }: TitleProps) => {
   }, [isLoading, isLoaded]);
 
   return (
-    <h1>{title}</h1>
+    <h1 className="text-3xl font-bold">{title}</h1>
   );
 };
 

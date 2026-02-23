@@ -42,7 +42,7 @@ const StravaActivityImageGenerator = ({
   } = useGenerateImage(withImageGeneration, activityId ?? undefined);
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="flex flex-col gap-4 w-full">
       {Header && <Header isLoading={isLoading} isLoaded={isLoaded} />}
       <Content
         isSignalsLoading={isSignalsLoading}
