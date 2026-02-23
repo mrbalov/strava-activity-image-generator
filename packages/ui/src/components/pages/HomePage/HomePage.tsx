@@ -1,25 +1,39 @@
 'use client';
 
-import { useAuthStatus } from '@/hooks/useAuthStatus';
 import Preloader from '@/components/atoms/Preloader';
 import Deferred from '@/components/atoms/Deferred';
+import { useFetchAuthStatus } from '@/api';
 
 import useRemoveAuthUrlParams from './useRemoveAuthParams';
 import Guest from './Guest';
 import Member from './Member';
 
+interface HomePageProps {
+  authUrl: string;
+}
+
 /**
  * Home page.
+ * @param {object} props - Component props.
+ * @param {string} props.authUrl - URL to authorize.
  * @returns {JSX.Element} Home page.
  */
-const HomePage = (): JSX.Element => {
-  const { isAuthenticated, loading } = useAuthStatus();
+const HomePage = ({
+  authUrl,
+}: HomePageProps): JSX.Element => {
+  const authStatusData = useFetchAuthStatus();
 
   useRemoveAuthUrlParams();
 
   return (
-    <Deferred ready={!loading} fallback={<Preloader />}>
-      {isAuthenticated ? <Member /> : <Guest />}
+    <Deferred ready={!authStatusData.isLoading} fallback={<Preloader />}>
+      {authStatusData.data ? (
+        <Member />
+      ) : (
+        <Guest
+          authUrl={authUrl}
+        />
+      )}
     </Deferred>
   );
 };

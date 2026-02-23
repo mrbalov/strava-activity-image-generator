@@ -4,7 +4,7 @@ import { useCallback } from 'react';
 import { LogOut } from 'lucide-react';
 
 import { logout } from '@/utils/auth';
-import { useAuth } from '@/hooks/useAuth';
+import { useFetchAuthStatus } from '@/api';
 import { Button } from '@/components/ui/button';
 import ThemeSwitcher from '@/components/molecules/ThemeSwitcher';
 
@@ -14,7 +14,11 @@ import ThemeSwitcher from '@/components/molecules/ThemeSwitcher';
  * @returns {JSX.Element} HeaderActions component.
  */
 const HeaderActions = () => {
-  const { isAuthenticated, loading } = useAuth();
+  const authStatusData = useFetchAuthStatus();
+  const isLogoutButtonVisible = (
+    !authStatusData.isLoading
+    && authStatusData.data
+  );
 
   /**
    * Handles user logout.
@@ -26,7 +30,7 @@ const HeaderActions = () => {
 
   return (
     <div className="flex items-center gap-4">
-      {!loading && isAuthenticated && (
+      {isLogoutButtonVisible && (
         <Button
           variant="outline"
           size="icon"

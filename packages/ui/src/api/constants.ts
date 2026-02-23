@@ -1,4 +1,6 @@
-export const ENDPOINTS = {
+export const API_ENDPOINTS = {
+  AUTH_STATUS: '/strava/auth/status',
+
   STRAVA_LOGOUT: '/strava/logout',
   STRAVA_AUTH_STATUS: '/strava/auth/status',
   STRAVA_AUTH: '/strava/auth',
@@ -17,4 +19,8 @@ export const ENDPOINTS = {
    * @returns {string} Endpoint URL.
    */
   STRAVA_ACTIVITY_SIGNALS: (id: string) => `/strava/activities/${id}/signals`,
+};
+
+export const STATUS_CODES = {
+  UNAUTHORIZED: 401,
 };
