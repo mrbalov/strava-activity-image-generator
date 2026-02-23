@@ -9,6 +9,7 @@ interface HeaderProps {
 }
 
 interface StravaActivityImageGeneratorProps {
+  withImageGeneration: boolean;
   activityId?: string | null;
   Header?: React.ComponentType<HeaderProps>;
 }
@@ -17,11 +18,14 @@ interface StravaActivityImageGeneratorProps {
  * Strava activity image generator.
  * @param {StravaActivityImageGeneratorProps} props Component props.
  * @param {string | null} [props.activityId] ID of the activity for which the image is being generated.
+ * @param {React.ComponentType<HeaderProps>} [props.Header] Header component.
+ * @param {boolean} props.withImageGeneration Whether to allow image generation.
  * @returns {JSX.Element} Strava activity image generator component.
  */
 const StravaActivityImageGenerator = ({
   activityId,
   Header,
+  withImageGeneration,
 }: StravaActivityImageGeneratorProps) => {
   const {
     signals,
@@ -35,7 +39,7 @@ const StravaActivityImageGenerator = ({
     isImageLoaded,
     isLoading,
     isLoaded,
-  } = useGenerateImage(activityId ?? undefined);
+  } = useGenerateImage(withImageGeneration, activityId ?? undefined);
 
   return (
     <>

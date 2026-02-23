@@ -3,23 +3,32 @@
 import { useState, useEffect } from 'react';
 
 import generateStravaActivityImage from './generateStravaActivityImage';
-import { Input, ResponseImage } from './types';
+import { Input, Options, ResponseImage } from './types';
 
 /**
  * Generates a Strava activity image.
- * @param {string} [activityId] - The ID of the activity to generate an image for.
+ * @param {Input} input - The input parameters for image generation.
+ * @param {string} [input.activityId] - The ID of the activity to generate an image for.
+ * @param {string} [input.prompt] - The prompt to use for image generation.
+ * @param {Options} [options] - Additional options for image generation.
+ * @param {boolean} [options.skip] - Whether to skip image generation.
  * @returns {object} An object containing the loading state, loaded state, and the generated image data.
  */
-const useGenerateStravaActivityImage = ({
-  activityId,
-  prompt,
-}: Partial<Input>) => {
+const useGenerateStravaActivityImage = (
+  {
+    activityId,
+    prompt,
+  }: Partial<Input>,
+  {
+    skip = false,
+  }: Options = {},
+) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [data, setData] = useState<ResponseImage | null>(null);
 
   useEffect(() => {
-    if (!isLoading && !isLoaded && activityId && prompt) {
+    if (!isLoading && !isLoaded && activityId && prompt && !skip) {
       setIsLoading(true);
 
       generateStravaActivityImage({ activityId, prompt })
@@ -36,7 +45,7 @@ const useGenerateStravaActivityImage = ({
           setIsLoaded(true);
         });
     }
-  }, [activityId, prompt]);
+  }, [activityId, prompt, skip]);
 
   return {
     isLoading,

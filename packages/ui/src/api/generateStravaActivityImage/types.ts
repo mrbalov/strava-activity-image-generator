@@ -12,3 +12,7 @@ export interface ResponseImage {
 export interface Response {
   image?: ResponseImage;
 }
+
+export interface Options {
+  skip?: boolean;
+}

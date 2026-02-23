@@ -8,18 +8,27 @@ import {
 
 /**
  * Generates Strava activity image.
- * @param {string} activityId - Strava activity ID.
+ * @param {boolean} withImageGeneration - Whether to allow image generation.
+ * @param {string} [activityId] - Strava activity ID.
  * @returns {object} Image generation state and data.
  */
-const useGenerateImage = (activityId?: string) => {
+const useGenerateImage = (withImageGeneration: boolean, activityId?: string) => {
   const signalsData = useStravaActivitySignals(activityId);
   const promptData = useStravaActivityImageGenerationPrompt({
     activitySignals: signalsData.data ?? undefined,
     activityId: activityId ?? undefined,
   });
+  const shouldSkipImageGeneration = (
+    !withImageGeneration
+    || !activityId
+    || !signalsData.data
+    || !promptData.data
+  );
   const imageData = useGenerateStravaActivityImage({
     activityId: activityId ?? undefined,
     prompt: promptData.data ?? undefined,
+  }, {
+    skip: shouldSkipImageGeneration,
   });
 
   return {
