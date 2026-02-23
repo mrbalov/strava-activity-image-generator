@@ -2,23 +2,27 @@ import env from '@/env';
 import ActivityArtPage from '@/components/pages/ActivityArtPage';
 
 interface PageProps {
-  params: {
+  params: Promise<{
     activityId: string;
-  };
+  }>;
 }
 
 /**
  * Activity art page.
  * @param {PageProps} props - Component props.
- * @returns {JSX.Element} Activity art page component.
+ * @returns {Promise<JSX.Element>} Activity art page component.
  */
-const Page = ({
+const Page = async ({
   params,
-}: PageProps) => params.activityId ? (
-  <ActivityArtPage
-    activityId={params.activityId}
-    withImageGeneration={env.withImageGeneration}
-  />
-) : null;
+}: PageProps): Promise<JSX.Element> => {
+  const { activityId } = await params;
+  
+  return activityId ? (
+    <ActivityArtPage
+      activityId={activityId}
+      withImageGeneration={env.withImageGeneration}
+    />
+  ) : <div />;
+};
 
 export default Page;
