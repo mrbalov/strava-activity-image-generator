@@ -87,12 +87,12 @@ const Layout = ({ children }: RootLayoutProps): JSX.Element => (
     <body className="font-sans" suppressHydrationWarning>
       <NextTopLoader showSpinner={false} />
       <Providers>
-        <div className="flex flex-col items-center justify-between gap-8 min-h-screen w-full max-w-[1000px] mx-auto px-4 box-border">
+        <div className="flex flex-col items-center justify-between gap-8 min-h-screen w-full max-w-(--page-max-width) mx-auto px-4 box-border">
           <Header />
           <main
             aria-live="polite"
             role="main"
-            className="w-full min-h-[calc(100vh-170px)] mt-[70px] mb-[70px]"
+            className="w-full min-h-[calc(100vh-170px)] my-17.5"
           >
             {children}
           </main>
