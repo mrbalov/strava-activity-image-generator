@@ -6,9 +6,24 @@ Please, document here only changes visible to the client app.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.0] - 2026-02-23
+
+### [65 Added Configurable Image Generation Environment Variable](https://github.com/mrbalov/pace/issues/65)
+
+### Added
+- `NEXT_PUBLIC_WITH_IMAGE_GENERATION` environment variable to control image generation feature
+- Skip functionality in `useGenerateStravaActivityImage` hook to prevent unnecessary API calls
+- Configuration option in `env.ts` for enabling/disabling image generation (defaults to `false`)
+- Environment variable configuration in Docker Compose files for both development and production
+
+### Changed
+- Modified Activities page and related components to pass `withImageGeneration` prop through component hierarchy
+- Updated `useGenerateImage` hook to conditionally skip image generation based on environment configuration
+- Enhanced JSDoc documentation for image generation related functions with additional parameter descriptions
+
 ## [5.0.3] - 2026-02-20
 
-### Added Favicon and Enhanced SEO Metadata Support
+### [61 Added Favicon and Enhanced SEO Metadata Support](https://github.com/mrbalov/pace/issues/22)
 
 ### Added
 - Complete favicon set for all platforms (16x16, 32x32, Apple Touch Icon, Android Chrome icons)

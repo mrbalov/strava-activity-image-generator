@@ -10,15 +10,20 @@ import ActivitiesList from './ActivitiesList';
 
 interface ActivitiesProps {
   activities: StravaActivity[];
+  withImageGeneration: boolean;
 }
 
 /**
  * Activities list view.
  * @param {ActivitiesProps} props - Component props.
  * @param {StravaActivity[]} props.activities - List of activities to display.
+ * @param {boolean} props.withImageGeneration - Whether to allow image generation.
  * @returns {JSX.Element} Activities list view.
  */
-const Activities = ({ activities }: ActivitiesProps) => {
+const Activities = ({
+  activities,
+  withImageGeneration,
+}: ActivitiesProps) => {
   const [currentActivityId, setCurrentActivityId] = useState<string | null>(null);
 
   /**
@@ -57,6 +62,7 @@ const Activities = ({ activities }: ActivitiesProps) => {
       <ImageGenerationDrawer
         activityId={currentActivityId}
         onClose={handleCloseImageGenerationDrawer}
+        withImageGeneration={withImageGeneration}
       />
     </div>
   );

@@ -22,6 +22,15 @@ interface ContentProps {
  * Image generation content.
  * Replaced Geist Drawer.Content/Grid/Card with a scrollable div + Tailwind grid.
  * @param {ContentProps} props - Component props.
+ * @param {boolean} props.isSignalsLoading - Whether the signals are loading.
+ * @param {boolean} props.isPromptLoading - Whether the prompt is loading.
+ * @param {boolean} props.isImageLoading - Whether the image is loading.
+ * @param {boolean} props.isSignalsLoaded - Whether the signals are loaded.
+ * @param {boolean} props.isPromptLoaded - Whether the prompt is loaded.
+ * @param {boolean} props.isImageLoaded - Whether the image is loaded.
+ * @param {StravaActivitySignals | null} [props.signals] The activity signals.
+ * @param {string | null} [props.prompt] The generated prompt.
+ * @param {string | null} [props.image] The generated image (base64).
  * @returns {JSX.Element} Image generation content component.
  */
 const Content = ({
