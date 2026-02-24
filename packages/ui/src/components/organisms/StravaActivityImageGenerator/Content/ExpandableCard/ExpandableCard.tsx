@@ -13,7 +13,7 @@ import { cn } from '@/lib/utils';
 
 interface ExpandableCardProps {
   isLoading: boolean;
-  isLoaded: boolean;
+  isError: boolean;
   hasContent: boolean;
   children?: React.ReactNode;
   loadingMessage?: string;
@@ -28,7 +28,7 @@ interface ExpandableCardProps {
  * Expandable card.
  * @param {ExpandableCardProps} props - Component props.
  * @param {boolean} props.isLoading - Whether the content is loading.
- * @param {boolean} props.isLoaded - Whether the content has been loaded.
+ * @param {boolean} props.isError - Whether there was an error loading the content.
  * @param {boolean} props.hasContent - Whether the content has meaningful data.
  * @param {React.ReactNode} [props.children] - The content to display inside the card.
  * @param {string} [props.loadingMessage] - Custom loading message to display while loading.
@@ -41,18 +41,18 @@ interface ExpandableCardProps {
  */
 const ExpandableCard = ({
   isLoading,
-  isLoaded,
+  isError,
   hasContent,
   children = null,
   loadingMessage = 'Loading...',
   pendingMessage = 'Pending...',
-  errorMessage = 'Someting went wrong...',
+  errorMessage = 'Something went wrong...',
   title = 'Content',
   minHeight = 'var(--header-height)',
   withExpander = false,
 }: ExpandableCardProps) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
-  const status = getStatus({ hasContent, isLoading, isLoaded });
+  const status = getStatus({ hasContent, isLoading, isError });
   const rootClassList = cn(
     'relative w-full overflow-hidden',
     'transition-[max-height] duration-300 ease-in-out',

@@ -11,9 +11,9 @@ interface ContentProps {
   isSignalsLoading: boolean;
   isPromptLoading: boolean;
   isImageLoading: boolean;
-  isSignalsLoaded: boolean;
-  isPromptLoaded: boolean;
-  isImageLoaded: boolean;
+  isSignalsError: boolean;
+  isPromptError: boolean;
+  isImageError: boolean;
   signals?: StravaActivitySignals | null;
   prompt?: string | null;
   image?: string | null;
@@ -27,9 +27,9 @@ interface ContentProps {
  * @param {boolean} props.isSignalsLoading - Whether the signals are loading.
  * @param {boolean} props.isPromptLoading - Whether the prompt is loading.
  * @param {boolean} props.isImageLoading - Whether the image is loading.
- * @param {boolean} props.isSignalsLoaded - Whether the signals are loaded.
- * @param {boolean} props.isPromptLoaded - Whether the prompt is loaded.
- * @param {boolean} props.isImageLoaded - Whether the image is loaded.
+ * @param {boolean} props.isSignalsError - Whether there was an error loading the signals.
+ * @param {boolean} props.isPromptError - Whether there was an error loading the prompt.
+ * @param {boolean} props.isImageError - Whether there was an error loading the image.
  * @param {StravaActivitySignals | null} [props.signals] The activity signals.
  * @param {string | null} [props.prompt] The generated prompt.
  * @param {string | null} [props.image] The generated image (base64).
@@ -40,9 +40,9 @@ const Content = ({
   isSignalsLoading,
   isPromptLoading,
   isImageLoading,
-  isSignalsLoaded,
-  isPromptLoaded,
-  isImageLoaded,
+  isSignalsError,
+  isPromptError,
+  isImageError,
   signals,
   prompt,
   image,
@@ -61,17 +61,17 @@ const Content = ({
       </div>
       <Signals
         isLoading={isSignalsLoading}
-        isLoaded={isSignalsLoaded}
+        isError={isSignalsError}
         signals={signals}
       />
       <Prompt
         isLoading={isPromptLoading}
-        isLoaded={isPromptLoaded}
+        isError={isPromptError}
         prompt={prompt}
       />
       <Image
         isLoading={isImageLoading}
-        isLoaded={isImageLoaded}
+        isError={isImageError}
         image={image}
       />
     </div>

@@ -1,9 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
-import queryActivityImageGenerationPrompt from './queryStravaActivityImageGenerationPrompt';
 import { Input } from './types';
+import toBase64 from './toBase64';
+import { API_ENDPOINTS } from '../constants';
+import queryActivityImageGenerationPrompt from './queryStravaActivityImageGenerationPrompt';
 
 /**
  * Queries Strava activity image generation prompt.
@@ -15,36 +17,32 @@ import { Input } from './types';
 const useQueryStravaActivityImageGenerationPrompt = ({
   activityId,
   activitySignals,
-}: Partial<Input>) => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isLoaded, setIsLoaded] = useState<boolean>(false);
-  const [data, setData] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (!isLoading && !isLoaded && activityId && activitySignals) {
-      setIsLoading(true);
-
-      queryActivityImageGenerationPrompt({ activityId, activitySignals })
-        .then((response) => {
-          setData(response);
-          setIsLoaded(true);
-        })
-        .catch((error) => {
-          console.error('Error querying Strava activity image generation prompt:', error);
-          setData(null);
-        })
-        .finally(() => {
-          setIsLoading(false);
-          setIsLoaded(true);
+}: Partial<Input>) =>
+  useQuery<string | null>({
+    queryKey: [
+      API_ENDPOINTS.STRAVA_ACTIVITY_IMAGE_GENERATION_PROMPT(
+        activityId ?? '',
+        activitySignals ? toBase64(activitySignals) : '',
+      ),
+    ],
+    /**
+     * Queries Strava activity image generation prompt from the internal API.
+     * @returns {Promise<string | null>} Activity image generation prompt.
+     */
+    queryFn: () => {
+      if (activityId && activitySignals) {
+        return queryActivityImageGenerationPrompt({
+          activityId,
+          activitySignals,
         });
-    }
-  }, [activityId, activitySignals]);
-
-  return {
-    isLoading,
-    isLoaded,
-    data,
-  };
-};
+      } else {
+        return null;
+      }
+    },
+    enabled: (
+      Boolean(activityId)
+      && Boolean(activitySignals)
+    ),
+  });
 
 export default useQueryStravaActivityImageGenerationPrompt;

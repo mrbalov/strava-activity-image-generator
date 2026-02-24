@@ -5,7 +5,7 @@ import useGenerateImage from './useGenerateImage';
 
 interface HeaderProps {
   isLoading: boolean;
-  isLoaded: boolean;
+  isError: boolean;
 }
 
 interface StravaActivityImageGeneratorProps {
@@ -34,23 +34,23 @@ const StravaActivityImageGenerator = ({
     isSignalsLoading,
     isPromptLoading,
     isImageLoading,
-    isSignalsLoaded,
-    isPromptLoaded,
-    isImageLoaded,
+    isSignalsError,
+    isPromptError,
+    isImageError,
     isLoading,
-    isLoaded,
+    isError,
   } = useGenerateImage(withImageGeneration, activityId ?? undefined);
 
   return (
     <div className="flex flex-col gap-4 w-full">
-      {Header && <Header isLoading={isLoading} isLoaded={isLoaded} />}
+      {Header && <Header isLoading={isLoading} isError={isError} />}
       <Content
         isSignalsLoading={isSignalsLoading}
         isPromptLoading={isPromptLoading}
         isImageLoading={isImageLoading}
-        isSignalsLoaded={isSignalsLoaded}
-        isPromptLoaded={isPromptLoaded}
-        isImageLoaded={isImageLoaded}
+        isSignalsError={isSignalsError}
+        isPromptError={isPromptError}
+        isImageError={isImageError}
         signals={signals}
         prompt={prompt}
         image={image}

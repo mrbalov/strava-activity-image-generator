@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 import queryStravaActivityImage from './queryStravaActivityImage';
-import { Input, Options, ResponseImage } from './types';
+import { Input, Options } from './types';
+import { API_ENDPOINTS } from '../constants';
 
 /**
  * Generates a Strava activity image.
@@ -22,36 +23,33 @@ const useQueryStravaActivityImage = (
   {
     skip = false,
   }: Options = {},
-) => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isLoaded, setIsLoaded] = useState<boolean>(false);
-  const [data, setData] = useState<ResponseImage | null>(null);
-
-  useEffect(() => {
-    if (!isLoading && !isLoaded && activityId && prompt && !skip) {
-      setIsLoading(true);
-
-      queryStravaActivityImage({ activityId, prompt })
-        .then((response) => {
-          setData(response);
-          setIsLoaded(true);
-        })
-        .catch((error) => {
-          console.error('Error generating Strava activity image:', error);
-          setData(null);
-        })
-        .finally(() => {
-          setIsLoading(false);
-          setIsLoaded(true);
+) =>
+  useQuery<string | null>({
+    queryKey: [
+      API_ENDPOINTS.STRAVA_ACTIVITY_IMAGE_GENERATOR(
+        activityId ?? '',
+        prompt ?? '',
+      ),
+    ],
+    /**
+     * Queries Strava activity image generator from the internal API.
+     * @returns {Promise<string | null>} Strava activity image.
+     */
+    queryFn: () => {
+      if (activityId && prompt) {
+        return queryStravaActivityImage({
+          activityId,
+          prompt,
         });
-    }
-  }, [activityId, prompt, skip]);
-
-  return {
-    isLoading,
-    isLoaded,
-    data,
-  };
-};
+      } else {
+        return null;
+      }
+    },
+    enabled: (
+      Boolean(activityId)
+      && Boolean(prompt)
+      && !skip
+    ),
+  });
 
 export default useQueryStravaActivityImage;

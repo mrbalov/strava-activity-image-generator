@@ -4,7 +4,7 @@ import ExpandableCard from '../ExpandableCard';
 
 interface PromptProps {
   isLoading: boolean;
-  isLoaded: boolean;
+  isError: boolean;
   prompt?: string | null;
 }
 
@@ -12,18 +12,18 @@ interface PromptProps {
  * Image generation prompt.
  * @param {PromptProps} props - Component props.
  * @param {boolean} props.isLoading - Whether the prompt is being generated.
- * @param {boolean} props.isLoaded - Whether the prompt has been loaded.
+ * @param {boolean} props.isError - Whether there was an error generating the prompt.
  * @param {string | null} [props.prompt] - Generated prompt text.
  * @returns {JSX.Element} The prompt component.
  */
 const Prompt = ({
   isLoading,
-  isLoaded,
+  isError,
   prompt,
 }: PromptProps) => (
   <ExpandableCard
     isLoading={isLoading}
-    isLoaded={isLoaded}
+    isError={isError}
     hasContent={Boolean(prompt)}
     loadingMessage="Preparing AI image generation prompt..."
     errorMessage="No AI image generation prompt available... Let's cry together."
