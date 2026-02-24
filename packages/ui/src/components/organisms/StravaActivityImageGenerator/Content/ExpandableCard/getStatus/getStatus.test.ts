@@ -12,34 +12,34 @@ describe('getStatus', () => {
       'loading state showing spinner',
       {
         isLoading: true,
-        isLoaded: false,
+        isError: false,
         hasContent: false,
       },
       'loading',
     ],
     [
-      'loading state even when loaded with content',
+      'loading state even when error occurred with content',
       {
         isLoading: true,
-        isLoaded: true,
+        isError: true,
         hasContent: true,
       },
       'loading',
     ],
     [
-      'loading state even when loaded without content',
+      'loading state even when error occurred without content',
       {
         isLoading: true,
-        isLoaded: true,
+        isError: true,
         hasContent: false,
       },
       'loading',
     ],
     [
-      'loading state even when not loaded but has content',
+      'loading state even when no error but has content',
       {
         isLoading: true,
-        isLoaded: false,
+        isError: false,
         hasContent: true,
       },
       'loading',
@@ -48,7 +48,7 @@ describe('getStatus', () => {
       'successful completion showing content',
       {
         isLoading: false,
-        isLoaded: true,
+        isError: false,
         hasContent: true,
       },
       'loaded',
@@ -57,7 +57,7 @@ describe('getStatus', () => {
       'failed operation showing error',
       {
         isLoading: false,
-        isLoaded: true,
+        isError: true,
         hasContent: false,
       },
       'error',
@@ -66,7 +66,7 @@ describe('getStatus', () => {
       'waiting for operation to start',
       {
         isLoading: false,
-        isLoaded: false,
+        isError: false,
         hasContent: false,
       },
       'pending',
@@ -75,10 +75,10 @@ describe('getStatus', () => {
       'waiting for operation even with available content',
       {
         isLoading: false,
-        isLoaded: false,
+        isError: false,
         hasContent: true,
       },
-      'pending',
+      'loaded',
     ],
   ])('%#. %s', (_name, input, expected) => {
     const result = getStatus(input);

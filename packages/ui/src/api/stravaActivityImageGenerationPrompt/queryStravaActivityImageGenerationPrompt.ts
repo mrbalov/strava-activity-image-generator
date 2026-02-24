@@ -1,5 +1,6 @@
 import client from '../client';
 import { API_ENDPOINTS } from '../constants';
+import toBase64 from './toBase64';
 import { Input, Response } from './types';
 
 /**
@@ -13,9 +14,11 @@ const queryActivityImageGenerationPrompt = async ({
   activityId,
   activitySignals,
 }: Input): Promise<string | null> => {
-  const signalsBase64 = btoa(JSON.stringify(activitySignals));
   const response = await client<Response>(
-    API_ENDPOINTS.STRAVA_ACTIVITY_IMAGE_GENERATION_PROMPT(activityId, signalsBase64),
+    API_ENDPOINTS.STRAVA_ACTIVITY_IMAGE_GENERATION_PROMPT(
+      activityId,
+      toBase64(activitySignals),
+    ),
   );
 
   return response?.prompt || null;

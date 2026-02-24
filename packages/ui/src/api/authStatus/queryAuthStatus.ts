@@ -4,9 +4,9 @@ import { API_ENDPOINTS } from '../constants';
 
 /**
  * Query authentication status.
- * @returns {Promise<boolean>} Authentication status.
+ * @returns {Promise<boolean | null>} Authentication status.
  */
-const queryAuthStatus = async (): Promise<boolean> => {
+const queryAuthStatus = async (): Promise<boolean | null> => {
   try {
     const response = await client<Response>(
       API_ENDPOINTS.AUTH_STATUS,

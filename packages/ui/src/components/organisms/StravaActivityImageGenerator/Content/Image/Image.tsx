@@ -5,7 +5,7 @@ import ExpandableCard from '../ExpandableCard';
 
 interface ImageProps {
   isLoading: boolean;
-  isLoaded: boolean;
+  isError: boolean;
   image?: string | null;
 }
 
@@ -13,7 +13,7 @@ interface ImageProps {
  * Image generation progress.
  * @param {ImageProps} props - Component props.
  * @param {boolean} props.isLoading - Whether the image is being generated.
- * @param {boolean} props.isLoaded - Whether the image has been generated successfully.
+ * @param {boolean} props.isError - Whether there was an error generating the image.
  * @param {string} [props.error] - Error message if generation failed.
  * @param {Function} props.onRetry - Function to retry image generation.
  * @param {string} [props.image] - Generated image data URL.
@@ -22,12 +22,12 @@ interface ImageProps {
  */
 const Image = ({
   isLoading,
-  isLoaded,
+  isError,
   image,
 }: ImageProps) => (
   <ExpandableCard
     isLoading={isLoading}
-    isLoaded={isLoaded}
+    isError={isError}
     hasContent={Boolean(image)}
     minHeight="auto"
     title="Step 3: Creating your activity image with AI"

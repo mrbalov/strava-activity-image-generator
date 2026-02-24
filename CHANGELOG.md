@@ -6,6 +6,28 @@ Please, document here only changes visible to the client app.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.4.1] - 2026-02-24
+
+### [65 Improved TanStack Query Integration and Error Handling](https://github.com/mrbalov/pace/issues/65)
+
+### Changed
+
+- Refactored all custom TanStack Query hooks to use native `useQuery` hook with built-in state management
+- Updated component props from `isLoaded` boolean to `isError` boolean for clearer semantic meaning and better error handling
+- Simplified API response types by removing intermediate `ResponseImage` interface and accessing data directly
+- Improved query key generation to include API endpoint paths for better cache invalidation
+- Enhanced error state handling across Image, Prompt, and Signals components
+
+### Fixed
+
+- Fixed typo in ExpandableCard component: "Someting" → "Something"
+- Corrected getStatus logic to properly handle content display when data is available but no error occurred
+
+### Removed
+
+- Custom loading/loaded state management in favor of TanStack Query's built-in `isLoading`, `isError` states
+- Redundant `ResponseImage` type interface, now using direct string return type for image data
+
 ## [5.4.0] - 2026-02-24
 
 ### [65 Refactored API Layer to TanStack Query Naming Conventions](https://github.com/mrbalov/pace/issues/65)
