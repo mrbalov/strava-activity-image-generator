@@ -4,7 +4,7 @@ import { API_ENDPOINTS } from '../constants';
 
 /**
  * Logs out the user by calling the backend logout endpoint.
- * This will clear HTTP-only cookies on the server side.
+ * Clears HTTP-only cookies on the server side.
  * @returns {Promise<void>} Promise that resolves when logout is complete.
  */
 const logout = async (): Promise<void> => {

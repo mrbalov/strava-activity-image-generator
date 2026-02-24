@@ -9,13 +9,13 @@ import { API_ENDPOINTS } from '../constants';
  * @returns {object} Authentication status data.
  */
 const useQueryAuthStatus = () =>
-  useQuery({
+  useQuery<boolean | null>({
     queryKey: [API_ENDPOINTS.AUTH_STATUS],
     /**
      * Queries authentication status from the internal API.
-     * @returns {Promise<boolean>} Authentication status.
+     * @returns {Promise<boolean | null>} Authentication status.
      */
-    queryFn: async (): Promise<boolean> => {
+    queryFn: async (): Promise<boolean | null> => {
       const { default: queryAuthStatus } = await import('./queryAuthStatus');
 
       return queryAuthStatus();

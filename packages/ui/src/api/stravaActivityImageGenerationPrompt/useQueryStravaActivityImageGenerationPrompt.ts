@@ -3,6 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { Input } from './types';
+import toBase64 from './toBase64';
 import { API_ENDPOINTS } from '../constants';
 import queryActivityImageGenerationPrompt from './queryStravaActivityImageGenerationPrompt';
 
@@ -17,11 +18,11 @@ const useQueryStravaActivityImageGenerationPrompt = ({
   activityId,
   activitySignals,
 }: Partial<Input>) =>
-  useQuery({
+  useQuery<string | null>({
     queryKey: [
       API_ENDPOINTS.STRAVA_ACTIVITY_IMAGE_GENERATION_PROMPT(
         activityId ?? '',
-        activitySignals ? btoa(JSON.stringify(activitySignals)) : '',
+        activitySignals ? toBase64(activitySignals) : '',
       ),
     ],
     /**
