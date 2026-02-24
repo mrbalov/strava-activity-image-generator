@@ -1,4 +1,5 @@
-import { apiRequest } from '../client';
+import client from '../client';
+import { API_ENDPOINTS } from '../constants';
 import { Input, Response, ResponseImage } from './types';
 
 /**
@@ -8,15 +9,15 @@ import { Input, Response, ResponseImage } from './types';
  * @param {string} input.prompt - The prompt to use for image generation.
  * @returns {Promise<ResponseImage | null>} The generated image data or null if not available.
  */
-const generateStravaActivityImage = async ({
+const queryStravaActivityImage = async ({
   activityId,
   prompt,
 }: Input): Promise<ResponseImage | null> => {
-  const { image } = await apiRequest<Response>(
-    `/strava/activities/${activityId}/image-generator?prompt=${encodeURIComponent(prompt)}`,
+  const response = await client<Response>(
+    API_ENDPOINTS.STRAVA_ACTIVITY_IMAGE_GENERATOR(activityId, prompt),
   );
 
-  return image ?? null;
+  return response?.image ?? null;
 }
 
-export default generateStravaActivityImage;
+export default queryStravaActivityImage;

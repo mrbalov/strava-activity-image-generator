@@ -1,2 +1,2 @@
-export { default as fetchAuthStatus } from './fetchAuthStatus';
-export { default as useFetchAuthStatus } from './useFetchAuthStatus';
+export { default as queryAuthStatus } from './queryAuthStatus';
+export { default as useQueryAuthStatus } from './useQueryAuthStatus';

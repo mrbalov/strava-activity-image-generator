@@ -1,23 +1,24 @@
-import { apiRequest } from '../client';
+import client from '../client';
+import { API_ENDPOINTS } from '../constants';
 import { Input, Response } from './types';
 
 /**
- * Fetch specific activity image generation prompt by activity ID.
+ * Query specific activity image generation prompt by activity ID.
  * @param {Input} input - Input parameters.
  * @param {string} input.activityId - Activity ID.
  * @param {StravaActivitySignals} input.activitySignals - Activity signals.
  * @returns {Promise<string | null>} Activity image generation prompt.
  */
-const fetchActivityImageGenerationPrompt = async ({
+const queryActivityImageGenerationPrompt = async ({
   activityId,
   activitySignals,
 }: Input): Promise<string | null> => {
   const signalsBase64 = btoa(JSON.stringify(activitySignals));
-  const response = await apiRequest<Response>(
-    `/strava/activities/${activityId}/image-generator/prompt?signals=${signalsBase64}`,
+  const response = await client<Response>(
+    API_ENDPOINTS.STRAVA_ACTIVITY_IMAGE_GENERATION_PROMPT(activityId, signalsBase64),
   );
 
-  return response.prompt || null;
+  return response?.prompt || null;
 };
 
-export default fetchActivityImageGenerationPrompt;
+export default queryActivityImageGenerationPrompt;

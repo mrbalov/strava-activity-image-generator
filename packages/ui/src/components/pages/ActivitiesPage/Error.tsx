@@ -27,7 +27,7 @@ const Error = ({ error, refetchActivities }: ErrorProps) => (
             <AlertDescription>
               <p>{error}</p>
               <p className="mt-2 text-sm opacity-80">
-                We encountered an issue while fetching your activities. Please try again.
+                We encountered an issue while querying your activities. Please try again.
               </p>
             </AlertDescription>
           </Alert>

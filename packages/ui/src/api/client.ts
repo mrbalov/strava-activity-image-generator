@@ -5,47 +5,65 @@
 
 import env from '@/env';
 
-/**
- * Custom error class for API request failures.
- */
-export class APIError extends Error {
-  /**
-   * Creates an API error with HTTP status code.
-   * @param {number} status - HTTP status code
-   * @param {string} message - Error message
-   */
-  constructor(
-    public status: number,
-    message: string,
-  ) {
-    super(message);
-    this.name = 'APIError';
-  }
+import { STATUS_CODES } from './constants';
+
+interface Options<T> {
+  init?: RequestInit;
+  on401?: () => Promise<T | null>;
 }
+
+/**
+ * Handles 401 Unauthorized responses by logging out the user
+ * and redirecting to the homepage.
+ * @returns {Promise<null>} Null after handling unauthorized response.
+ */
+const handle401 = async (): Promise<null> => {
+  const { logout } = await import('./logout');
+
+  await logout();
+  window.location.replace('/');
+
+  return null;
+};
 
 /**
  * Makes an authenticated API request to the backend.
- * @param {string} endpoint - API endpoint path
- * @param {RequestInit} [options] - Fetch options
- * @returns {Promise<T>} Response data
+ * 
+ * By default, handles unauthorized responses by
+ * logging out the user and redirecting to the homepage.
+ * 
+ * @param {string} endpoint - API endpoint.
+ * @param {Options<T>} [options] - Fetch options.
+ * @returns {Promise<T | null>} Response data.
  */
-export async function apiRequest<T>(endpoint: string, options?: RequestInit): Promise<T> {
+const client = async <T>(
+  endpoint: string,
+  options?: Options<T>,
+): Promise<T | null> => {
   const response = await fetch(`${env.apiUrl}${endpoint}`, {
-    ...options,
-    credentials: 'include', // Include cookies
+    ...options?.init,
+    credentials: 'include', // Include cookies.
     headers: {
       'Content-Type': 'application/json',
-      ...options?.headers,
+      ...options?.init?.headers,
     },
   });
+  const isUnauthorized = (
+    !response.ok
+    && response.status === STATUS_CODES.UNAUTHORIZED
+  );
 
-  if (!response.ok) {
-    const error = (await response.json().catch(() => ({ error: response.statusText }))) as {
-      error?: string;
-      message?: string;
-    };
-    throw new APIError(response.status, error.error ?? error.message ?? 'Unknown error');
+  if (isUnauthorized) {
+    console.error('Unauthorized!');
+
+    if (options?.on401) {
+      return await options.on401();
+    } else {
+      return await handle401();
+    }
+  } else {
+    return response.json() as Promise<T>;
   }
+};
 
-  return response.json() as Promise<T>;
-}
+export default client;

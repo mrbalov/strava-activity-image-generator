@@ -1,2 +1,2 @@
-export { default as fetchStravaActivities } from './fetchStravaActivities';
-export { default as useFetchStravaActivities } from './useFetchStravaActivities';
+export { default as queryStravaActivities } from './queryStravaActivities';
+export { default as useQueryStravaActivities } from './useQueryStravaActivities';
