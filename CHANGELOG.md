@@ -6,17 +6,41 @@ Please, document here only changes visible to the client app.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.4.0] - 2026-02-24
+
+### [65 Refactored API Layer to TanStack Query Naming Conventions](https://github.com/mrbalov/pace/issues/65)
+
+### Changed
+
+- Renamed all API hooks from `useFetch*` to `useQuery*` pattern for consistency with TanStack Query conventions
+- Renamed all query functions from `fetch*` to `query*` pattern throughout the API layer
+- Reorganized API module structure for better separation of concerns:
+  - Split image generation functionality into `stravaActivityImage` (for fetching) and separate generation module
+  - Added dedicated `stravaActivity` module for single activity queries
+- Updated all components to use the new hook naming convention (`useQueryAuthStatus`, `useQueryStravaActivities`, etc.)
+
+### Added
+
+- New `stravaActivity` API module with `queryStravaActivity` and `useQueryStravaActivity` exports for fetching individual activities
+
+### Removed
+
+- Legacy `useFetch*` hooks and `fetch*` functions replaced by `useQuery*` and `query*` equivalents
+- Consolidated `generateStravaActivityImage` module (functionality split into specialized modules)
+
 ## [5.3.0] - 2026-02-23
 
 ### [65 Authentication and API Architecture Refactoring](https://github.com/mrbalov/pace/issues/65)
 
 ### Added
+
 - `STATUS_CODES` constant for HTTP status code definitions
 - `API_ENDPOINTS` constant replacing the previous `ENDPOINTS` naming convention
 - New API module structure with dedicated folders for each API operation
 - `authUrl` prop to HomePage component for configurable authentication URL
 
 ### Changed
+
 - Renamed `ENDPOINTS` to `API_ENDPOINTS` for better naming consistency
 - Moved authentication hooks from `/hooks` directory to `/api` directory for better organization
 - Refactored `useAuthStatus` to `useFetchAuthStatus` with improved data fetching pattern
@@ -24,6 +48,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Reorganized API exports to centralize all API-related functionality in the `/api` module
 
 ### Removed
+
 - Legacy `/hooks/useAuth.ts` and `/hooks/useAuthStatus.ts` files
 - `/api/hooks.ts` file in favor of direct exports from API modules
 
@@ -32,17 +57,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [65 Refactored Image Generation to Dedicated Activity Art Page](https://github.com/mrbalov/pace/issues/65)
 
 ### Added
+
 - New dedicated route `/activities/[activityId]/art` for activity image generation
 - `ActivityArtPage` component for full-page image generation experience
 - Direct navigation from activities list to activity art page using Next.js Link components
 
 ### Changed
+
 - Image generation moved from drawer-based UI to dedicated page for better user experience
 - Activities list items now link directly to the art generation page instead of triggering a drawer
 - `StravaActivityImageGenerator` component layout updated to support full-page display with flex container
 - Content component now accepts optional `className` prop for flexible styling
 
 ### Removed
+
 - `ImageGenerationDrawer` component and all its sub-components
 - Drawer state management from Activities page
 - `onGenerateImage` callback prop from Activities list components
@@ -53,12 +81,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [65 Added Configurable Image Generation Environment Variable](https://github.com/mrbalov/pace/issues/65)
 
 ### Added
+
 - `NEXT_PUBLIC_WITH_IMAGE_GENERATION` environment variable to control image generation feature
 - Skip functionality in `useGenerateStravaActivityImage` hook to prevent unnecessary API calls
 - Configuration option in `env.ts` for enabling/disabling image generation (defaults to `false`)
 - Environment variable configuration in Docker Compose files for both development and production
 
 ### Changed
+
 - Modified Activities page and related components to pass `withImageGeneration` prop through component hierarchy
 - Updated `useGenerateImage` hook to conditionally skip image generation based on environment configuration
 - Enhanced JSDoc documentation for image generation related functions with additional parameter descriptions
@@ -68,6 +98,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [61 Added Favicon and Enhanced SEO Metadata Support](https://github.com/mrbalov/pace/issues/22)
 
 ### Added
+
 - Complete favicon set for all platforms (16x16, 32x32, Apple Touch Icon, Android Chrome icons)
 - PWA manifest file (`site.webmanifest`) with app name "TORQ" and icon configurations
 - Comprehensive SEO metadata including Open Graph tags for social media sharing
@@ -76,6 +107,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Robots meta tags for proper search engine indexing
 
 ### Changed
+
 - Enhanced metadata configuration in `layout.tsx` with multi-size icon support
 - Improved favicon setup with proper paths pointing to `/public/` directory
 
@@ -84,6 +116,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [22 Code Quality Improvements and Component Refactoring](https://github.com/mrbalov/pace/issues/22)
 
 ### Changed
+
 - Refactored Footer component by extracting Copywrite and PoweredBy sub-components for better maintainability
 - Extracted global animations from `globals.css` into dedicated `animations.css` file
 - Converted NotFoundPage to standalone component with proper structure
@@ -92,9 +125,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improved code consistency with arrow function patterns throughout authentication utilities
 
 ### Fixed
+
 - Added `suppressHydrationWarning` to `<body>` element to prevent hydration warnings from browser extensions (e.g., Grammarly)
 
 ### Technical Notes
+
 - Reduced codebase by ~172 lines through refactoring and consolidation
 - Improved component modularity with dedicated logout API endpoint (`/strava/logout`)
 - Enhanced maintainability by following project conventions for function declarations and JSDoc comments
@@ -105,12 +140,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [22 Fixed Hydration Error and Strava Auth Endpoint](https://github.com/mrbalov/pace/issues/22)
 
 ### Fixed
+
 - Resolved Next.js hydration error in ThemeSwitcher component caused by server/client theme state mismatch
 - Added mounted state to prevent hydration mismatch between SSR and client-side theme resolution
 - Added skeleton loading animation during theme initialization to improve UX
 - Fixed accessibility labels (aria-label, title) to use consistent values during hydration
 
 ### Technical Notes
+
 - ThemeSwitcher now renders identical content on server and initial client load
 - Skeleton animation displays briefly before theme-dependent icons appear
 - Eliminates console hydration warnings when toggling themes
@@ -120,16 +157,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [22 UI Removed Next.js Server Overwrites](https://github.com/mrbalov/pace/issues/22)
 
 ### Changed
+
 - **BREAKING:** Removed Next.js proxy rewrites for API endpoints, UI now makes direct calls to backend server
 - **BREAKING:** Consolidated API URL configuration to use `NEXT_PUBLIC_API_URL` environment variable exclusively
 - Updated API client to use full backend URLs with fallback to `http://localhost:3000`
 - Updated Docker configurations to use `NEXT_PUBLIC_API_URL` instead of `API_URL` for consistency
 
 ### Removed
+
 - Next.js rewrites configuration from `next.config.mjs` that proxied `/strava/*` requests
 - `API_URL` environment variable usage in Docker compose files
 
 ### Technical Notes
+
 - Backend server must now have CORS configured to allow requests from UI origin
 - All API requests use explicit URLs instead of relying on proxy routing
 - Simplified deployment configuration with single environment variable for API URLs
@@ -139,6 +179,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [22 UI Architecture Migration: Vite → Next.js, GeistUI → shadcn/ui with Enhanced SSR](https://github.com/mrbalov/pace/issues/22)
 
 ### Changed
+
 - **BREAKING:** Migrated from `@geist-ui/core` and `@geist-ui/icons` to shadcn/ui component system with Tailwind CSS v4
 - **BREAKING:** Replaced custom theme management with `next-themes` for SSR-safe theme switching without hydration flash
 - **BREAKING:** Converted multiple components to Server Components for improved performance: Footer, Header (shell), Preloader, loading pages, HomePage/Member, ActivitiesPage/Guest
@@ -151,6 +192,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Adopted shadcn/ui "New York" style variant for consistent, compact design closest to previous Geist aesthetic
 
 ### Added
+
 - shadcn/ui component library with Radix UI primitives for enhanced accessibility
 - Tailwind CSS v4 with CSS-first configuration and shadcn CSS variables for light/dark themes
 - next-themes integration for seamless theme management in Next.js App Router
@@ -158,6 +200,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Enhanced build performance with reduced client-side bundle
 
 ### Removed
+
 - `@geist-ui/core` dependency and GeistProvider wrapper
 - `@geist-ui/icons` icon library
 - Custom theme hooks and management (~60 lines of theme logic)
@@ -169,6 +212,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [52 Rebranding: PACE → TORQ (Training Orbit Research Qernel)](https://github.com/mrbalov/pace/issues/52)
 
 ### Changed
+
 - **BREAKING:** Renamed project from **PACE** (Personal Activity Canvas Engine) to **TORQ** (Training Orbit Research Qernel)
 - **BREAKING:** Renamed all `@pace/*` workspace package scopes to `@torq/*`
 - **BREAKING:** Updated application title, header logo, footer copyright, and welcome pages to display **TORQ**
@@ -183,6 +227,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [27 Replaced Card Component with Divider for Cleaner Visual Separation](https://github.com/mrbalov/pace/issues/27)
 
 ### Changed
+
 - Replaced Card wrapper in States component with a plain div element for simpler DOM structure
 - Added Divider component between State and content sections in ExpandableCard for improved visual separation
 - Removed hoverable styling and margin from States container for cleaner appearance
@@ -192,6 +237,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [27 Improved UI Polish for ExpandableCard Components](https://github.com/mrbalov/pace/issues/27)
 
 ### Changed
+
 - Reordered UI layout to display Signals component before Image component for improved user flow
 - Removed visual divider from ExpandableCard components for cleaner appearance
 - Reduced default minimum height from 100px to 60px in ExpandableCard for more compact display
@@ -200,6 +246,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Made States container expandable with single status (previously required multiple statuses)
 
 ### Fixed
+
 - Status array order in States component to maintain chronological sequence
 
 ## [2.3.0] - 2026-02-18
@@ -207,6 +254,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [27 Enhanced UI with Expandable Card Components and Improved Status Indicators](https://github.com/mrbalov/pace/issues/27)
 
 ### Added
+
 - New `ExpandableCard` component system with smooth expand/collapse animations and configurable minimum heights
 - Animated status emoji indicators showing loading (🌀), pending (⏳), error (😵), and success (✅) states
 - Status history tracking with expandable list showing all state transitions during processing
@@ -214,6 +262,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Enhanced image download functionality with improved error handling and validation
 
 ### Changed
+
 - Refactored Image, Prompt, and Signals components to use the new ExpandableCard system for consistent UX
 - Renamed `prettify-signals` directory to `prettifySignals` following camelCase naming conventions
 - Improved component organization by extracting image content into separate Content component
@@ -221,6 +270,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Enhanced visual feedback with step-by-step progress indicators for the three-phase generation process
 
 ### Fixed
+
 - Empty value filtering in prettifySignals utility to properly handle undefined and empty arrays
 
 ## [2.2.1] - 2026-02-17
@@ -228,6 +278,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [27 Fixed Netlify Adapter Routing for Activity Image Generator](https://github.com/mrbalov/pace/issues/27)
 
 ### Fixed
+
 - Netlify redirect pattern for activity image generator endpoint to correctly handle the `/strava/activities/*/image-generator` path structure
 - Missing route mappings in Netlify adapter for the `activity-image-generator` function to properly normalize request paths
 
@@ -236,17 +287,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [27 Added Custom Prompt Support for AI Image Generation](https://github.com/mrbalov/pace/issues/27)
 
 ### Added
+
 - Custom prompt support via query parameter for `/strava/activities/:id/image-generator` endpoint
 - Error handling for missing prompt parameter and forbidden content validation
 - Visual loading state indicators with emoji icons in the UI prompt component
 
 ### Changed
+
 - **BREAKING**: Refactored image generation endpoint to accept custom prompts directly instead of fetching activity data, removing authentication requirements
 - Simplified API to generate images from user-provided prompts without requiring Strava activity signals
 - Updated endpoint path from `/activity-image-generator/:id` to `/strava/activities/:id/image-generator` for consistency
 - Modified UI to display pending state while awaiting prompt preparation
 
 ### Removed
+
 - Authentication requirement for image generation endpoint
 - Automatic activity fetching and signal extraction from the image generation flow
 - Dependency on Strava API credentials for basic image generation
@@ -256,6 +310,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [27 Added Public API Endpoint for AI Image Generation Prompts](https://github.com/mrbalov/pace/issues/27)
 
 ### Added
+
 - New `/strava/activities/*/image-generator/prompt` endpoint for generating AI image prompts from activity signals without authentication
 - Base64-encoded signals support as query parameter for self-contained prompt generation
 - Netlify function handler for the new prompt generation endpoint
@@ -266,9 +321,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [27 Improved Type Safety for Strava API Guardrails Validation](https://github.com/mrbalov/pace/issues/27)
 
 ### Changed
+
 - **BREAKING**: Modified guardrails validation function signature in `StravaApiConfig` to accept strongly-typed `StravaActivity` instead of generic `Record<string, unknown>`, improving type safety and preventing runtime errors
 
 ### Removed
+
 - Test file for fetch-activity module as part of testing strategy refactoring
 
 ## [1.12.1] - 2026-02-17
@@ -276,15 +333,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [27 Fixed Activity Signals API Route Consistency and Enhanced Image Display](https://github.com/mrbalov/pace/issues/27)
 
 ### Added
+
 - Image display component with download functionality in the image generation drawer
 - Prettify signals utility for better formatting of activity signals in the UI display
 
 ### Changed
+
 - Updated activity signals API endpoint from `/strava/activity/:id/signals` to `/strava/activities/:id/signals` for consistency with other activity endpoints
 - Renamed server route handler file from `strava-activity.ts` to `strava-activity-signals.ts` for better semantic clarity
 - Adjusted route matching priority in server to process activity signals before the generic activities route
 
 ### Fixed
+
 - API route inconsistency that used singular "activity" instead of plural "activities" in the signals endpoint path
 
 ## [1.12.0] - 2026-02-17
@@ -292,6 +352,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [27 Added Docker Configuration for Local Development and Production Deployment]](https://github.com/mrbalov/pace/issues/27)
 
 ### Added
+
 - Multi-stage Dockerfile with optimized builds for both UI and server components using Node.js 24
 - Production `docker-compose.yml` for orchestrating UI (Nginx) and server containers
 - Development `docker-compose.dev.yml` with hot reloading support for both UI and server
@@ -301,6 +362,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Complete Docker documentation in `DOCKER.md` with setup instructions and troubleshooting guide
 
 ### Changed
+
 - Environment configuration now includes Docker-specific variables for container networking
 
 ## [1.11.0] - 2026-02-16
@@ -308,6 +370,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [27 Added Strava Activity Signals View in Image Generation Interface](https://github.com/mrbalov/pace/issues/27)
 
 ### Added
+
 - New `/strava/activity/:id/signals` API endpoint for fetching extracted activity signals
 - Activity signals display component in the image generation drawer showing all extracted signals from the activity
 - React hook `useStravaActivitySignalsData` for fetching and managing signals data state
@@ -315,6 +378,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - API client functions for fetching activity signals from the backend
 
 ### Changed
+
 - Enhanced image generation drawer to display extracted activity signals before generating the image
 - Refactored server routing logic to use if-else chain instead of nested ternary operators for better readability
 - Updated image generation drawer to accept activity ID prop for fetching corresponding signals
@@ -324,6 +388,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [27 Refactored Image Generation Architecture and Improved Prompt Module Integration](https://github.com/mrbalov/pace/issues/27)
 
 ### Changed
+
 - Refactored `activity-image-generator` package into two specialized packages for better separation of concerns:
   - `@pace/generate-strava-activity-image` - Dedicated to image generation with provider integrations
   - `@pace/get-strava-activity-image-generation-prompt` - Focused on prompt creation and validation
@@ -333,11 +398,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Enhanced forbidden content checking integration across all text processing
 
 ### Removed
+
 - Deprecated `@pace/activity-image-generator` package (functionality split into specialized packages)
 - Redundant test files from server package (strava-auth and strava-auth-callback tests)
 - Duplicate prompt generation logic that was scattered across multiple modules
 
 ### Fixed
+
 - Improved error handling in image generation pipeline with proper fallback to default prompts
 - Consistent parameter passing for forbidden content checking across all signal extractors
 
@@ -346,6 +413,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [27 Added AI Image Generation Prompt Module and Enhanced Activity Signal Classification](https://github.com/mrbalov/pace/issues/27)
 
 ### Added
+
 - New `@pace/get-strava-activity-image-generation-prompt` package for generating AI image prompts from Strava activity signals
 - Prompt assembly module with style-specific quality keywords and character limit truncation
 - Prompt validation module to ensure safe and appropriate content generation
@@ -357,12 +425,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Subject classification for image composition (athlete, landscape, activity-specific subjects)
 
 ### Changed
+
 - Enhanced signal extraction in `@pace/get-strava-activity-signals` package with new classification modules
 - Improved signal validation with expanded field validation for new classifiers
 - Updated type definitions to include new signal classifications and derived signals
 - Refactored signal extraction to support richer contextual data for image generation
 
 ### Fixed
+
 - Renamed test file from `extract-tag.signals.test.ts` to `extract-tag-signals.test.ts` for consistency
 
 ## [1.9.1] - 2026-02-11
@@ -370,15 +440,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [23 Refactored Activity Signals Usage and Extracted Shared Validation Components](https://github.com/mrbalov/pace/issues/23)
 
 ### Added
+
 - New `@pace/check-forbidden-content` shared package for content validation across multiple packages
 - Simplified `validate-prompt` module in activity-image-generator package
 
 ### Changed
+
 - Refactored `activity-image-generator` package to use `@pace/get-strava-activity-signals` for signal extraction instead of internal implementation
 - Moved forbidden content checking from multiple packages to shared `@pace/check-forbidden-content` package
 - Improved separation of concerns with activity-image-generator now focused solely on prompt creation and image generation
 
 ### Removed
+
 - Signal extraction modules from activity-image-generator package (moved to get-strava-activity-signals)
 - Complex guardrails system from activity-image-generator package (replaced with simpler validation)
 - Duplicate forbidden content checking implementations across packages
@@ -388,10 +461,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [23 Refactored Strava Activity Signals Package Structure and Added New Signal Extractors](https://github.com/mrbalov/pace/issues/23)
 
 ### Added
+
 - Brand signals extraction module for detecting brand mentions in activity data
 - Movement activity detection module to identify if an activity involves physical movement
 
 ### Changed
+
 - Renamed package from `@pace/strava-activity-signals` to `@pace/get-strava-activity-signals` for better naming consistency
 - Restructured package organization by moving signal extraction modules to package root level for flatter hierarchy
 - Simplified module imports by eliminating nested directory structure
@@ -401,6 +476,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [23 Added Strava Activity Signals Extraction Package](https://github.com/mrbalov/pace/issues/23)
 
 ### Added
+
 - New `@pace/strava-activity-signals` package for extracting semantic signals from Strava activity data
 - Activity validation module to ensure data integrity before processing
 - Intensity classification based on activity pace (Easy, Moderate, Hard, Threshold, Max Effort)
@@ -419,6 +495,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [28 Introduced Test-Driven Development (TDD) Enforcement and Enhanced Development Workflow](https://github.com/mrbalov/pace/issues/28)
 
 ### Added
+
 - TDD skill documentation with comprehensive guidelines for test-first development approach
 - TDD enforcement hooks that require test files to exist before implementation files are created
 - Session line budget tracking (1000 lines per session) with automatic counter reset on new sessions
@@ -429,6 +506,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Test failure blocking in verification hooks to ensure tests pass before proceeding
 
 ### Changed
+
 - Updated Claude Code settings to integrate TDD enforcement hooks with PreToolUse triggers on Edit and Write operations
 - Modified startup hook from simple skip-acknowledgments message to session initialization with TDD reminders
 - Enhanced verification hooks to block on test failures instead of just reporting them
@@ -438,6 +516,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Enhanced GitHub Actions workflow with more descriptive job names identifying tools used (Bun Test Runner, ESLint, Prettier)
 
 ### Fixed
+
 - Test enforcement now properly blocks file writes when tests fail
 - Session line tracking properly handles null session IDs
 
@@ -446,6 +525,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [28 Added Prettier Code Formatting to Development Workflow](https://github.com/mrbalov/pace/issues/28)
 
 ### Added
+
 - Prettier configuration (`.prettierrc`) for consistent code formatting across the monorepo
 - Prettier ignore patterns (`.prettierignore`) to exclude unnecessary files from formatting
 - Prettier formatting integration to the Claude Code development verification hook for automatic code formatting during development
@@ -454,6 +534,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Husky package as a dev dependency with initialize script
 
 ### Changed
+
 - Enhanced code verification hook to run Prettier check alongside ESLint for comprehensive code quality checks
 - Applied Prettier formatting across the entire codebase for consistent style
 - Updated VSCode settings to integrate Prettier formatting
@@ -465,6 +546,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [28 Added Claude Code Development Hooks and Cleanup](https://github.com/mrbalov/pace/issues/28)
 
 ### Added
+
 - Claude Code development hooks for enhanced workflow automation:
   - Dangerous command blocking hook to prevent accidental destructive operations
   - Event logging hook for debugging Claude Code interactions
@@ -472,16 +554,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Claude Code project settings configuration with pre/post tool use hooks
 
 ### Changed
+
 - ESLint `no-console` rule severity from warning to error for stricter code quality
 - TypeScript ESLint configuration with proper project root directory settings
 - Code formatting in emoji constants from single to double quotes for consistency
 - Test command simplified from `bun test ./packages` to `bun test packages`
 
 ### Removed
+
 - Unused server image storage infrastructure including cleanup functions and storage module
 - Netlify `/images/*` route redirect as image handling was removed
 
 ### Fixed
+
 - Test file extension from `.tsx` to `.ts` for non-React component test file
 
 ## [1.5.2] - 2026-02-05
@@ -489,6 +574,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed OAuth Success Redirect to UI Origin
 
 ### Fixed
+
 - OAuth success redirect now correctly uses the `UI_ORIGIN` environment variable instead of hardcoded root path, ensuring proper navigation after authentication
 
 ## [1.5.1] - 2026-02-05
@@ -496,9 +582,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Refactored OAuth URL Parameter Cleanup Hook
 
 ### Fixed
+
 - OAuth parameter cleanup not executing on first render due to incorrect React state usage in `useRemoveAuthUrlParameters` hook
 
 ### Changed
+
 - Refactored `useRemoveAuthUrlParameters` hook into modular architecture with separate constants, utility function, and hook files for better maintainability
 - Extracted authentication parameters ('code', 'state', 'scope') into dedicated constants file
 - Moved URL manipulation logic from React hook into standalone `removeAuthParams` utility function
@@ -508,6 +596,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Comprehensive UI Refactoring and Enhanced Component Architecture
 
 ### Added
+
 - Interactive `ActivityEmoji` component with animated sport emojis cycling through 100+ activity variations with skin tone support
 - Footer component displaying project credits, powered-by services, and external links
 - Custom `useTheme` hook for centralized theme state management and persistence
@@ -517,6 +606,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - TypeScript type definitions file for shared types across the application
 
 ### Changed
+
 - Refactored ActivitiesPage from monolithic 400+ line component into modular architecture with separate concerns (Activities, ActivitiesList, ImageGenerationDrawer)
 - Restructured Header component into dedicated folder with ActivityEmoji integration in logo
 - Updated App component to use Geist UI's Page component for proper layout structure with Header, Content, and Footer sections
@@ -527,6 +617,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Reorganized HomePage components to use Grid layout for better responsive design
 
 ### Removed
+
 - External link buttons from Header (moved to Footer for cleaner navigation)
 - Inline theme management code from main.tsx (replaced with useTheme hook)
 - Redundant activity type formatting logic (centralized to formatActivityType utility)
@@ -536,11 +627,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Enhanced Home Page Component Architecture and User Experience
 
 ### Added
+
 - New `Deferred` component for smooth content transitions with configurable timeout
 - Custom hook `useRemoveAuthUrlParameters` for OAuth parameter cleanup
 - Separate `Guest` and `Member` view components for better code organization
 
 ### Changed
+
 - Refactored HomePage into modular component architecture with dedicated folder structure
 - Updated all UI components to use theme palette directly for better theme consistency
 - Improved loading transitions using deferred rendering pattern
@@ -552,11 +645,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Improved Home Page UX and Navigation
 
 ### Added
+
 - External link buttons in header for GitHub repository and website
 - Dedicated `server:dev` script for running the server in development mode
 - Separate Guest and Member view components for better code organization
 
 ### Changed
+
 - Redesigned home page with centered layout and improved visual hierarchy
 - Enhanced header navigation with icon-only buttons for cleaner appearance
 - Updated button styling with consistent scaling (0.8) and auto-sizing across all buttons
@@ -568,6 +663,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Refactored Provider API Key Management
 
 ### Changed
+
 - Restructured provider API key handling from single `providerApiKey` parameter to `providerApiKeys` object for better extensibility
 - Introduced `ImageGenerationProviderApiKeys` interface to define provider-specific API key structure
 - Updated `getProvider()` to accept and pass structured API keys to providers
@@ -579,11 +675,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Enhanced Pollinations Provider Configuration and Authorization
 
 ### Added
+
 - Optional API key support for Pollinations image generation provider via `POLLINATIONS_API_KEY` environment variable
 - Bearer token authorization when API key is provided to Pollinations API
 - New `env.ts` module to centralize environment variable management
 
 ### Changed
+
 - Updated Pollinations API base URL from `https://image.pollinations.ai/prompt/` to `https://gen.pollinations.ai/image/`
 - Relocated image dimension constants to provider-specific configuration in `pollinations/constants.ts`
 - Simplified `getProvider` function to use default parameter instead of environment variable fallback logic

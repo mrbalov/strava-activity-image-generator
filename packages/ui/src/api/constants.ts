@@ -19,6 +19,25 @@ export const API_ENDPOINTS = {
    * @returns {string} Endpoint URL.
    */
   STRAVA_ACTIVITY_SIGNALS: (id: string) => `/strava/activities/${id}/signals`,
+
+  
+  /**
+   * Builds endpoint for generating Strava activity image.
+   * @param {string} activityId - Activity ID.
+   * @param {string} prompt - Image generation prompt.
+   * @returns {string} Endpoint URL.
+   */
+  STRAVA_ACTIVITY_IMAGE_GENERATOR: (activityId: string, prompt: string) =>
+    `/strava/activities/${activityId}/image-generator?prompt=${encodeURIComponent(prompt)}`,
+
+  /**
+   * Builds endpoint for fetching Strava activity image generation prompt.
+   * @param {string} activityId - Activity ID.
+   * @param {string} signalsBase64 - Base64 encoded activity signals.
+   * @returns {string} Endpoint URL.
+   */
+  STRAVA_ACTIVITY_IMAGE_GENERATION_PROMPT: (activityId: string, signalsBase64: string) =>
+    `/strava/activities/${activityId}/image-generator/prompt?signals=${signalsBase64}`,
 };
 
 export const STATUS_CODES = {

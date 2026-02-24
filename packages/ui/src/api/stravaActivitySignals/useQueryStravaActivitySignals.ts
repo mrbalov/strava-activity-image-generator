@@ -2,14 +2,14 @@
 
 import { useEffect, useState } from 'react';
 import { StravaActivitySignals } from '@torq/get-strava-activity-signals';
-import fetchStravaActivitySignals from './fetchStravaActivitySignals';
+import queryStravaActivitySignals from './queryStravaActivitySignals';
 
 /**
- * Fetches Strava activity signals.
- * @param {string} [activityId] - Strava activity ID to fetch signals for.
+ * Queries Strava activity signals.
+ * @param {string} [activityId] - Strava activity ID to query signals for.
  * @returns {object} Object containing loading state and activity signals data.
  */
-const useStravaActivitySignals = (activityId?: string | null) => {
+const useQueryStravaActivitySignals = (activityId?: string | null) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [data, setData] = useState<StravaActivitySignals | null>(null);
@@ -18,13 +18,13 @@ const useStravaActivitySignals = (activityId?: string | null) => {
     if (!isLoading && !isLoaded && activityId) {
       setIsLoading(true);
 
-      fetchStravaActivitySignals(activityId)
+      queryStravaActivitySignals(activityId)
         .then((response) => {
           setData(response);
           setIsLoaded(true);
         })
         .catch((error) => {
-          console.error('Error fetching Strava activity signals:', error);
+          console.error('Error querying Strava activity signals:', error);
           setData(null);
         })
         .finally(() => {
@@ -41,4 +41,4 @@ const useStravaActivitySignals = (activityId?: string | null) => {
   };
 };
 
-export default useStravaActivitySignals;
+export default useQueryStravaActivitySignals;

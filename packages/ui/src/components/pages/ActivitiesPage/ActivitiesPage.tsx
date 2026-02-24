@@ -3,8 +3,8 @@
 import Preloader from '@/components/atoms/Preloader';
 import Deferred from '@/components/atoms/Deferred';
 import {
-  useFetchAuthStatus,
-  useFetchStravaActivities,
+  useQueryAuthStatus,
+  useQueryStravaActivities,
 } from '@/api';
 
 import Activities from './Activities';
@@ -16,8 +16,8 @@ import Error from './Error';
  * @returns {JSX.Element} Activities page.
  */
 const ActivitiesPage = (): JSX.Element => {
-  const authStatusData = useFetchAuthStatus();
-  const stravaActivitiesData = useFetchStravaActivities();
+  const authStatusData = useQueryAuthStatus();
+  const stravaActivitiesData = useQueryStravaActivities();
   const isLoading = authStatusData.isLoading || stravaActivitiesData.isLoading;
 
   return (

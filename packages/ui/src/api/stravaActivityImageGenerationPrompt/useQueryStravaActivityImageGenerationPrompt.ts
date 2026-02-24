@@ -2,17 +2,17 @@
 
 import { useEffect, useState } from 'react';
 
-import fetchStravaActivityImageGenerationPrompt from './fetchStravaActivityImageGenerationPrompt';
+import queryActivityImageGenerationPrompt from './queryStravaActivityImageGenerationPrompt';
 import { Input } from './types';
 
 /**
- * Fetches Strava activity image generation prompt.
+ * Queries Strava activity image generation prompt.
  * @param {Input} input - Input parameters.
  * @param {string} [input.activityId] - Activity ID.
  * @param {StravaActivitySignals} [input.activitySignals] - Activity signals.
  * @returns {object} Object containing loading state and activity image generation prompt data.
  */
-const useStravaActivityImageGenerationPrompt = ({
+const useQueryStravaActivityImageGenerationPrompt = ({
   activityId,
   activitySignals,
 }: Partial<Input>) => {
@@ -24,13 +24,13 @@ const useStravaActivityImageGenerationPrompt = ({
     if (!isLoading && !isLoaded && activityId && activitySignals) {
       setIsLoading(true);
 
-      fetchStravaActivityImageGenerationPrompt({ activityId, activitySignals })
+      queryActivityImageGenerationPrompt({ activityId, activitySignals })
         .then((response) => {
           setData(response);
           setIsLoaded(true);
         })
         .catch((error) => {
-          console.error('Error fetching Strava activity image generation prompt:', error);
+          console.error('Error querying Strava activity image generation prompt:', error);
           setData(null);
         })
         .finally(() => {
@@ -47,4 +47,4 @@ const useStravaActivityImageGenerationPrompt = ({
   };
 };
 
-export default useStravaActivityImageGenerationPrompt;
+export default useQueryStravaActivityImageGenerationPrompt;

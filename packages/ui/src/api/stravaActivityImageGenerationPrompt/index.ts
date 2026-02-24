@@ -1,6 +1,6 @@
 export {
-  default as fetchStravaActivityImageGenerationPrompt,
-} from './fetchStravaActivityImageGenerationPrompt';
+  default as queryStravaActivityImageGenerationPrompt,
+} from './queryStravaActivityImageGenerationPrompt';
 export {
-  default as useStravaActivityImageGenerationPrompt,
-} from './useStravaActivityImageGenerationPrompt';
+  default as useQueryStravaActivityImageGenerationPrompt,
+} from './useQueryStravaActivityImageGenerationPrompt';
