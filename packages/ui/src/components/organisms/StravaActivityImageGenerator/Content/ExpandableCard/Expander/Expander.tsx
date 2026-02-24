@@ -5,6 +5,8 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
+import styles from './Expander.module.css';
+
 interface ExpanderProps {
   isExpanded: boolean;
   withButton: boolean;
@@ -27,8 +29,8 @@ const Expander = ({
   const rootClassList = cn(
     'absolute bottom-0 left-0 right-0 h-[50px] flex items-end justify-center pb-1',
     {
-      'bg-transparent': isExpanded,
-      'bg-gradient-to-b from-transparent to-background/90': !isExpanded,
+      [styles.expanded]: isExpanded,
+      [styles.collapsed]: !isExpanded,
     },
   );
 

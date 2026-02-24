@@ -1,0 +1,12 @@
+.expanded {
+  background: transparent;
+}
+
+.collapsed {
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    color-mix(in srgb, var(--card) 50%, transparent),
+    var(--card)
+  );
+}
