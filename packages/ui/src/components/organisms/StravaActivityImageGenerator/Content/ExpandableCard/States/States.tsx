@@ -37,7 +37,7 @@ const States = ({
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const hasStatuses = statuses.length > 0;
   const rootClassList = cn(
-    'relative w-full overflow-hidden',
+    'relative w-full overflow-hidden px-2',
     'transition-[max-height] duration-300 ease-in-out',
     `min-h-[${minHeight}] max-h-[${minHeight}]`,
     {
