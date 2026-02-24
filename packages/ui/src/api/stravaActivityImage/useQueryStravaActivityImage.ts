@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 
-import generateStravaActivityImage from './generateStravaActivityImage';
+import queryStravaActivityImage from './queryStravaActivityImage';
 import { Input, Options, ResponseImage } from './types';
 
 /**
@@ -14,7 +14,7 @@ import { Input, Options, ResponseImage } from './types';
  * @param {boolean} [options.skip] - Whether to skip image generation.
  * @returns {object} An object containing the loading state, loaded state, and the generated image data.
  */
-const useGenerateStravaActivityImage = (
+const useQueryStravaActivityImage = (
   {
     activityId,
     prompt,
@@ -31,7 +31,7 @@ const useGenerateStravaActivityImage = (
     if (!isLoading && !isLoaded && activityId && prompt && !skip) {
       setIsLoading(true);
 
-      generateStravaActivityImage({ activityId, prompt })
+      queryStravaActivityImage({ activityId, prompt })
         .then((response) => {
           setData(response);
           setIsLoaded(true);
@@ -54,4 +54,4 @@ const useGenerateStravaActivityImage = (
   };
 };
 
-export default useGenerateStravaActivityImage;
+export default useQueryStravaActivityImage;

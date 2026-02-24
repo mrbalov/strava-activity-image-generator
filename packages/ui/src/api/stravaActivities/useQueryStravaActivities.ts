@@ -3,21 +3,21 @@ import { useQuery } from '@tanstack/react-query';
 import { API_ENDPOINTS } from '../constants';
 
 /**
- * Fetches Strava activities.
+ * Queries Strava activities.
  * @returns {object} Strava activities data.
  */
-const useFetchStravaActivities = () =>
+const useQueryStravaActivities = () =>
   useQuery({
     queryKey: [API_ENDPOINTS.STRAVA_ACTIVITIES],
     /**
-     * Fetches Strava activities from the internal API.
+     * Queries Strava activities from the internal API.
      * @returns {Promise<StravaActivity[]>} Strava activities.
      */
     queryFn: async () => {
-      const { default: fetchStravaActivities } = await import('./fetchStravaActivities');
+      const { default: queryStravaActivities } = await import('./queryStravaActivities');
 
-      return fetchStravaActivities();
+      return queryStravaActivities();
     },
   });
 
-export default useFetchStravaActivities;
+export default useQueryStravaActivities;

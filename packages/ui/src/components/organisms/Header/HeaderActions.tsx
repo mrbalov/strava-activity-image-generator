@@ -4,7 +4,7 @@ import { useCallback } from 'react';
 import { LogOut } from 'lucide-react';
 
 import { logout } from '@/utils/auth';
-import { useFetchAuthStatus } from '@/api';
+import { useQueryAuthStatus } from '@/api';
 import { Button } from '@/components/ui/button';
 import ThemeSwitcher from '@/components/molecules/ThemeSwitcher';
 
@@ -14,7 +14,7 @@ import ThemeSwitcher from '@/components/molecules/ThemeSwitcher';
  * @returns {JSX.Element} HeaderActions component.
  */
 const HeaderActions = () => {
-  const authStatusData = useFetchAuthStatus();
+  const authStatusData = useQueryAuthStatus();
   const isLogoutButtonVisible = (
     !authStatusData.isLoading
     && authStatusData.data

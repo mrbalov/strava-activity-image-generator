@@ -2,7 +2,7 @@
 
 import Preloader from '@/components/atoms/Preloader';
 import Deferred from '@/components/atoms/Deferred';
-import { useFetchAuthStatus } from '@/api';
+import { useQueryAuthStatus } from '@/api';
 
 import useRemoveAuthUrlParams from './useRemoveAuthParams';
 import Guest from './Guest';
@@ -21,7 +21,7 @@ interface HomePageProps {
 const HomePage = ({
   authUrl,
 }: HomePageProps): JSX.Element => {
-  const authStatusData = useFetchAuthStatus();
+  const authStatusData = useQueryAuthStatus();
 
   useRemoveAuthUrlParams();
 

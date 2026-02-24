@@ -1,11 +1,12 @@
 'use client';
 
-import {
-  useGenerateStravaActivityImage,
-  useStravaActivityImageGenerationPrompt,
-  useStravaActivitySignals,
-} from '@/api';
 import { useEffect } from 'react';
+
+import {
+  useQueryStravaActivityImage,
+  useQueryStravaActivityImageGenerationPrompt,
+  useQueryStravaActivitySignals,
+} from '@/api';
 
 /**
  * Generates Strava activity image.
@@ -14,8 +15,8 @@ import { useEffect } from 'react';
  * @returns {object} Image generation state and data.
  */
 const useGenerateImage = (withImageGeneration: boolean, activityId?: string) => {
-  const signalsData = useStravaActivitySignals(activityId);
-  const promptData = useStravaActivityImageGenerationPrompt({
+  const signalsData = useQueryStravaActivitySignals(activityId);
+  const promptData = useQueryStravaActivityImageGenerationPrompt({
     activitySignals: signalsData.data ?? undefined,
     activityId: activityId ?? undefined,
   });
@@ -25,7 +26,7 @@ const useGenerateImage = (withImageGeneration: boolean, activityId?: string) => 
     || !signalsData.data
     || !promptData.data
   );
-  const imageData = useGenerateStravaActivityImage({
+  const imageData = useQueryStravaActivityImage({
     activityId: activityId ?? undefined,
     prompt: promptData.data ?? undefined,
   }, {

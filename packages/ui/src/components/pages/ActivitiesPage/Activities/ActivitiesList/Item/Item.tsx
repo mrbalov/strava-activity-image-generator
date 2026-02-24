@@ -8,6 +8,7 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
 import formatActivityType from './formatActivityType';
+import { cn } from '@/lib/utils';
 
 interface ItemProps {
   activity: StravaActivity;
@@ -19,9 +20,14 @@ interface ItemProps {
  * @param {StravaActivity} props.activity - Activity to display.
  * @returns {JSX.Element} Activity list item.
  */
-const Item = ({ activity }: ItemProps) => (
-  <div className="w-[calc(50%-8px)] md:w-[calc(33.333%-11px)]">
-    <Card className="h-full flex flex-col hover:shadow-md transition-shadow">
+const Item = ({ activity }: ItemProps) => {
+  const rootClassList = cn(
+    'flex flex-col w-full h-full',
+    'transition-shadow hover:shadow-md',
+  );
+
+  return (
+    <Card className={rootClassList}>
       <CardContent className="pt-6 flex-1">
         <h4 className="text-base font-semibold mb-1">{activity.name}</h4>
         <p className="text-xs text-muted-foreground mb-3">
@@ -62,7 +68,7 @@ const Item = ({ activity }: ItemProps) => (
         </Link>
       </CardFooter>
     </Card>
-  </div>
-);
+  );
+}
 
 export default Item;

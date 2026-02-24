@@ -6,22 +6,26 @@ export {
   logout,
 } from './logout';
 export {
-  fetchAuthStatus,
-  useFetchAuthStatus,
+  queryAuthStatus,
+  useQueryAuthStatus,
 } from './authStatus';
 export {
-  fetchStravaActivities,
-  useFetchStravaActivities,
+  queryStravaActivity,
+  useQueryStravaActivity,
+} from './stravaActivity';
+export {
+  queryStravaActivities,
+  useQueryStravaActivities,
 } from './stravaActivities';
 export {
-  useStravaActivitySignals,
-  fetchStravaActivitySignals,
+  queryStravaActivitySignals,
+  useQueryStravaActivitySignals,
 } from './stravaActivitySignals';
 export {
-  useStravaActivityImageGenerationPrompt,
-  fetchStravaActivityImageGenerationPrompt,
+  queryStravaActivityImageGenerationPrompt,
+  useQueryStravaActivityImageGenerationPrompt,
 } from './stravaActivityImageGenerationPrompt';
 export {
-  generateStravaActivityImage,
-  useGenerateStravaActivityImage,
-} from './generateStravaActivityImage';
+  queryStravaActivityImage,
+  useQueryStravaActivityImage,
+} from './stravaActivityImage';

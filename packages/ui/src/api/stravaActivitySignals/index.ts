@@ -1,2 +1,2 @@
-export { default as fetchStravaActivitySignals } from './fetchStravaActivitySignals';
-export { default as useStravaActivitySignals } from './useStravaActivitySignals';
+export { default as queryStravaActivitySignals } from './queryStravaActivitySignals';
+export { default as useQueryStravaActivitySignals } from './useQueryStravaActivitySignals';
