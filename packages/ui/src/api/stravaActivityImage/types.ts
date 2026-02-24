@@ -3,14 +3,12 @@ export interface Input {
   prompt: string;
 }
 
-export interface ResponseImage {
-  imageData?: string;
-  usedFallback?: boolean;
-  retriesPerformed?: number;
-}
-
 export interface Response {
-  image?: ResponseImage;
+  image?: {
+    imageData?: string;
+    usedFallback?: boolean;
+    retriesPerformed?: number;
+  };
 }
 
 export interface Options {

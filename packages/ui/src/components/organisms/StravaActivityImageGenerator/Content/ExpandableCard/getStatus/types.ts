@@ -1,5 +1,5 @@
 export interface Input {
   isLoading: boolean;
-  isLoaded: boolean;
+  isError: boolean;
   hasContent: boolean;
 }

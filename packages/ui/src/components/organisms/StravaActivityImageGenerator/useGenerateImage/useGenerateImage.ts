@@ -41,16 +41,16 @@ const useGenerateImage = (withImageGeneration: boolean, activityId?: string) => 
 
   return {
     isLoading: signalsData.isLoading || promptData.isLoading || imageData.isLoading,
-    isLoaded: signalsData.isLoaded && promptData.isLoaded && imageData.isLoaded,
+    isError: signalsData.isError || promptData.isError || imageData.isError,
     signals: signalsData.data,
     prompt: promptData.data,
-    image: imageData.data?.imageData,
+    image: imageData.data,
     isSignalsLoading: signalsData.isLoading,
     isPromptLoading: promptData.isLoading,
     isImageLoading: imageData.isLoading,
-    isSignalsLoaded: signalsData.isLoaded,
-    isPromptLoaded: promptData.isLoaded,
-    isImageLoaded: imageData.isLoaded,
+    isSignalsError: signalsData.isError,
+    isPromptError: promptData.isError,
+    isImageError: imageData.isError,
   };
 };
 

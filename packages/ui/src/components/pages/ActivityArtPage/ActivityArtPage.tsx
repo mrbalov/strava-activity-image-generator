@@ -23,10 +23,10 @@ const ActivityArtPage = ({
   <StravaActivityImageGenerator
     activityId={activityId}
     withImageGeneration={withImageGeneration}
-    Header={({ isLoading, isLoaded }) => (
+    Header={({ isLoading, isError }) => (
       <Title
         isLoading={isLoading}
-        isLoaded={isLoaded}
+        isError={isError}
       />
     )}
   />
