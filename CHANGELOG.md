@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [5.4.0] - 2026-02-24
 
-### [65 Complete TanStack Query Migration and API Refactoring](https://github.com/mrbalov/pace/issues/65)
+### [65 Refactored API Layer to TanStack Query Naming Conventions](https://github.com/mrbalov/pace/issues/65)
 
 ### Changed
 
@@ -18,26 +18,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Split image generation functionality into `stravaActivityImage` (for fetching) and separate generation module
   - Added dedicated `stravaActivity` module for single activity queries
 - Updated all components to use the new hook naming convention (`useQueryAuthStatus`, `useQueryStravaActivities`, etc.)
-- Migrated custom state management hooks to TanStack Query's `useQuery`:
-  - `useQueryStravaActivityImage` now uses `useQuery` instead of `useState`/`useEffect`
-  - `useQueryStravaActivityImageGenerationPrompt` refactored to use `useQuery`
-  - `useQueryStravaActivitySignals` converted to TanStack Query pattern
-- Replaced `isLoaded` state with `isError` state across all components for better error handling
-- Updated status determination logic to use error states instead of loaded states
-- Simplified image data structure by removing nested `imageData` property
 
 ### Added
 
 - New `stravaActivity` API module with `queryStravaActivity` and `useQueryStravaActivity` exports for fetching individual activities
-- Proper `enabled` conditions for conditional query execution in TanStack Query hooks
-- Query key generation using API endpoint constants for better cache management
 
 ### Removed
 
 - Legacy `useFetch*` hooks and `fetch*` functions replaced by `useQuery*` and `query*` equivalents
 - Consolidated `generateStravaActivityImage` module (functionality split into specialized modules)
-- Custom `useState`/`useEffect` patterns in favor of TanStack Query's built-in state management
-- `isLoaded` state tracking in favor of TanStack Query's native loading states
 
 ## [5.3.0] - 2026-02-23
 
