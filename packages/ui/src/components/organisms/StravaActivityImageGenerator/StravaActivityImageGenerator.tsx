@@ -28,12 +28,15 @@ const StravaActivityImageGenerator = ({
   withImageGeneration,
 }: StravaActivityImageGeneratorProps) => {
   const {
+    activity,
     signals,
     prompt,
     image,
+    isActivityLoading,
     isSignalsLoading,
     isPromptLoading,
     isImageLoading,
+    isActivityError,
     isSignalsError,
     isPromptError,
     isImageError,
@@ -45,12 +48,15 @@ const StravaActivityImageGenerator = ({
     <div className="flex flex-col gap-4 w-full">
       {Header && <Header isLoading={isLoading} isError={isError} />}
       <Content
+        isActivityLoading={isActivityLoading}
         isSignalsLoading={isSignalsLoading}
         isPromptLoading={isPromptLoading}
         isImageLoading={isImageLoading}
+        isActivityError={isActivityError}
         isSignalsError={isSignalsError}
         isPromptError={isPromptError}
         isImageError={isImageError}
+        activity={activity}
         signals={signals}
         prompt={prompt}
         image={image}

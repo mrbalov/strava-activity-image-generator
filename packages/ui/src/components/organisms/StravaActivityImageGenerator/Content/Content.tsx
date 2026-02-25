@@ -1,19 +1,24 @@
 'use client';
 
 import { cn } from '@/lib/utils';
+import { StravaActivity } from '@torq/strava-api';
 import { StravaActivitySignals } from '@torq/get-strava-activity-signals';
 
-import Prompt from './Prompt';
+import Activity from './Activity';
 import Signals from './Signals';
+import Prompt from './Prompt';
 import Image from './Image';
 
 interface ContentProps {
+  isActivityLoading: boolean;
   isSignalsLoading: boolean;
   isPromptLoading: boolean;
   isImageLoading: boolean;
+  isActivityError: boolean;
   isSignalsError: boolean;
   isPromptError: boolean;
   isImageError: boolean;
+  activity?: StravaActivity | null;
   signals?: StravaActivitySignals | null;
   prompt?: string | null;
   image?: string | null;
@@ -24,12 +29,15 @@ interface ContentProps {
  * Image generation content.
  * Replaced Geist Drawer.Content/Grid/Card with a scrollable div + Tailwind grid.
  * @param {ContentProps} props - Component props.
+ * @param {boolean} props.isActivityLoading - Whether the activity is loading.
  * @param {boolean} props.isSignalsLoading - Whether the signals are loading.
  * @param {boolean} props.isPromptLoading - Whether the prompt is loading.
  * @param {boolean} props.isImageLoading - Whether the image is loading.
+ * @param {boolean} props.isActivityError - Whether there was an error loading the activity.
  * @param {boolean} props.isSignalsError - Whether there was an error loading the signals.
  * @param {boolean} props.isPromptError - Whether there was an error loading the prompt.
  * @param {boolean} props.isImageError - Whether there was an error loading the image.
+ * @param {StravaActivity | null} [props.activity] The activity data.
  * @param {StravaActivitySignals | null} [props.signals] The activity signals.
  * @param {string | null} [props.prompt] The generated prompt.
  * @param {string | null} [props.image] The generated image (base64).
@@ -37,12 +45,15 @@ interface ContentProps {
  * @returns {JSX.Element} Image generation content component.
  */
 const Content = ({
+  isActivityLoading,
   isSignalsLoading,
   isPromptLoading,
   isImageLoading,
+  isActivityError,
   isSignalsError,
   isPromptError,
   isImageError,
+  activity,
   signals,
   prompt,
   image,
@@ -59,6 +70,11 @@ const Content = ({
           image is appropriate before publishing it to your Strava profile.
         </p>
       </div>
+      <Activity
+        isLoading={isActivityLoading}
+        isError={isActivityError}
+        activity={activity}
+      />
       <Signals
         isLoading={isSignalsLoading}
         isError={isSignalsError}

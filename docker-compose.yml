@@ -41,7 +41,7 @@ services:
       - PORT=3001
       - HOSTNAME=0.0.0.0
       - NEXT_PUBLIC_API_URL=http://server:3000
-      - NEXT_PUBLIC_WITH_IMAGE_GENERATION=true
+      - NEXT_PUBLIC_WITH_IMAGE_GENERATION=false
     networks:
       - torq-network
     healthcheck:

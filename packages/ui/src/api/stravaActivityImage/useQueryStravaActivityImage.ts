@@ -3,7 +3,8 @@
 import { useQuery } from '@tanstack/react-query';
 
 import queryStravaActivityImage from './queryStravaActivityImage';
-import { Input, Options } from './types';
+import { Options } from '../types';
+import { Input } from './types';
 import { API_ENDPOINTS } from '../constants';
 
 /**
