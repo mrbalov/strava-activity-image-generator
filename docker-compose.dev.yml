@@ -38,7 +38,7 @@ services:
     environment:
       - NODE_ENV=development
       - HOSTNAME=0.0.0.0
-      - NEXT_PUBLIC_API_URL=http://server-dev:3000
+      - NEXT_PUBLIC_API_URL=http://localhost:3000
       - NEXT_PUBLIC_WITH_IMAGE_GENERATION=false
     depends_on:
       - server-dev

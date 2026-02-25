@@ -36,6 +36,7 @@
         "@netlify/functions": "^2.8.2",
         "@torq/check-forbidden-content": "workspace:*",
         "@torq/generate-strava-activity-image": "workspace:*",
+        "@torq/get-strava-activity-image-generation-prompt": "workspace:*",
         "@torq/strava-api": "workspace:*",
         "@torqlab/get-strava-activity-signals": "^1.0.1",
       },
