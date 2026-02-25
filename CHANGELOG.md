@@ -6,6 +6,17 @@ Please, document here only changes visible to the client app.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.6.0] - 2026-02-25
+
+### [47 Extracted Strava Activity Signals Package to External NPM Module](https://github.com/mrbalov/pace/issues/47)
+
+### Changed
+- Replaced internal `@torq/get-strava-activity-signals` package with external npm package `@torqlab/get-strava-activity-signals` v1.0.0
+- Updated all imports in server and UI packages to use the new external package
+
+### Removed
+- Internal `packages/get-strava-activity-signals` package from monorepo (functionality now provided by external npm module)
+
 ## [5.5.0] - 2026-02-25
 
 ### [66 Refactored Signals Endpoint to Accept Activity Data as Input](https://github.com/mrbalov/pace/issues/66)

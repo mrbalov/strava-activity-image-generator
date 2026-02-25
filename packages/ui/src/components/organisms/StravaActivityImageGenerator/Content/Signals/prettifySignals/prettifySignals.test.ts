@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'bun:test';
-import { StravaActivitySignals } from '@torq/get-strava-activity-signals';
+import type { StravaActivitySignals } from '@torqlab/get-strava-activity-signals';
 
 import prettifySignals from './prettifySignals';
 import { Output } from './types';

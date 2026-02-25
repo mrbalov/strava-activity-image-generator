@@ -14,11 +14,11 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@torq/generate-strava-activity-image": "workspace:*",
-    "@torq/get-strava-activity-signals": "workspace:*",
-    "@torq/check-forbidden-content": "workspace:*",
-    "@torq/strava-api": "workspace:*",
     "@netlify/blobs": "^8.1.0",
-    "@netlify/functions": "^2.8.2"
+    "@netlify/functions": "^2.8.2",
+    "@torq/check-forbidden-content": "workspace:*",
+    "@torq/generate-strava-activity-image": "workspace:*",
+    "@torq/strava-api": "workspace:*",
+    "@torqlab/get-strava-activity-signals": "^1.0.0"
   }
 }

@@ -33,7 +33,6 @@ FROM deps AS server-builder
 COPY packages/server ./packages/server
 COPY packages/strava-api ./packages/strava-api
 COPY packages/generate-strava-activity-image ./packages/generate-strava-activity-image
-COPY packages/get-strava-activity-signals ./packages/get-strava-activity-signals
 COPY packages/get-strava-activity-image-generation-prompt ./packages/get-strava-activity-image-generation-prompt
 COPY packages/check-forbidden-content ./packages/check-forbidden-content
 
@@ -66,7 +65,6 @@ COPY --from=server-builder /app/packages/server/package.json ./packages/server/
 # Copy workspace packages that server depends on
 COPY --from=server-builder /app/packages/strava-api ./packages/strava-api
 COPY --from=server-builder /app/packages/generate-strava-activity-image ./packages/generate-strava-activity-image
-COPY --from=server-builder /app/packages/get-strava-activity-signals ./packages/get-strava-activity-signals
 COPY --from=server-builder /app/packages/get-strava-activity-image-generation-prompt ./packages/get-strava-activity-image-generation-prompt
 COPY --from=server-builder /app/packages/check-forbidden-content ./packages/check-forbidden-content
 
