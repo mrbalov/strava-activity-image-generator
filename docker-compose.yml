@@ -4,8 +4,6 @@ services:
     build:
       context: .
       target: server-runtime
-      args:
-        - GITHUB_TOKEN=${GITHUB_TOKEN}
     container_name: torq-server
     ports:
       - "3000:3000"
@@ -33,8 +31,6 @@ services:
     build:
       context: .
       target: ui-runtime
-      args:
-        - GITHUB_TOKEN=${GITHUB_TOKEN}
     container_name: torq-ui
     ports:
       - "3001:3001"

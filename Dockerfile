@@ -10,34 +10,23 @@ RUN npm install -g bun@latest
 WORKDIR /app
 
 # Copy package files for dependency installation
-COPY package.json bun.lockb ./
-# Copy .npmrc for scoped registry configuration (@torqlab)
-COPY .npmrc ./
-COPY packages/*/package.json ./packages/
-
-# Create package directory structure
-RUN for file in packages/*/package.json; do \
-      dir=$(dirname "$file"); \
-      mkdir -p "$dir"; \
-      mv "$file" "$dir/"; \
-    done
+COPY package.json ./
+# Copy lockfile if it exists (optional for fresh installs)
+COPY bun.lockb* ./
+# Copy workspace package configurations
+COPY packages/server/package.json ./packages/server/
+COPY packages/ui/package.json ./packages/ui/
+COPY packages/strava-api/package.json ./packages/strava-api/
+COPY packages/generate-strava-activity-image/package.json ./packages/generate-strava-activity-image/
+COPY packages/get-strava-activity-image-generation-prompt/package.json ./packages/get-strava-activity-image-generation-prompt/
+COPY packages/check-forbidden-content/package.json ./packages/check-forbidden-content/
+COPY packages/specs-guardrails/package.json ./packages/specs-guardrails/
 
 # Stage 2: Install dependencies
 FROM base AS deps
 
-# Accept GitHub token for private package authentication
-ARG GITHUB_TOKEN
-
-# Inject auth token into .npmrc for GitHub Packages
-RUN if [ -n "$GITHUB_TOKEN" ]; then \
-      echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" >> .npmrc; \
-    fi
-
 # Install all dependencies (including dev dependencies for building)
 RUN bun install --frozen-lockfile
-
-# Remove .npmrc to avoid leaking token into later stages
-RUN rm -f .npmrc
 
 # Stage 3: Build server
 FROM deps AS server-builder
@@ -71,7 +60,7 @@ WORKDIR /app
 
 # Copy only production dependencies and built server
 COPY --from=server-builder /app/package.json ./
-COPY --from=server-builder /app/bun.lockb ./
+COPY --from=server-builder /app/bun.lockb* ./
 COPY --from=server-builder /app/packages/server/dist ./packages/server/dist
 COPY --from=server-builder /app/packages/server/package.json ./packages/server/
 
@@ -84,18 +73,8 @@ COPY --from=server-builder /app/packages/check-forbidden-content ./packages/chec
 # Install bun for runtime
 RUN npm install -g bun@latest
 
-# Copy .npmrc for scoped registry configuration
-COPY .npmrc ./
-
-# Accept GitHub token for private package authentication
-ARG GITHUB_TOKEN
-
-# Inject auth token and install production dependencies
-RUN if [ -n "$GITHUB_TOKEN" ]; then \
-      echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" >> .npmrc; \
-    fi && \
-    bun install --production --frozen-lockfile && \
-    rm -f .npmrc
+# Install production dependencies
+RUN bun install --production --frozen-lockfile
 
 # Expose server port
 EXPOSE 3000
