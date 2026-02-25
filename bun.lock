@@ -28,9 +28,6 @@
     "packages/get-strava-activity-image-generation-prompt": {
       "name": "@torq/get-strava-activity-image-generation-prompt",
     },
-    "packages/get-strava-activity-signals": {
-      "name": "@torq/get-strava-activity-signals",
-    },
     "packages/server": {
       "name": "@torq/server",
       "version": "1.0.0",
@@ -39,8 +36,9 @@
         "@netlify/functions": "^2.8.2",
         "@torq/check-forbidden-content": "workspace:*",
         "@torq/generate-strava-activity-image": "workspace:*",
-        "@torq/get-strava-activity-signals": "workspace:*",
+        "@torq/get-strava-activity-image-generation-prompt": "workspace:*",
         "@torq/strava-api": "workspace:*",
+        "@torqlab/get-strava-activity-signals": "^1.0.1",
       },
     },
     "packages/specs-guardrails": {
@@ -73,6 +71,7 @@
         "@netlify/plugin-nextjs": "^5.10.2",
         "@tailwindcss/postcss": "^4.0.8",
         "@testing-library/react": "^16.3.2",
+        "@torqlab/get-strava-activity-signals": "^1.0.1",
         "@types/bun": "^1.3.9",
         "@types/node": "^22.13.5",
         "@types/react": "^18.3.12",
@@ -373,8 +372,6 @@
 
     "@torq/get-strava-activity-image-generation-prompt": ["@torq/get-strava-activity-image-generation-prompt@workspace:packages/get-strava-activity-image-generation-prompt"],
 
-    "@torq/get-strava-activity-signals": ["@torq/get-strava-activity-signals@workspace:packages/get-strava-activity-signals"],
-
     "@torq/server": ["@torq/server@workspace:packages/server"],
 
     "@torq/specs-guardrails": ["@torq/specs-guardrails@workspace:packages/specs-guardrails"],
@@ -382,6 +379,8 @@
     "@torq/strava-api": ["@torq/strava-api@workspace:packages/strava-api"],
 
     "@torq/ui": ["@torq/ui@workspace:packages/ui"],
+
+    "@torqlab/get-strava-activity-signals": ["@torqlab/get-strava-activity-signals@1.0.1", "", {}, "sha512-6GMMaHALjVm7kKtUOe0KB0qb7CN+rZo0Ce/uJViI0Qo2BVL6SU0XQUiZU0ihBmiRMObQNOTs+06zhoHTbSbyKg=="],
 
     "@tybys/wasm-util": ["@tybys/wasm-util@0.10.1", "", { "dependencies": { "tslib": "^2.4.0" } }, "sha512-9tTaPJLSiejZKx+Bmog4uSubteqTvFrVrURwkmHixBo0G4seD0zUxp98E1DzUBJxLQ3NPwXrGKDiVjwx/DpPsg=="],
 
