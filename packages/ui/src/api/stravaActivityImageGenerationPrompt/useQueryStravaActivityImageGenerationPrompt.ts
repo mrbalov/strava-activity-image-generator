@@ -3,6 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { Input } from './types';
+import { Options } from '../types';
 import toBase64 from './toBase64';
 import { API_ENDPOINTS } from '../constants';
 import queryActivityImageGenerationPrompt from './queryStravaActivityImageGenerationPrompt';
@@ -12,12 +13,19 @@ import queryActivityImageGenerationPrompt from './queryStravaActivityImageGenera
  * @param {Input} input - Input parameters.
  * @param {string} [input.activityId] - Activity ID.
  * @param {StravaActivitySignals} [input.activitySignals] - Activity signals.
+ * @param {Options} [options] - Query options.
+ * @param {boolean} [options.skip=false] - Whether to skip the query.
  * @returns {object} Object containing loading state and activity image generation prompt data.
  */
-const useQueryStravaActivityImageGenerationPrompt = ({
-  activityId,
-  activitySignals,
-}: Partial<Input>) =>
+const useQueryStravaActivityImageGenerationPrompt = (
+  {
+    activityId,
+    activitySignals,
+  }: Partial<Input>,
+  {
+    skip = false,
+  }: Options = {},
+) =>
   useQuery<string | null>({
     queryKey: [
       API_ENDPOINTS.STRAVA_ACTIVITY_IMAGE_GENERATION_PROMPT(
@@ -42,6 +50,7 @@ const useQueryStravaActivityImageGenerationPrompt = ({
     enabled: (
       Boolean(activityId)
       && Boolean(activitySignals)
+      && !skip
     ),
   });
 

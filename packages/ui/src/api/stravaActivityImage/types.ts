@@ -10,7 +10,3 @@ export interface Response {
     retriesPerformed?: number;
   };
 }
-
-export interface Options {
-  skip?: boolean;
-}
