@@ -37,7 +37,7 @@
         "@torq/check-forbidden-content": "workspace:*",
         "@torq/generate-strava-activity-image": "workspace:*",
         "@torq/strava-api": "workspace:*",
-        "@torqlab/get-strava-activity-signals": "^1.0.0",
+        "@torqlab/get-strava-activity-signals": "^1.0.1",
       },
     },
     "packages/specs-guardrails": {
@@ -70,7 +70,7 @@
         "@netlify/plugin-nextjs": "^5.10.2",
         "@tailwindcss/postcss": "^4.0.8",
         "@testing-library/react": "^16.3.2",
-        "@torqlab/get-strava-activity-signals": "^1.0.0",
+        "@torqlab/get-strava-activity-signals": "^1.0.1",
         "@types/bun": "^1.3.9",
         "@types/node": "^22.13.5",
         "@types/react": "^18.3.12",
@@ -379,7 +379,7 @@
 
     "@torq/ui": ["@torq/ui@workspace:packages/ui"],
 
-    "@torqlab/get-strava-activity-signals": ["@torqlab/get-strava-activity-signals@1.0.0", "https://npm.pkg.github.com/download/@torqlab/get-strava-activity-signals/1.0.0/ec897d11cec0a56a3f8b7447991b06ae2be3d112", {}, "sha512-1jyImtXrhkO00QXBsUn8YGE/XGk7H68dvPPeMzQ83F81RgeEmMKIeX5l3T+ns8dsF7Lg/OQ7slAVjg5gah+1Bg=="],
+    "@torqlab/get-strava-activity-signals": ["@torqlab/get-strava-activity-signals@1.0.1", "", {}, "sha512-6GMMaHALjVm7kKtUOe0KB0qb7CN+rZo0Ce/uJViI0Qo2BVL6SU0XQUiZU0ihBmiRMObQNOTs+06zhoHTbSbyKg=="],
 
     "@tybys/wasm-util": ["@tybys/wasm-util@0.10.1", "", { "dependencies": { "tslib": "^2.4.0" } }, "sha512-9tTaPJLSiejZKx+Bmog4uSubteqTvFrVrURwkmHixBo0G4seD0zUxp98E1DzUBJxLQ3NPwXrGKDiVjwx/DpPsg=="],
 

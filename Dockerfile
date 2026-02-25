@@ -11,6 +11,8 @@ WORKDIR /app
 
 # Copy package files for dependency installation
 COPY package.json bun.lockb ./
+# Copy .npmrc for scoped registry configuration (@torqlab)
+COPY .npmrc ./
 COPY packages/*/package.json ./packages/
 
 # Create package directory structure
@@ -23,8 +25,19 @@ RUN for file in packages/*/package.json; do \
 # Stage 2: Install dependencies
 FROM base AS deps
 
+# Accept GitHub token for private package authentication
+ARG GITHUB_TOKEN
+
+# Inject auth token into .npmrc for GitHub Packages
+RUN if [ -n "$GITHUB_TOKEN" ]; then \
+      echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" >> .npmrc; \
+    fi
+
 # Install all dependencies (including dev dependencies for building)
 RUN bun install --frozen-lockfile
+
+# Remove .npmrc to avoid leaking token into later stages
+RUN rm -f .npmrc
 
 # Stage 3: Build server
 FROM deps AS server-builder
@@ -71,8 +84,18 @@ COPY --from=server-builder /app/packages/check-forbidden-content ./packages/chec
 # Install bun for runtime
 RUN npm install -g bun@latest
 
-# Install only production dependencies
-RUN bun install --production --frozen-lockfile
+# Copy .npmrc for scoped registry configuration
+COPY .npmrc ./
+
+# Accept GitHub token for private package authentication
+ARG GITHUB_TOKEN
+
+# Inject auth token and install production dependencies
+RUN if [ -n "$GITHUB_TOKEN" ]; then \
+      echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" >> .npmrc; \
+    fi && \
+    bun install --production --frozen-lockfile && \
+    rm -f .npmrc
 
 # Expose server port
 EXPOSE 3000

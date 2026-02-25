@@ -18,6 +18,17 @@ print_message() {
     echo -e "${color}${message}${NC}"
 }
 
+# Check if GITHUB_TOKEN is set
+check_github_token() {
+    if [ -z "$GITHUB_TOKEN" ]; then
+        print_message "$RED" "❌ ERROR: GITHUB_TOKEN environment variable is not set!"
+        print_message "$YELLOW" "This token is required to install @torqlab packages from GitHub Packages."
+        print_message "$YELLOW" "Set it with: export GITHUB_TOKEN=your_github_token"
+        print_message "$YELLOW" "Get a token at: https://github.com/settings/tokens (requires 'read:packages' scope)"
+        exit 1
+    fi
+}
+
 # Show usage information
 show_help() {
     echo "TORQ Docker Helper Script"
@@ -35,6 +46,7 @@ show_help() {
     echo "  help        Show this help message"
     echo ""
     echo "Examples:"
+    echo "  export GITHUB_TOKEN=ghp_...  # Set GitHub token first"
     echo "  ./docker-run.sh build    # Build production images"
     echo "  ./docker-run.sh start    # Start production containers"
     echo "  ./docker-run.sh dev      # Start development with hot reloading"
@@ -42,6 +54,7 @@ show_help() {
 
 # Build Docker images
 build_images() {
+    check_github_token
     print_message "$GREEN" "Building Docker images..."
     docker-compose build
     print_message "$GREEN" "✅ Build complete!"
@@ -58,6 +71,7 @@ start_production() {
 
 # Start development containers
 start_development() {
+    check_github_token
     print_message "$GREEN" "Starting development containers with hot reloading..."
     docker-compose -f docker-compose.dev.yml up
 }

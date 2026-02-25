@@ -19,6 +19,6 @@
     "@torq/check-forbidden-content": "workspace:*",
     "@torq/generate-strava-activity-image": "workspace:*",
     "@torq/strava-api": "workspace:*",
-    "@torqlab/get-strava-activity-signals": "^1.0.0"
+    "@torqlab/get-strava-activity-signals": "^1.0.1"
   }
 }

@@ -7,6 +7,21 @@ This project includes a complete Docker configuration for easy deployment and de
 - Docker Engine 20.10+
 - Docker Compose 2.0+
 - Node.js 24 (for local development without Docker)
+- **GitHub Personal Access Token** with `read:packages` scope (required for `@torqlab` packages)
+
+### Setting Up GitHub Token
+
+This project depends on private npm packages from GitHub Packages (`@torqlab` scope). You must set a GitHub Personal Access Token before building:
+
+1. Create a token at https://github.com/settings/tokens
+2. Grant the `read:packages` scope
+3. Export the token:
+
+```bash
+export GITHUB_TOKEN=ghp_your_token_here
+```
+
+**Note**: The helper script (`docker-run.sh`) will validate that `GITHUB_TOKEN` is set before building.
 
 ## Quick Start
 
@@ -15,6 +30,9 @@ This project includes a complete Docker configuration for easy deployment and de
 The easiest way to run the application is using the provided helper script:
 
 ```bash
+# Set GitHub token (required)
+export GITHUB_TOKEN=ghp_your_token_here
+
 # Build Docker images
 ./docker-run.sh build
 
@@ -30,6 +48,9 @@ The easiest way to run the application is using the provided helper script:
 #### Production Mode
 
 ```bash
+# Set GitHub token (required)
+export GITHUB_TOKEN=ghp_your_token_here
+
 # Build and start all services
 docker-compose up --build
 
@@ -43,6 +64,9 @@ docker-compose down
 #### Development Mode (with hot reloading)
 
 ```bash
+# Set GitHub token (required)
+export GITHUB_TOKEN=ghp_your_token_here
+
 # Start development containers
 docker-compose -f docker-compose.dev.yml up
 
@@ -57,6 +81,9 @@ docker-compose -f docker-compose.dev.yml down
 Create a `.env` file in the root directory with your configuration:
 
 ```env
+# GitHub Packages Authentication (REQUIRED)
+GITHUB_TOKEN=ghp_your_token_here
+
 # Strava API Configuration
 STRAVA_CLIENT_ID=your_client_id
 STRAVA_CLIENT_SECRET=your_client_secret
@@ -79,24 +106,24 @@ UI_ORIGIN=http://localhost:3001
 
 The Dockerfile uses a multi-stage build process for optimization:
 
-1. **Base Stage**: Sets up Node.js 24 and Bun
-2. **Dependencies Stage**: Installs all npm packages
+1. **Base Stage**: Sets up Node.js 24 and Bun, copies .npmrc for GitHub Packages
+2. **Dependencies Stage**: Installs all npm packages with GitHub token authentication
 3. **Server Builder**: Builds the server application
-4. **UI Builder**: Builds the React frontend
-5. **Server Runtime**: Production server image (minimal)
-6. **UI Runtime**: Nginx serving static files
+4. **UI Builder**: Builds the Next.js frontend (standalone mode)
+5. **Server Runtime**: Production server image (minimal, Node.js + built server)
+6. **UI Runtime**: Production Next.js server (standalone mode)
 
 ### Services
 
 #### Production (`docker-compose.yml`)
 
 - **server**: Node.js backend API (port 3000)
-- **ui**: Nginx serving React app (port 3001/80)
+- **ui**: Next.js standalone server (port 3001)
 
 #### Development (`docker-compose.dev.yml`)
 
 - **server-dev**: Bun dev server with hot reloading (port 3000)
-- **ui-dev**: Vite dev server with hot reloading (port 3001)
+- **ui-dev**: Next.js dev server with hot reloading (port 3001)
 
 ## Docker Commands Reference
 
@@ -206,6 +233,12 @@ docker system prune -a
 docker-compose build --no-cache
 ```
 
+**Common Issue**: `401 Unauthorized` or `404 Not Found` when installing `@torqlab` packages:
+- Ensure `GITHUB_TOKEN` is set: `echo $GITHUB_TOKEN`
+- Verify the token has `read:packages` scope
+- Check that the token is valid and not expired
+- Try: `docker-compose build --no-cache` to force a fresh build
+
 ### Container Won't Start
 
 Check logs for specific errors:
@@ -220,8 +253,8 @@ docker-compose logs ui
 ### Image Size
 
 The production images are optimized for size:
-- Server image: ~300MB (Node.js Alpine + app)
-- UI image: ~40MB (Nginx Alpine + static files)
+- Server image: ~300MB (Node.js Alpine + built server + dependencies)
+- UI image: ~350MB (Node.js Alpine + Next.js standalone server)
 
 ### Caching
 
