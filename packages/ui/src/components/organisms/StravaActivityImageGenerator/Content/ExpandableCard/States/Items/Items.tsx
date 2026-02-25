@@ -67,7 +67,7 @@ const Items = ({
 }: ItemsProps) => (
   <p className="text-sm text-muted-foreground">
     {statuses.map((status, index) => (
-      <span key={status} className="block">
+      <span key={status} className="block text-sm text-muted-foreground">
         <Item
           index={index + 1}
           status={status}

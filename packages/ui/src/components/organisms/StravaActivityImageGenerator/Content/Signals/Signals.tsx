@@ -37,7 +37,7 @@ const Signals = ({ isLoading, isError, signals }: SignalsProps) => {
       withExpander
     >
       {prettySignals && (
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm text-emerald-950 dark:text-emerald-800">
           {prettySignals?.map(([key, value]) => (
             <Fragment key={key}>
               <strong>{key}:</strong> {value};{' '}

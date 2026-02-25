@@ -31,7 +31,7 @@ const Prompt = ({
     title="Step 2: Preparing AI image generation prompt for your activity"
     withExpander
   >
-    <p className="text-sm text-muted-foreground">
+    <p className="text-sm text-emerald-950 dark:text-emerald-800">
       {prompt}
     </p>
   </ExpandableCard>
