@@ -28,7 +28,7 @@ const Prompt = ({
     loadingMessage="Preparing AI image generation prompt..."
     errorMessage="No AI image generation prompt available... Let's cry together."
     pendingMessage="Pending AI image generation prompt preparation..."
-    title="Step 2: Preparing AI image generation prompt for your activity"
+    title="Step 3: Preparing AI image generation prompt for your activity"
     withExpander
   >
     <p className="text-sm text-emerald-950 dark:text-emerald-800">

@@ -30,7 +30,7 @@ const Signals = ({ isLoading, isError, signals }: SignalsProps) => {
       isLoading={isLoading}
       isError={isError}
       hasContent={(prettySignals?.length ?? 0) > 0}
-      title="Step 1: Extracting AI signals from your activity"
+      title="Step 2: Extracting AI signals from your activity"
       pendingMessage="Pending AI signals extraction..."
       loadingMessage="Extracting AI signals..."
       errorMessage="No activity signals available..."

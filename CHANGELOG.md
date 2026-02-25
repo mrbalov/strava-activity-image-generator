@@ -6,6 +6,26 @@ Please, document here only changes visible to the client app.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.5.0] - 2026-02-25
+
+### [66 Refactored Signals Endpoint to Accept Activity Data as Input](https://github.com/mrbalov/pace/issues/66)
+
+### Added
+- New Activity component to display Strava activity details in the UI workflow
+- Comprehensive test suite for the refactored signals endpoint
+- Support for POST method in signals API with activity data in request body
+
+### Changed
+- **BREAKING**: Signals endpoint changed from GET `/strava/activities/:id/signals` to POST with activity data in request body
+- Signals endpoint now processes activity data directly instead of fetching from Strava API
+- Updated all API query hooks to send activity data in POST requests
+- Reordered UI workflow: Activity (Step 1) → Signals (Step 2) → Prompt (Step 3) → Image (Step 4)
+- Modified `useQueryStravaActivitySignals` to accept full StravaActivity object instead of just ID
+
+### Removed
+- Server-side Strava API token handling from signals endpoint
+- Direct Strava API dependency from signals route handler
+
 ## [5.4.2] - 2026-02-24
 
 ### [65 Enhanced UI Gradient and Text Styling for Activity Image Generator](https://github.com/mrbalov/pace/issues/65)

@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 
 import {
+  useQueryStravaActivity,
   useQueryStravaActivityImage,
   useQueryStravaActivityImageGenerationPrompt,
   useQueryStravaActivitySignals,
@@ -14,24 +15,43 @@ import {
  * @param {string} [activityId] - Strava activity ID.
  * @returns {object} Image generation state and data.
  */
-const useGenerateImage = (withImageGeneration: boolean, activityId?: string) => {
-  const signalsData = useQueryStravaActivitySignals(activityId);
-  const promptData = useQueryStravaActivityImageGenerationPrompt({
-    activitySignals: signalsData.data ?? undefined,
-    activityId: activityId ?? undefined,
-  });
-  const shouldSkipImageGeneration = (
-    !withImageGeneration
-    || !activityId
-    || !signalsData.data
-    || !promptData.data
+const useGenerateImage = (
+  withImageGeneration: boolean,
+  activityId?: string,
+) => {
+  const activityData = useQueryStravaActivity(
+    activityId ?? '',
+    {
+      skip: !activityId,
+    },
   );
-  const imageData = useQueryStravaActivityImage({
-    activityId: activityId ?? undefined,
-    prompt: promptData.data ?? undefined,
-  }, {
-    skip: shouldSkipImageGeneration,
-  });
+  const signalsData = useQueryStravaActivitySignals(
+    activityData.data,
+    {
+      skip: !activityData.data,
+    },
+  );
+  const promptData = useQueryStravaActivityImageGenerationPrompt(
+    {
+      activitySignals: signalsData.data ?? undefined,
+      activityId: activityId ?? undefined,
+    },
+    {
+      skip: !signalsData.data,
+    },
+  );
+  const imageData = useQueryStravaActivityImage(
+    {
+      activityId: activityId ?? undefined,
+      prompt: promptData.data ?? undefined,
+    },
+    {
+      skip: (
+        !promptData.data
+        || !withImageGeneration
+      ),
+    },
+  );
 
   useEffect(() => {
     if (!withImageGeneration) {
@@ -40,14 +60,27 @@ const useGenerateImage = (withImageGeneration: boolean, activityId?: string) => 
   }, [withImageGeneration]);
 
   return {
-    isLoading: signalsData.isLoading || promptData.isLoading || imageData.isLoading,
-    isError: signalsData.isError || promptData.isError || imageData.isError,
+    isLoading: (
+      activityData.isLoading
+      || signalsData.isLoading
+      || promptData.isLoading
+      || imageData.isLoading
+    ),
+    isError: (
+      activityData.isError
+      || signalsData.isError
+      || promptData.isError
+      || imageData.isError
+    ),
+    activity: activityData.data,
     signals: signalsData.data,
     prompt: promptData.data,
     image: imageData.data,
+    isActivityLoading: activityData.isLoading,
     isSignalsLoading: signalsData.isLoading,
     isPromptLoading: promptData.isLoading,
     isImageLoading: imageData.isLoading,
+    isActivityError: activityData.isError,
     isSignalsError: signalsData.isError,
     isPromptError: promptData.isError,
     isImageError: imageData.isError,

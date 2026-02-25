@@ -576,7 +576,7 @@ export const stravaActivityHandler = async (event: NetlifyEvent): Promise<Netlif
 /**
  * Handles successful strava activity signals request.
  *
- * @param {NetlifyEvent} event - Netlify function event
+ * @param {NetlifyEvent} event - Netlify function event with POST body containing Strava activity data
  * @returns {Promise<NetlifyResponse>} Netlify function response
  * @internal
  */
@@ -586,9 +586,8 @@ const stravaActivitySignalsSuccess = async (event: NetlifyEvent): Promise<Netlif
     return handleOptionsRequest(event);
   }
 
-  const config = getConfig();
   const request = netlifyEventToRequest(event);
-  const response = await stravaActivitySignals(request, config);
+  const response = await stravaActivitySignals(request);
   return await webResponseToNetlify(response);
 };
 
@@ -616,9 +615,9 @@ const stravaActivitySignalsError = (error: unknown): NetlifyResponse => {
 };
 
 /**
- * Netlify Function handler for /strava/activities/:id/signals endpoint.
+ * Netlify Function handler for POST /strava/activities/:id/signals endpoint.
  *
- * @param {NetlifyEvent} event - Netlify function event
+ * @param {NetlifyEvent} event - Netlify function event with POST body containing Strava activity data
  * @returns {Promise<NetlifyResponse>} Netlify function response
  */
 export const stravaActivitySignalsHandler = async (

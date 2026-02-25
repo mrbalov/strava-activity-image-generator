@@ -257,7 +257,7 @@ const handleRoute = async (request: Request): Promise<Response> => {
   } else if (matchesActivityImageGenerationPromptRoute(pathname)) {
     return stravaActivityImageGenerationPrompt(request, config);
   } else if (matchesActivitySignalsRoute(pathname)) {
-    return stravaActivitySignals(request, config);
+    return stravaActivitySignals(request);
   } else if (pathname === '/strava/activities') {
     return stravaActivities(request, config);
   } else if (matchesActivityRoute(pathname)) {
