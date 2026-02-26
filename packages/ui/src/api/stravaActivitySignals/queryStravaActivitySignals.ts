@@ -1,8 +1,8 @@
-import { StravaActivitySignals } from '@torq/get-strava-activity-signals';
+import type { StravaActivitySignals } from '@torqlab/get-strava-activity-signals';
+import { StravaActivity } from '@torq/strava-api';
 
 import client from '../client';
 import { API_ENDPOINTS } from '../constants';
-import { StravaActivity } from '@torq/strava-api';
 
 /**
  * Query specific activity signals.

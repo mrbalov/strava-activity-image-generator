@@ -2,7 +2,7 @@
 
 import { cn } from '@/lib/utils';
 import { StravaActivity } from '@torq/strava-api';
-import { StravaActivitySignals } from '@torq/get-strava-activity-signals';
+import type { StravaActivitySignals } from '@torqlab/get-strava-activity-signals';
 
 import Activity from './Activity';
 import Signals from './Signals';

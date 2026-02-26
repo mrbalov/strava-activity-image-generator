@@ -1,4 +1,4 @@
-import { StravaActivitySignals } from '@torq/get-strava-activity-signals';
+import type { StravaActivitySignals } from '@torqlab/get-strava-activity-signals';
 
 /**
  * Converts Strava activity signals to a Base64-encoded string.

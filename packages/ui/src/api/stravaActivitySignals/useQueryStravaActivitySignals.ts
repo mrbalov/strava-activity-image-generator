@@ -2,8 +2,7 @@
 
 import { StravaActivity } from '@torq/strava-api';
 import { useQuery } from '@tanstack/react-query';
-
-import { StravaActivitySignals } from '@torq/get-strava-activity-signals';
+import type { StravaActivitySignals } from '@torqlab/get-strava-activity-signals';
 
 import queryStravaActivitySignals from './queryStravaActivitySignals';
 import { API_ENDPOINTS } from '../constants';

@@ -10,15 +10,17 @@ RUN npm install -g bun@latest
 WORKDIR /app
 
 # Copy package files for dependency installation
-COPY package.json bun.lockb ./
-COPY packages/*/package.json ./packages/
-
-# Create package directory structure
-RUN for file in packages/*/package.json; do \
-      dir=$(dirname "$file"); \
-      mkdir -p "$dir"; \
-      mv "$file" "$dir/"; \
-    done
+COPY package.json ./
+# Copy lockfile if it exists (optional for fresh installs)
+COPY bun.lockb* ./
+# Copy workspace package configurations
+COPY packages/server/package.json ./packages/server/
+COPY packages/ui/package.json ./packages/ui/
+COPY packages/strava-api/package.json ./packages/strava-api/
+COPY packages/generate-strava-activity-image/package.json ./packages/generate-strava-activity-image/
+COPY packages/get-strava-activity-image-generation-prompt/package.json ./packages/get-strava-activity-image-generation-prompt/
+COPY packages/check-forbidden-content/package.json ./packages/check-forbidden-content/
+COPY packages/specs-guardrails/package.json ./packages/specs-guardrails/
 
 # Stage 2: Install dependencies
 FROM base AS deps
@@ -33,7 +35,6 @@ FROM deps AS server-builder
 COPY packages/server ./packages/server
 COPY packages/strava-api ./packages/strava-api
 COPY packages/generate-strava-activity-image ./packages/generate-strava-activity-image
-COPY packages/get-strava-activity-signals ./packages/get-strava-activity-signals
 COPY packages/get-strava-activity-image-generation-prompt ./packages/get-strava-activity-image-generation-prompt
 COPY packages/check-forbidden-content ./packages/check-forbidden-content
 
@@ -59,21 +60,20 @@ WORKDIR /app
 
 # Copy only production dependencies and built server
 COPY --from=server-builder /app/package.json ./
-COPY --from=server-builder /app/bun.lockb ./
+COPY --from=server-builder /app/bun.lockb* ./
 COPY --from=server-builder /app/packages/server/dist ./packages/server/dist
 COPY --from=server-builder /app/packages/server/package.json ./packages/server/
 
 # Copy workspace packages that server depends on
 COPY --from=server-builder /app/packages/strava-api ./packages/strava-api
 COPY --from=server-builder /app/packages/generate-strava-activity-image ./packages/generate-strava-activity-image
-COPY --from=server-builder /app/packages/get-strava-activity-signals ./packages/get-strava-activity-signals
 COPY --from=server-builder /app/packages/get-strava-activity-image-generation-prompt ./packages/get-strava-activity-image-generation-prompt
 COPY --from=server-builder /app/packages/check-forbidden-content ./packages/check-forbidden-content
 
 # Install bun for runtime
 RUN npm install -g bun@latest
 
-# Install only production dependencies
+# Install production dependencies
 RUN bun install --production --frozen-lockfile
 
 # Expose server port

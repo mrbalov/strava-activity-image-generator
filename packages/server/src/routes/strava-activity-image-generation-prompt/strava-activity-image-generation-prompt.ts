@@ -1,6 +1,6 @@
 import getStravaActivityImageGenerationPrompt from '@torq/get-strava-activity-image-generation-prompt';
 import checkForbiddenContent from '@torq/check-forbidden-content';
-import type { StravaActivitySignals } from '@torq/get-strava-activity-signals';
+import type { StravaActivitySignals } from '@torqlab/get-strava-activity-signals';
 
 import type { ServerConfig } from '../../types';
 
