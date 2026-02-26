@@ -18,7 +18,6 @@ COPY packages/server/package.json ./packages/server/
 COPY packages/ui/package.json ./packages/ui/
 COPY packages/strava-api/package.json ./packages/strava-api/
 COPY packages/generate-strava-activity-image/package.json ./packages/generate-strava-activity-image/
-COPY packages/get-strava-activity-image-generation-prompt/package.json ./packages/get-strava-activity-image-generation-prompt/
 COPY packages/check-forbidden-content/package.json ./packages/check-forbidden-content/
 COPY packages/specs-guardrails/package.json ./packages/specs-guardrails/
 
@@ -35,7 +34,6 @@ FROM deps AS server-builder
 COPY packages/server ./packages/server
 COPY packages/strava-api ./packages/strava-api
 COPY packages/generate-strava-activity-image ./packages/generate-strava-activity-image
-COPY packages/get-strava-activity-image-generation-prompt ./packages/get-strava-activity-image-generation-prompt
 COPY packages/check-forbidden-content ./packages/check-forbidden-content
 
 # Build server
@@ -67,7 +65,6 @@ COPY --from=server-builder /app/packages/server/package.json ./packages/server/
 # Copy workspace packages that server depends on
 COPY --from=server-builder /app/packages/strava-api ./packages/strava-api
 COPY --from=server-builder /app/packages/generate-strava-activity-image ./packages/generate-strava-activity-image
-COPY --from=server-builder /app/packages/get-strava-activity-image-generation-prompt ./packages/get-strava-activity-image-generation-prompt
 COPY --from=server-builder /app/packages/check-forbidden-content ./packages/check-forbidden-content
 
 # Install bun for runtime

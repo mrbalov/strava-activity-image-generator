@@ -25,9 +25,6 @@
       "name": "@torq/generate-strava-activity-image",
       "version": "0.1.0",
     },
-    "packages/get-strava-activity-image-generation-prompt": {
-      "name": "@torq/get-strava-activity-image-generation-prompt",
-    },
     "packages/server": {
       "name": "@torq/server",
       "version": "1.0.0",
@@ -36,8 +33,8 @@
         "@netlify/functions": "^2.8.2",
         "@torq/check-forbidden-content": "workspace:*",
         "@torq/generate-strava-activity-image": "workspace:*",
-        "@torq/get-strava-activity-image-generation-prompt": "workspace:*",
         "@torq/strava-api": "workspace:*",
+        "@torqlab/get-activity-image-generation-prompt": "^1.0.1",
         "@torqlab/get-strava-activity-signals": "^1.0.1",
       },
     },
@@ -370,8 +367,6 @@
 
     "@torq/generate-strava-activity-image": ["@torq/generate-strava-activity-image@workspace:packages/generate-strava-activity-image"],
 
-    "@torq/get-strava-activity-image-generation-prompt": ["@torq/get-strava-activity-image-generation-prompt@workspace:packages/get-strava-activity-image-generation-prompt"],
-
     "@torq/server": ["@torq/server@workspace:packages/server"],
 
     "@torq/specs-guardrails": ["@torq/specs-guardrails@workspace:packages/specs-guardrails"],
@@ -379,6 +374,8 @@
     "@torq/strava-api": ["@torq/strava-api@workspace:packages/strava-api"],
 
     "@torq/ui": ["@torq/ui@workspace:packages/ui"],
+
+    "@torqlab/get-activity-image-generation-prompt": ["@torqlab/get-activity-image-generation-prompt@1.0.1", "", {}, "sha512-0QGf4ACXEF1TqEQNTy69beAZeO30G85wcC6XCuZDuM1wtfPGSvrj1zK+gRkrnJtSAOSaJicUC6dkVcPk3zMdqA=="],
 
     "@torqlab/get-strava-activity-signals": ["@torqlab/get-strava-activity-signals@1.0.1", "", {}, "sha512-6GMMaHALjVm7kKtUOe0KB0qb7CN+rZo0Ce/uJViI0Qo2BVL6SU0XQUiZU0ihBmiRMObQNOTs+06zhoHTbSbyKg=="],
 
