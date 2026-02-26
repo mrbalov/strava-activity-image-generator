@@ -1,6 +1,0 @@
-{
-  "name": "@torq/get-strava-activity-image-generation-prompt",
-  "private": true,
-  "type": "module",
-  "main": "index.ts"
-}

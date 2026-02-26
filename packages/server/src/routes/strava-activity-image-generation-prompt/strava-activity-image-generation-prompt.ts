@@ -1,4 +1,4 @@
-import getStravaActivityImageGenerationPrompt from '@torq/get-strava-activity-image-generation-prompt';
+import getActivityImageGenerationPrompt from '@torqlab/get-activity-image-generation-prompt';
 import checkForbiddenContent from '@torq/check-forbidden-content';
 import type { StravaActivitySignals } from '@torqlab/get-strava-activity-signals';
 
@@ -118,7 +118,7 @@ const stravaActivityImageGenerationPrompt = async (
 
       return new Response(
         JSON.stringify({
-          prompt: getStravaActivityImageGenerationPrompt(signals, checkForbiddenContent),
+          prompt: getActivityImageGenerationPrompt(signals, checkForbiddenContent),
         }),
         {
           status: 200,
