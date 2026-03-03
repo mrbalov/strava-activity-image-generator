@@ -1,4 +1,4 @@
-import { fetchStravaActivity, type StravaApiConfig } from '@torqlab/strava-api';
+import { fetchStravaActivity } from '@torqlab/strava-api';
 
 import { getTokens } from '../../cookies';
 import type { ServerConfig, ServerTokenResult } from '../../types';
