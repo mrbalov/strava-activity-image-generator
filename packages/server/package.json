@@ -20,6 +20,6 @@
     "@torq/generate-strava-activity-image": "workspace:*",
     "@torqlab/get-activity-image-generation-prompt": "^1.0.1",
     "@torqlab/get-strava-activity-signals": "^1.0.1",
-    "@torqlab/strava-api": "^1.1.0"
+    "@torqlab/strava-api": "^1.1.1"
   }
 }

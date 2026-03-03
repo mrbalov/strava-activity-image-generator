@@ -34,6 +34,7 @@ const handle401 = async (): Promise<null> => {
  * 
  * @param {string} endpoint - API endpoint.
  * @param {Options<T>} [options] - Fetch options.
+ * @throws {Error} If the request fails with a non-401 error.
  * @returns {Promise<T | null>} Response data.
  */
 const client = async <T>(
@@ -61,6 +62,10 @@ const client = async <T>(
     } else {
       return await handle401();
     }
+  } else if (!response.ok) {
+    throw new Error(
+      `Request to "${endpoint}" failed: ${response.status} ${response.statusText}`,
+    );
   } else {
     return response.json() as Promise<T>;
   }

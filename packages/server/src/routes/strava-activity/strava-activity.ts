@@ -4,24 +4,6 @@ import { getTokens } from '../../cookies';
 import type { ServerConfig, ServerTokenResult } from '../../types';
 
 /**
- * Creates StravaApiConfig from server tokens and config.
- *
- * @param {ServerTokenResult} tokens - OAuth tokens from cookies
- * @param {ServerConfig} config - Server configuration
- * @returns {StravaApiConfig} Strava API configuration
- * @internal
- */
-const createActivityConfig = (
-  tokens: ServerTokenResult,
-  config: ServerConfig,
-): StravaApiConfig => ({
-  accessToken: tokens.accessToken,
-  refreshToken: tokens.refreshToken,
-  clientId: config.strava.clientId,
-  clientSecret: config.strava.clientSecret,
-});
-
-/**
  * Creates error response for unauthorized requests.
  *
  * @returns {Response} 401 Unauthorized response
@@ -131,8 +113,12 @@ const fetchActivityAndCreateResponse = async (
   tokens: ServerTokenResult,
   config: ServerConfig,
 ): Promise<Response> => {
-  const activityConfig = createActivityConfig(tokens, config);
-  const activity = await fetchStravaActivity(activityId, activityConfig);
+  const activity = await fetchStravaActivity(activityId, {
+    accessToken: tokens.accessToken,
+    refreshToken: tokens.refreshToken,
+    clientId: config.strava.clientId,
+    clientSecret: config.strava.clientSecret,
+  });
 
   return new Response(JSON.stringify(activity), {
     status: 200,
