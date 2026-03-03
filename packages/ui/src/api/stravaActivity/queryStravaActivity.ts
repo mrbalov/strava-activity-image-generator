@@ -1,4 +1,4 @@
-import { StravaActivity } from '@torq/strava-api';
+import type { StravaActivity } from '@torqlab/strava-api';
 
 import { API_ENDPOINTS } from '../constants';
 import client from '../client';

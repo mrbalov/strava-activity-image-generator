@@ -1,4 +1,5 @@
-import { exchangeStravaAuthToken } from '@torq/strava-api';
+import { exchangeStravaAuthToken } from '@torqlab/strava-api';
+
 import { setTokens } from '../../cookies';
 import type { ServerConfig } from '../../types';
 

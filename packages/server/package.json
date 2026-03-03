@@ -6,9 +6,9 @@
   "main": "dist/server.js",
   "types": "src/index.ts",
   "scripts": {
-    "build": "bun build src/server.ts --outdir dist --target node --format esm --minify --external @torq/strava-api",
-    "build:watch": "bun build src/server.ts --outdir dist --target node --format esm --watch --external @torq/strava-api",
-    "build:netlify": "bun build netlify/functions/*.ts --outdir netlify/functions --target node --format esm --external @torq/strava-api",
+    "build": "bun build src/server.ts --outdir dist --target node --format esm --minify",
+    "build:watch": "bun build src/server.ts --outdir dist --target node --format esm --watch",
+    "build:netlify": "bun build netlify/functions/*.ts --outdir netlify/functions --target node --format esm",
     "dev": "bun --watch src/server.ts",
     "start": "node dist/server.js",
     "test": "bun test"
@@ -18,8 +18,8 @@
     "@netlify/functions": "^2.8.2",
     "@torq/check-forbidden-content": "workspace:*",
     "@torq/generate-strava-activity-image": "workspace:*",
-    "@torq/strava-api": "workspace:*",
     "@torqlab/get-activity-image-generation-prompt": "^1.0.1",
-    "@torqlab/get-strava-activity-signals": "^1.0.1"
+    "@torqlab/get-strava-activity-signals": "^1.0.1",
+    "@torqlab/strava-api": "^1.1.0"
   }
 }

@@ -1,7 +1,8 @@
 import { describe, test, expect, beforeEach, afterEach, mock } from 'bun:test';
+import { type StravaActivity } from '@torqlab/strava-api';
+
 import type { ServerConfig } from '../../types';
 import { COOKIE_NAMES } from '../../types';
-import { type StravaActivity } from '@torq/strava-api';
 
 describe('stravaActivities', () => {
   const mockConfig: ServerConfig = {
@@ -24,7 +25,7 @@ describe('stravaActivities', () => {
 
   beforeEach(() => {
     mockFetchStravaActivities = mock(() => Promise.resolve([] as StravaActivity[]));
-    void mock.module('@torq/strava-api', () => ({
+    void mock.module('@torqlab/strava-api', () => ({
       fetchStravaActivities: mockFetchStravaActivities,
       fetchStravaActivity: mock(() => Promise.resolve(null)),
     }));

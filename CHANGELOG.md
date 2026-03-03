@@ -6,6 +6,19 @@ Please, document here only changes visible to the client app.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.8.0] - 2026-03-03
+
+### [47 Extracted Strava API Package to External NPM Module](https://github.com/mrbalov/pace/issues/47)
+
+### Changed
+- Replaced internal `@torq/strava-api` package with external npm package `@torqlab/strava-api` v1.1.0
+- Updated all imports in server and UI packages to use the new external package
+- Removed external build flags for the Strava API package from build scripts
+
+### Removed
+- Internal `packages/strava-api` package from monorepo (functionality now provided by external npm module)
+- All Strava API implementation files including authentication, activity fetching, rate limiting, and retry logic
+
 ## [5.7.0] - 2026-02-26
 
 ### [47 Extracted Activity Image Generation Prompt Package to External NPM Module](https://github.com/mrbalov/pace/issues/47)

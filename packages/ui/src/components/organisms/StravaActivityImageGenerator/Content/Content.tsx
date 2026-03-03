@@ -1,8 +1,9 @@
 'use client';
 
-import { cn } from '@/lib/utils';
-import { StravaActivity } from '@torq/strava-api';
+import type { StravaActivity } from '@torqlab/strava-api';
 import type { StravaActivitySignals } from '@torqlab/get-strava-activity-signals';
+
+import { cn } from '@/lib/utils';
 
 import Activity from './Activity';
 import Signals from './Signals';

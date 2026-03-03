@@ -1,6 +1,6 @@
 'use client';
 
-import { StravaActivity } from '@torq/strava-api';
+import type { StravaActivity } from '@torqlab/strava-api';
 import { useQuery } from '@tanstack/react-query';
 import type { StravaActivitySignals } from '@torqlab/get-strava-activity-signals';
 
