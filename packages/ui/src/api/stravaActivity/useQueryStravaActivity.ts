@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { StravaActivity } from '@torq/strava-api';
+import type { StravaActivity } from '@torqlab/strava-api';
 
 import { API_ENDPOINTS } from '../constants';
 import { Options } from '../types';

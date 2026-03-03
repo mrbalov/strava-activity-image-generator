@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { StravaActivity } from '@torq/strava-api';
+import type { StravaActivity } from '@torqlab/strava-api';
 import { Activity as ActivityIcon, Navigation, Clock, TrendingUp, Zap } from 'lucide-react';
 
 import { Card, CardContent, CardFooter } from '@/components/ui/card';

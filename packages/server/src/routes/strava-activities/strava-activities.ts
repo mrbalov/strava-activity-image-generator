@@ -1,10 +1,10 @@
-import { fetchStravaActivities, type StravaApiConfig } from '@torq/strava-api';
+import { fetchStravaActivities, type StravaApiConfig } from '@torqlab/strava-api';
+
 import { getTokens } from '../../cookies';
 import type { ServerConfig, ServerTokenResult } from '../../types';
 
 /**
  * Creates StravaApiConfig from server tokens and config.
- *
  * @param {ServerTokenResult} tokens - OAuth tokens from cookies
  * @param {ServerConfig} config - Server configuration
  * @returns {StravaApiConfig} Strava API configuration
@@ -22,7 +22,6 @@ const createActivityConfig = (
 
 /**
  * Creates error response for unauthorized requests.
- *
  * @returns {Response} 401 Unauthorized response
  * @internal
  */
@@ -42,7 +41,6 @@ const createUnauthorizedResponse = (): Response =>
 
 /**
  * Determines status code and error message from activity error code.
- *
  * @param {string | undefined} code - Activity error code
  * @param {string | undefined} message - Error message from activity error
  * @returns {{ statusCode: number; errorMessage: string }} Status code and error message
@@ -82,7 +80,6 @@ const determineErrorDetails = (
 
 /**
  * Creates error response for activities fetch failures.
- *
  * @param {Error} error - Error object
  * @returns {Response} Error response with appropriate status code
  * @internal
@@ -118,7 +115,6 @@ const createErrorResponse = (error: Error): Response => {
 
 /**
  * Fetches activities data and creates success response.
- *
  * @param {ServerTokenResult} tokens - OAuth tokens from cookies
  * @param {ServerConfig} config - Server configuration
  * @returns {Promise<Response>} Success response with activities data
@@ -141,7 +137,6 @@ const fetchActivitiesAndCreateResponse = async (
 
 /**
  * Handles activities fetch with error handling.
- *
  * @param {ServerTokenResult} tokens - OAuth tokens from cookies
  * @param {ServerConfig} config - Server configuration
  * @returns {Promise<Response>} Success or error response

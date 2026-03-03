@@ -1,5 +1,5 @@
 import getStravaActivitySignals from '@torqlab/get-strava-activity-signals';
-import type { StravaActivity } from '@torq/strava-api';
+import type { StravaActivity } from '@torqlab/strava-api';
 import checkForbiddenContent from '@torq/check-forbidden-content';
 
 /**

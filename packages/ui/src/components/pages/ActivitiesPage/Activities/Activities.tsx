@@ -1,6 +1,6 @@
 'use client';
 
-import { StravaActivity } from '@torq/strava-api';
+import type { StravaActivity } from '@torqlab/strava-api';
 
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
