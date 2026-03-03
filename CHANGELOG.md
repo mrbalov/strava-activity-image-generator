@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [5.8.0] - 2026-03-03
 
-### [47 Extracted Strava API Package to External NPM Module](https://github.com/mrbalov/pace/issues/47)
+### [47 Extracted Strava API Package to External NPM Module](https://github.com/torqlab/torq/issues/47)
 
 ### Changed
 - Replaced internal `@torq/strava-api` package with external npm package `@torqlab/strava-api` v1.1.0
@@ -21,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [5.7.0] - 2026-02-26
 
-### [47 Extracted Activity Image Generation Prompt Package to External NPM Module](https://github.com/mrbalov/pace/issues/47)
+### [47 Extracted Activity Image Generation Prompt Package to External NPM Module](https://github.com/torqlab/torq/issues/47)
 
 ### Changed
 - Replaced internal `@torq/get-strava-activity-image-generation-prompt` package with external npm package `@torqlab/get-activity-image-generation-prompt` v1.0.1
@@ -32,7 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [5.6.0] - 2026-02-25
 
-### [47 Extracted Strava Activity Signals Package to External NPM Module](https://github.com/mrbalov/pace/issues/47)
+### [47 Extracted Strava Activity Signals Package to External NPM Module](https://github.com/torqlab/torq/issues/47)
 
 ### Changed
 - Replaced internal `@torq/get-strava-activity-signals` package with external npm package `@torqlab/get-strava-activity-signals` v1.0.0
@@ -43,7 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [5.5.0] - 2026-02-25
 
-### [66 Refactored Signals Endpoint to Accept Activity Data as Input](https://github.com/mrbalov/pace/issues/66)
+### [66 Refactored Signals Endpoint to Accept Activity Data as Input](https://github.com/torqlab/torq/issues/66)
 
 ### Added
 - New Activity component to display Strava activity details in the UI workflow
@@ -63,7 +63,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [5.4.2] - 2026-02-24
 
-### [65 Enhanced UI Gradient and Text Styling for Activity Image Generator](https://github.com/mrbalov/pace/issues/65)
+### [65 Enhanced UI Gradient and Text Styling for Activity Image Generator](https://github.com/torqlab/torq/issues/65)
 
 ### Changed
 
@@ -74,7 +74,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [5.4.1] - 2026-02-24
 
-### [65 Improved TanStack Query Integration and Error Handling](https://github.com/mrbalov/pace/issues/65)
+### [65 Improved TanStack Query Integration and Error Handling](https://github.com/torqlab/torq/issues/65)
 
 ### Changed
 
@@ -96,7 +96,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [5.4.0] - 2026-02-24
 
-### [65 Refactored API Layer to TanStack Query Naming Conventions](https://github.com/mrbalov/pace/issues/65)
+### [65 Refactored API Layer to TanStack Query Naming Conventions](https://github.com/torqlab/torq/issues/65)
 
 ### Changed
 
@@ -118,7 +118,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [5.3.0] - 2026-02-23
 
-### [65 Authentication and API Architecture Refactoring](https://github.com/mrbalov/pace/issues/65)
+### [65 Authentication and API Architecture Refactoring](https://github.com/torqlab/torq/issues/65)
 
 ### Added
 
@@ -142,7 +142,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [5.2.0] - 2026-02-23
 
-### [65 Refactored Image Generation to Dedicated Activity Art Page](https://github.com/mrbalov/pace/issues/65)
+### [65 Refactored Image Generation to Dedicated Activity Art Page](https://github.com/torqlab/torq/issues/65)
 
 ### Added
 
@@ -166,7 +166,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [5.1.0] - 2026-02-23
 
-### [65 Added Configurable Image Generation Environment Variable](https://github.com/mrbalov/pace/issues/65)
+### [65 Added Configurable Image Generation Environment Variable](https://github.com/torqlab/torq/issues/65)
 
 ### Added
 
@@ -183,7 +183,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [5.0.3] - 2026-02-20
 
-### [61 Added Favicon and Enhanced SEO Metadata Support](https://github.com/mrbalov/pace/issues/22)
+### [61 Added Favicon and Enhanced SEO Metadata Support](https://github.com/torqlab/torq/issues/22)
 
 ### Added
 
@@ -201,7 +201,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [5.0.2] - 2026-02-20
 
-### [22 Code Quality Improvements and Component Refactoring](https://github.com/mrbalov/pace/issues/22)
+### [22 Code Quality Improvements and Component Refactoring](https://github.com/torqlab/torq/issues/22)
 
 ### Changed
 
@@ -225,7 +225,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [5.0.1] - 2026-02-20
 
-### [22 Fixed Hydration Error and Strava Auth Endpoint](https://github.com/mrbalov/pace/issues/22)
+### [22 Fixed Hydration Error and Strava Auth Endpoint](https://github.com/torqlab/torq/issues/22)
 
 ### Fixed
 
@@ -242,7 +242,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [5.0.0] - 2026-02-20
 
-### [22 UI Removed Next.js Server Overwrites](https://github.com/mrbalov/pace/issues/22)
+### [22 UI Removed Next.js Server Overwrites](https://github.com/torqlab/torq/issues/22)
 
 ### Changed
 
@@ -264,7 +264,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [4.0.0] - 2026-02-20
 
-### [22 UI Architecture Migration: Vite → Next.js, GeistUI → shadcn/ui with Enhanced SSR](https://github.com/mrbalov/pace/issues/22)
+### [22 UI Architecture Migration: Vite → Next.js, GeistUI → shadcn/ui with Enhanced SSR](https://github.com/torqlab/torq/issues/22)
 
 ### Changed
 
@@ -297,7 +297,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [3.0.0] - 2026-02-19
 
-### [52 Rebranding: PACE → TORQ (Training Orbit Research Qernel)](https://github.com/mrbalov/pace/issues/52)
+### [52 Rebranding: PACE → TORQ (Training Orbit Research Qernel)](https://github.com/torqlab/torq/issues/52)
 
 ### Changed
 
@@ -312,7 +312,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.3.2] - 2026-02-19
 
-### [27 Replaced Card Component with Divider for Cleaner Visual Separation](https://github.com/mrbalov/pace/issues/27)
+### [27 Replaced Card Component with Divider for Cleaner Visual Separation](https://github.com/torqlab/torq/issues/27)
 
 ### Changed
 
@@ -322,7 +322,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.3.1] - 2026-02-18
 
-### [27 Improved UI Polish for ExpandableCard Components](https://github.com/mrbalov/pace/issues/27)
+### [27 Improved UI Polish for ExpandableCard Components](https://github.com/torqlab/torq/issues/27)
 
 ### Changed
 
@@ -339,7 +339,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.3.0] - 2026-02-18
 
-### [27 Enhanced UI with Expandable Card Components and Improved Status Indicators](https://github.com/mrbalov/pace/issues/27)
+### [27 Enhanced UI with Expandable Card Components and Improved Status Indicators](https://github.com/torqlab/torq/issues/27)
 
 ### Added
 
@@ -363,7 +363,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.2.1] - 2026-02-17
 
-### [27 Fixed Netlify Adapter Routing for Activity Image Generator](https://github.com/mrbalov/pace/issues/27)
+### [27 Fixed Netlify Adapter Routing for Activity Image Generator](https://github.com/torqlab/torq/issues/27)
 
 ### Fixed
 
@@ -372,7 +372,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.2.0] - 2026-02-17
 
-### [27 Added Custom Prompt Support for AI Image Generation](https://github.com/mrbalov/pace/issues/27)
+### [27 Added Custom Prompt Support for AI Image Generation](https://github.com/torqlab/torq/issues/27)
 
 ### Added
 
@@ -395,7 +395,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.1.0] - 2026-02-17
 
-### [27 Added Public API Endpoint for AI Image Generation Prompts](https://github.com/mrbalov/pace/issues/27)
+### [27 Added Public API Endpoint for AI Image Generation Prompts](https://github.com/torqlab/torq/issues/27)
 
 ### Added
 
@@ -406,7 +406,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.0.0] - 2026-02-17
 
-### [27 Improved Type Safety for Strava API Guardrails Validation](https://github.com/mrbalov/pace/issues/27)
+### [27 Improved Type Safety for Strava API Guardrails Validation](https://github.com/torqlab/torq/issues/27)
 
 ### Changed
 
@@ -418,7 +418,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.12.1] - 2026-02-17
 
-### [27 Fixed Activity Signals API Route Consistency and Enhanced Image Display](https://github.com/mrbalov/pace/issues/27)
+### [27 Fixed Activity Signals API Route Consistency and Enhanced Image Display](https://github.com/torqlab/torq/issues/27)
 
 ### Added
 
@@ -437,7 +437,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.12.0] - 2026-02-17
 
-### [27 Added Docker Configuration for Local Development and Production Deployment]](https://github.com/mrbalov/pace/issues/27)
+### [27 Added Docker Configuration for Local Development and Production Deployment]](https://github.com/torqlab/torq/issues/27)
 
 ### Added
 
@@ -455,7 +455,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.11.0] - 2026-02-16
 
-### [27 Added Strava Activity Signals View in Image Generation Interface](https://github.com/mrbalov/pace/issues/27)
+### [27 Added Strava Activity Signals View in Image Generation Interface](https://github.com/torqlab/torq/issues/27)
 
 ### Added
 
@@ -473,7 +473,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.10.1] - 2026-02-16
 
-### [27 Refactored Image Generation Architecture and Improved Prompt Module Integration](https://github.com/mrbalov/pace/issues/27)
+### [27 Refactored Image Generation Architecture and Improved Prompt Module Integration](https://github.com/torqlab/torq/issues/27)
 
 ### Changed
 
@@ -498,7 +498,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.10.0] - 2026-02-16
 
-### [27 Added AI Image Generation Prompt Module and Enhanced Activity Signal Classification](https://github.com/mrbalov/pace/issues/27)
+### [27 Added AI Image Generation Prompt Module and Enhanced Activity Signal Classification](https://github.com/torqlab/torq/issues/27)
 
 ### Added
 
@@ -525,7 +525,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.9.1] - 2026-02-11
 
-### [23 Refactored Activity Signals Usage and Extracted Shared Validation Components](https://github.com/mrbalov/pace/issues/23)
+### [23 Refactored Activity Signals Usage and Extracted Shared Validation Components](https://github.com/torqlab/torq/issues/23)
 
 ### Added
 
@@ -546,7 +546,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.9.0] - 2026-02-11
 
-### [23 Refactored Strava Activity Signals Package Structure and Added New Signal Extractors](https://github.com/mrbalov/pace/issues/23)
+### [23 Refactored Strava Activity Signals Package Structure and Added New Signal Extractors](https://github.com/torqlab/torq/issues/23)
 
 ### Added
 
@@ -561,7 +561,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.8.0] - 2026-02-11
 
-### [23 Added Strava Activity Signals Extraction Package](https://github.com/mrbalov/pace/issues/23)
+### [23 Added Strava Activity Signals Extraction Package](https://github.com/torqlab/torq/issues/23)
 
 ### Added
 
@@ -580,7 +580,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.7.0] - 2026-02-10
 
-### [28 Introduced Test-Driven Development (TDD) Enforcement and Enhanced Development Workflow](https://github.com/mrbalov/pace/issues/28)
+### [28 Introduced Test-Driven Development (TDD) Enforcement and Enhanced Development Workflow](https://github.com/torqlab/torq/issues/28)
 
 ### Added
 
@@ -610,7 +610,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.6.1] - 2026-02-09
 
-### [28 Added Prettier Code Formatting to Development Workflow](https://github.com/mrbalov/pace/issues/28)
+### [28 Added Prettier Code Formatting to Development Workflow](https://github.com/torqlab/torq/issues/28)
 
 ### Added
 
@@ -631,7 +631,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.6.0] - 2026-02-09
 
-### [28 Added Claude Code Development Hooks and Cleanup](https://github.com/mrbalov/pace/issues/28)
+### [28 Added Claude Code Development Hooks and Cleanup](https://github.com/torqlab/torq/issues/28)
 
 ### Added
 
