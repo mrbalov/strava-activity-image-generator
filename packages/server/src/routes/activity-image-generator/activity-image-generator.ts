@@ -1,7 +1,8 @@
-import { ACTIVITY_IMAGE_GENERATION_PROMPT_DEFAULT } from '@torqlab/get-activity-image-generation-prompt';
-import generateStravaActivityImage from '@torq/generate-strava-activity-image';
-import type { GenerateImageOutput } from '@torq/generate-strava-activity-image/types';
 import checkForbiddenContent from '@torq/check-forbidden-content';
+import { ACTIVITY_IMAGE_GENERATION_PROMPT_DEFAULT } from '@torqlab/get-activity-image-generation-prompt';
+import generateStravaActivityImage, {
+  type GenerateImageOutput,
+} from '@torqlab/generate-activity-image';
 
 import env from '../../env';
 import { ERROR_MESSAGES, STATUS_CODES } from './constants';
