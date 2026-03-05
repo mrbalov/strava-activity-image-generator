@@ -6,6 +6,19 @@ Please, document here only changes visible to the client app.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.9.0] - 2026-03-05
+
+### [47 Extracted Activity Image Generation Package to External NPM Module](https://github.com/torqlab/torq/issues/47)
+
+### Changed
+- Replaced internal `@torq/generate-strava-activity-image` package with external npm package `@torqlab/generate-activity-image` v1.0.0
+- Updated imports in server activity-image-generator route to use the new external package
+- Consolidated type import with default import for better code organization
+
+### Removed
+- Internal `packages/generate-strava-activity-image` package from monorepo (functionality now provided by external npm module)
+- All image generation implementation files including provider integrations (Pollinations) and configuration
+
 ## [5.8.0] - 2026-03-03
 
 ### [47 Extracted Strava API Package to External NPM Module](https://github.com/torqlab/torq/issues/47)
