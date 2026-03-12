@@ -3,8 +3,6 @@
  * Communicates with /packages/server backend.
  */
 
-import env from '@/env';
-
 import { STATUS_CODES } from './constants';
 
 interface Options<T> {
