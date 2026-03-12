@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import type { StravaActivity } from '@torqlab/strava-api';
 
-import { API_ENDPOINTS } from '../constants';
-import { Options } from '../types';
+import { STRAVA_API_ENDPOINTS } from '../constants';
+import { Options } from '../../types';
 
 /**
  * Queries a specific Strava activity.
@@ -18,7 +18,7 @@ const useQueryStravaActivity = (
   }: Options = {},
 ) =>
   useQuery<StravaActivity | null>({
-    queryKey: [API_ENDPOINTS.STRAVA_ACTIVITY(activityId ?? '')],
+    queryKey: [STRAVA_API_ENDPOINTS.STRAVA_ACTIVITY(activityId ?? '')],
     /**
      * Queries a specific Strava activity from the internal API.
      * @returns {Promise<StravaActivity | null>} Strava activity.

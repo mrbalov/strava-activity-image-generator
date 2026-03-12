@@ -1,6 +1,6 @@
-import client from '../client';
+import client from '../../client';
 import { Response } from './types';
-import { API_ENDPOINTS } from '../constants';
+import { STRAVA_API_ENDPOINTS } from '../constants';
 
 /**
  * Query authentication status.
@@ -9,7 +9,7 @@ import { API_ENDPOINTS } from '../constants';
 const queryAuthStatus = async (): Promise<boolean | null> => {
   try {
     const response = await client<Response>(
-      API_ENDPOINTS.AUTH_STATUS,
+      STRAVA_API_ENDPOINTS.AUTH_STATUS,
       {
         /**
          * Handles 401 Unauthorized response by returning

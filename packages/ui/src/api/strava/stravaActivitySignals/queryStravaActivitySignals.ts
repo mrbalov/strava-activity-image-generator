@@ -1,8 +1,8 @@
 import type { StravaActivitySignals } from '@torqlab/get-strava-activity-signals';
 import type { StravaActivity } from '@torqlab/strava-api';
 
-import client from '../client';
-import { API_ENDPOINTS } from '../constants';
+import client from '../../client';
+import { STRAVA_API_ENDPOINTS } from '../constants';
 
 /**
  * Query specific activity signals.
@@ -13,7 +13,7 @@ const queryStravaActivitySignals = (
   activity: StravaActivity,
 ): Promise<StravaActivitySignals | null> =>
   client<StravaActivitySignals>(
-    API_ENDPOINTS.STRAVA_ACTIVITY_SIGNALS(
+    STRAVA_API_ENDPOINTS.STRAVA_ACTIVITY_SIGNALS(
       activity.id ? String(activity.id) : '',
     ),
     {

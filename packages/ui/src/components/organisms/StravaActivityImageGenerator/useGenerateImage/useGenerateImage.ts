@@ -4,10 +4,12 @@ import { useEffect } from 'react';
 
 import {
   useQueryStravaActivity,
-  useQueryStravaActivityImage,
-  useQueryStravaActivityImageGenerationPrompt,
   useQueryStravaActivitySignals,
-} from '@/api';
+} from '@/api/strava';
+import {
+  useQueryActivityImageGenerator,
+  useQueryActivityImageGenerationPrompt,
+} from '@/api/aig';
 
 /**
  * Generates Strava activity image.
@@ -31,20 +33,14 @@ const useGenerateImage = (
       skip: !activityData.data,
     },
   );
-  const promptData = useQueryStravaActivityImageGenerationPrompt(
-    {
-      activitySignals: signalsData.data ?? undefined,
-      activityId: activityId ?? undefined,
-    },
+  const promptData = useQueryActivityImageGenerationPrompt(
+    signalsData.data,
     {
       skip: !signalsData.data,
     },
   );
-  const imageData = useQueryStravaActivityImage(
-    {
-      activityId: activityId ?? undefined,
-      prompt: promptData.data ?? undefined,
-    },
+  const imageData = useQueryActivityImageGenerator(
+    promptData.data,
     {
       skip: (
         !promptData.data

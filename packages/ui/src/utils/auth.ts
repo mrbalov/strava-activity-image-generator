@@ -1,4 +1,4 @@
-import { logout as logoutBase } from '@/api/logout';
+import { logout as logoutBase } from '@/api/strava/logout';
 
 /**
  * Clears all cookies by setting them to expire in the past.

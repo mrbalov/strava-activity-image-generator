@@ -4,7 +4,7 @@ import { useCallback } from 'react';
 import { LogOut } from 'lucide-react';
 
 import { logout } from '@/utils/auth';
-import { useQueryAuthStatus } from '@/api';
+import { useQueryAuthStatus } from '@/api/strava';
 import { Button } from '@/components/ui/button';
 import ThemeSwitcher from '@/components/molecules/ThemeSwitcher';
 

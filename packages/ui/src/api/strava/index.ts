@@ -1,6 +1,5 @@
 export {
-  API_ENDPOINTS,
-  STATUS_CODES,
+  STRAVA_API_ENDPOINTS,
 } from './constants';
 export {
   logout,
@@ -21,11 +20,3 @@ export {
   queryStravaActivitySignals,
   useQueryStravaActivitySignals,
 } from './stravaActivitySignals';
-export {
-  queryStravaActivityImageGenerationPrompt,
-  useQueryStravaActivityImageGenerationPrompt,
-} from './stravaActivityImageGenerationPrompt';
-export {
-  queryStravaActivityImage,
-  useQueryStravaActivityImage,
-} from './stravaActivityImage';

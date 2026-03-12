@@ -1,35 +1,29 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
+import { StravaActivitySignals } from '@torqlab/get-strava-activity-signals';
 
-import { Input } from './types';
-import { Options } from '../types';
+import { Options } from '../../types';
 import toBase64 from './toBase64';
-import { API_ENDPOINTS } from '../constants';
-import queryActivityImageGenerationPrompt from './queryStravaActivityImageGenerationPrompt';
+import { AIG_API_ENDPOINTS } from '../constants';
+import queryActivityImageGenerationPrompt from './queryActivityImageGenerationPrompt';
 
 /**
  * Queries Strava activity image generation prompt.
- * @param {Input} input - Input parameters.
- * @param {string} [input.activityId] - Activity ID.
- * @param {StravaActivitySignals} [input.activitySignals] - Activity signals.
+ * @param {StravaActivitySignals | null} activitySignals - Activity signals.
  * @param {Options} [options] - Query options.
  * @param {boolean} [options.skip=false] - Whether to skip the query.
  * @returns {object} Object containing loading state and activity image generation prompt data.
  */
-const useQueryStravaActivityImageGenerationPrompt = (
-  {
-    activityId,
-    activitySignals,
-  }: Partial<Input>,
+const useQueryActivityImageGenerationPrompt = (
+  activitySignals?: StravaActivitySignals | null,
   {
     skip = false,
   }: Options = {},
 ) =>
   useQuery<string | null>({
     queryKey: [
-      API_ENDPOINTS.STRAVA_ACTIVITY_IMAGE_GENERATION_PROMPT(
-        activityId ?? '',
+      AIG_API_ENDPOINTS.PROMPT(
         activitySignals ? toBase64(activitySignals) : '',
       ),
     ],
@@ -38,20 +32,18 @@ const useQueryStravaActivityImageGenerationPrompt = (
      * @returns {Promise<string | null>} Activity image generation prompt.
      */
     queryFn: () => {
-      if (activityId && activitySignals) {
-        return queryActivityImageGenerationPrompt({
-          activityId,
+      if (activitySignals) {
+        return queryActivityImageGenerationPrompt(
           activitySignals,
-        });
+        );
       } else {
         return null;
       }
     },
     enabled: (
-      Boolean(activityId)
-      && Boolean(activitySignals)
+      Boolean(activitySignals)
       && !skip
     ),
   });
 
-export default useQueryStravaActivityImageGenerationPrompt;
+export default useQueryActivityImageGenerationPrompt;

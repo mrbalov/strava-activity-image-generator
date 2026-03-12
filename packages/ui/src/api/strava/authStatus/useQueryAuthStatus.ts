@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 
-import { API_ENDPOINTS } from '../constants';
+import { STRAVA_API_ENDPOINTS } from '../constants';
 
 /**
  * Checks authentication status.
@@ -10,7 +10,7 @@ import { API_ENDPOINTS } from '../constants';
  */
 const useQueryAuthStatus = () =>
   useQuery<boolean | null>({
-    queryKey: [API_ENDPOINTS.AUTH_STATUS],
+    queryKey: [STRAVA_API_ENDPOINTS.AUTH_STATUS],
     /**
      * Queries authentication status from the internal API.
      * @returns {Promise<boolean | null>} Authentication status.

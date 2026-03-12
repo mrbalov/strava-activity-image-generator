@@ -6,6 +6,21 @@ Please, document here only changes visible to the client app.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.10.0] - 2026-03-12
+
+### [47 Refactored UI API Structure and Simplified Activity Image Generation Hooks](https://github.com/torqlab/torq/issues/47)
+
+### Changed
+- Reorganized UI API structure by domain: moved Strava-related endpoints to `@/api/strava` module and Activity Image Generation endpoints to `@/api/aig` module
+- Simplified `useQueryActivityImageGenerationPrompt` hook to accept only `activitySignals` parameter instead of object with `activityId` and `activitySignals`
+- Simplified `useQueryActivityImageGenerator` hook to accept only `prompt` parameter instead of object with `activityId` and `prompt`
+- Updated all imports in UI components to use reorganized API module structure
+- Updated environment configuration example with new API module organization
+
+### Removed
+- Deprecated `Input` type definitions from activity image generation hooks (functionality folded into simplified hook parameters)
+- Nested folder structure `stravaActivityImage` and `stravaActivityImageGenerationPrompt` in favor of consolidated `aig` and `strava` domains
+
 ## [5.9.0] - 2026-03-05
 
 ### [47 Extracted Activity Image Generation Package to External NPM Module](https://github.com/torqlab/torq/issues/47)

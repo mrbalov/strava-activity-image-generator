@@ -5,7 +5,7 @@ import Deferred from '@/components/atoms/Deferred';
 import {
   useQueryAuthStatus,
   useQueryStravaActivities,
-} from '@/api';
+} from '@/api/strava';
 
 import Activities from './Activities';
 import Guest from './Guest';

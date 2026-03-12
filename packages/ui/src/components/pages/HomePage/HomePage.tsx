@@ -2,7 +2,7 @@
 
 import Preloader from '@/components/atoms/Preloader';
 import Deferred from '@/components/atoms/Deferred';
-import { useQueryAuthStatus } from '@/api';
+import { useQueryAuthStatus } from '@/api/strava';
 
 import useRemoveAuthUrlParams from './useRemoveAuthParams';
 import Guest from './Guest';
