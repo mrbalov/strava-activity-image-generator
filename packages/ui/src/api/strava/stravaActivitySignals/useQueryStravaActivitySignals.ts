@@ -5,8 +5,8 @@ import { useQuery } from '@tanstack/react-query';
 import type { StravaActivitySignals } from '@torqlab/get-strava-activity-signals';
 
 import queryStravaActivitySignals from './queryStravaActivitySignals';
-import { API_ENDPOINTS } from '../constants';
-import { Options } from '../types';
+import { STRAVA_API_ENDPOINTS } from '../constants';
+import { Options } from '../../types';
 
 /**
  * Queries Strava activity signals.
@@ -23,7 +23,7 @@ const useQueryStravaActivitySignals = (
 ) =>
   useQuery<StravaActivitySignals | null>({
     queryKey: [
-      API_ENDPOINTS.STRAVA_ACTIVITY_SIGNALS(
+      STRAVA_API_ENDPOINTS.STRAVA_ACTIVITY_SIGNALS(
         activity?.id ? String(activity.id) : '',
       ),
     ],

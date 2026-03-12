@@ -1,9 +1,10 @@
 const env = {
-  /**
-   * Base API URL.
-   * Can be set via environment variable `NEXT_PUBLIC_API_URL`.
-   */
-  apiUrl: process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000',
+  api: {
+    gateway: process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000',
+    aig: (
+      process.env.NEXT_PUBLIC_ACTIVITY_IMAGE_GENERATOR_URL ?? 'http://localhost:3002'
+    ),
+  },
 
   /**
    * Allows to enable or disable image generation feature.

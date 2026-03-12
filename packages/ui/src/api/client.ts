@@ -18,7 +18,7 @@ interface Options<T> {
  * @returns {Promise<null>} Null after handling unauthorized response.
  */
 const handle401 = async (): Promise<null> => {
-  const { logout } = await import('./logout');
+  const { logout } = await import('./strava/logout');
 
   await logout();
   window.location.replace('/');
@@ -41,7 +41,7 @@ const client = async <T>(
   endpoint: string,
   options?: Options<T>,
 ): Promise<T | null> => {
-  const response = await fetch(`${env.apiUrl}${endpoint}`, {
+  const response = await fetch(endpoint, {
     ...options?.init,
     credentials: 'include', // Include cookies.
     headers: {

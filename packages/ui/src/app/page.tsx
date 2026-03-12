@@ -1,5 +1,4 @@
-import env from '@/env';
-import { API_ENDPOINTS } from '@/api';
+import { STRAVA_API_ENDPOINTS } from '@/api/strava';
 import HomePage from '@/components/pages/HomePage';
 
 /**
@@ -8,8 +7,9 @@ import HomePage from '@/components/pages/HomePage';
  */
 const Page = (): JSX.Element => (
   <HomePage
-    authUrl={`${env.apiUrl}${API_ENDPOINTS.STRAVA_AUTH}`}
+    authUrl={STRAVA_API_ENDPOINTS.STRAVA_AUTH}
   />
 );
 
 export default Page;
+  
