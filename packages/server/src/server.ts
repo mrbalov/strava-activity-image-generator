@@ -15,10 +15,8 @@ import {
   stravaAuthStatus,
   stravaActivity,
   stravaActivitySignals,
-  stravaActivityImageGenerationPrompt,
   stravaActivities,
   stravaLogout,
-  activityImageGenerator,
 } from './routes';
 
 const config = getConfig();
@@ -185,24 +183,6 @@ const matchesActivityRoute = (pathname: string): boolean => {
 };
 
 /**
- * Checks if pathname matches /strava/activities/:id/image-generator/prompt pattern.
- *
- * @param {string} pathname - Request pathname
- * @returns {boolean} True if pathname matches the pattern
- * @internal
- */
-const matchesActivityImageGenerationPromptRoute = (pathname: string): boolean => {
-  const pathParts = pathname.split('/').filter((part) => part !== '');
-  return (
-    pathParts.length === 5 &&
-    pathParts[0] === 'strava' &&
-    pathParts[1] === 'activities' &&
-    pathParts[3] === 'image-generator' &&
-    pathParts[4] === 'prompt'
-  );
-};
-
-/**
  * Checks if pathname matches /strava/activities/:id/signals pattern.
  *
  * @param {string} pathname - Request pathname
@@ -216,23 +196,6 @@ const matchesActivitySignalsRoute = (pathname: string): boolean => {
     pathParts[0] === 'strava' &&
     pathParts[1] === 'activities' &&
     pathParts[3] === 'signals'
-  );
-};
-
-/**
- * Checks if pathname matches /strava/activities/:id/image-generator pattern.
- *
- * @param {string} pathname - Request pathname
- * @returns {boolean} True if pathname matches the pattern
- * @internal
- */
-const matchesActivityImageGeneratorRoute = (pathname: string): boolean => {
-  const pathParts = pathname.split('/').filter((part) => part !== '');
-  return (
-    pathParts.length === 4 &&
-    pathParts[0] === 'strava' &&
-    pathParts[1] === 'activities' &&
-    pathParts[3] === 'image-generator'
   );
 };
 
@@ -254,16 +217,12 @@ const handleRoute = async (request: Request): Promise<Response> => {
     return Promise.resolve(stravaAuthStatus(request, config));
   } else if (pathname === '/strava/logout') {
     return Promise.resolve(stravaLogout(request, config));
-  } else if (matchesActivityImageGenerationPromptRoute(pathname)) {
-    return stravaActivityImageGenerationPrompt(request, config);
   } else if (matchesActivitySignalsRoute(pathname)) {
     return stravaActivitySignals(request);
   } else if (pathname === '/strava/activities') {
     return stravaActivities(request, config);
   } else if (matchesActivityRoute(pathname)) {
     return stravaActivity(request, config);
-  } else if (matchesActivityImageGeneratorRoute(pathname)) {
-    return activityImageGenerator(request);
   } else {
     return Promise.resolve(new Response('Not Found', { status: 404 }));
   }
