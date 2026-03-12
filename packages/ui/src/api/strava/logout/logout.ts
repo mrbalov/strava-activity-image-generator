@@ -1,5 +1,3 @@
-import env from '@/env';
-
 import { STRAVA_API_ENDPOINTS } from '../constants';
 
 /**
@@ -8,7 +6,7 @@ import { STRAVA_API_ENDPOINTS } from '../constants';
  * @returns {Promise<void>} Promise that resolves when logout is complete.
  */
 const logout = async (): Promise<void> => {
-  await fetch(`${env.apiUrl}${STRAVA_API_ENDPOINTS.STRAVA_LOGOUT}`, {
+  await fetch(STRAVA_API_ENDPOINTS.STRAVA_LOGOUT, {
     credentials: 'include', // Include cookies.
     headers: {
       'Content-Type': 'application/json',
