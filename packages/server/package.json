@@ -16,7 +16,6 @@
   "dependencies": {
     "@netlify/blobs": "^8.1.0",
     "@netlify/functions": "^2.8.2",
-    "@torq/check-forbidden-content": "workspace:*",
     "@torqlab/generate-activity-image": "^1.0.0",
     "@torqlab/get-activity-image-generation-prompt": "^1.0.1",
     "@torqlab/get-strava-activity-signals": "^1.0.1",

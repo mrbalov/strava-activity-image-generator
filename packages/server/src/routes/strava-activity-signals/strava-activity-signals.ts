@@ -1,6 +1,5 @@
 import getStravaActivitySignals from '@torqlab/get-strava-activity-signals';
 import type { StravaActivity } from '@torqlab/strava-api';
-import checkForbiddenContent from '@torq/check-forbidden-content';
 
 /**
  * Handles POST /strava/activities/:id/signals - Generates signals from Strava activity data.
@@ -10,7 +9,7 @@ import checkForbiddenContent from '@torq/check-forbidden-content';
 const stravaActivitySignals = async (request: Request): Promise<Response> => {
   try {
     const activity = (await request.json()) as StravaActivity;
-    const signals = getStravaActivitySignals(activity, checkForbiddenContent);
+    const signals = getStravaActivitySignals(activity, () => false); // TODO: dedicated
 
     return new Response(JSON.stringify(signals), {
       status: 200,
