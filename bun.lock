@@ -18,16 +18,13 @@
         "typescript-eslint": "^8.15.0",
       },
     },
-    "packages/check-forbidden-content": {
-      "name": "@torq/check-forbidden-content",
-    },
     "packages/server": {
       "name": "@torq/server",
       "version": "1.0.0",
       "dependencies": {
         "@netlify/blobs": "^8.1.0",
         "@netlify/functions": "^2.8.2",
-        "@torq/check-forbidden-content": "workspace:*",
+        "@torqlab/check-forbidden-content": "^1.0.4",
         "@torqlab/generate-activity-image": "^1.0.0",
         "@torqlab/get-activity-image-generation-prompt": "^1.0.1",
         "@torqlab/get-strava-activity-signals": "^1.0.1",
@@ -359,13 +356,13 @@
 
     "@testing-library/react": ["@testing-library/react@16.3.2", "", { "dependencies": { "@babel/runtime": "^7.12.5" }, "peerDependencies": { "@testing-library/dom": "^10.0.0", "@types/react": "^18.0.0 || ^19.0.0", "@types/react-dom": "^18.0.0 || ^19.0.0", "react": "^18.0.0 || ^19.0.0", "react-dom": "^18.0.0 || ^19.0.0" }, "optionalPeers": ["@types/react", "@types/react-dom"] }, "sha512-XU5/SytQM+ykqMnAnvB2umaJNIOsLF3PVv//1Ew4CTcpz0/BRyy/af40qqrt7SjKpDdT1saBMc42CUok5gaw+g=="],
 
-    "@torq/check-forbidden-content": ["@torq/check-forbidden-content@workspace:packages/check-forbidden-content"],
-
     "@torq/server": ["@torq/server@workspace:packages/server"],
 
     "@torq/specs-guardrails": ["@torq/specs-guardrails@workspace:packages/specs-guardrails"],
 
     "@torq/ui": ["@torq/ui@workspace:packages/ui"],
+
+    "@torqlab/check-forbidden-content": ["@torqlab/check-forbidden-content@1.0.4", "", {}, "sha512-WeOl3xM7zfCjIcA/FUlRI9DQbgadWnkew9SDafIQ09x+gsQXJXlRlEjYfuJdvmCd0IE36xJzGG2vrR8TTcCpdg=="],
 
     "@torqlab/generate-activity-image": ["@torqlab/generate-activity-image@1.0.0", "", {}, "sha512-EdNSD7YqFPOUA65+UDWBKR9530AQJbJNfMQPV+6OA/YV1buNGA42zt2MYfft+2qnyLr/+wQf3SWCrOnWJy48EQ=="],
 

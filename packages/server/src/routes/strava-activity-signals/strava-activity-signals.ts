@@ -1,6 +1,6 @@
+import checkForbiddenContent from '@torqlab/check-forbidden-content';
 import getStravaActivitySignals from '@torqlab/get-strava-activity-signals';
 import type { StravaActivity } from '@torqlab/strava-api';
-import checkForbiddenContent from '@torq/check-forbidden-content';
 
 /**
  * Handles POST /strava/activities/:id/signals - Generates signals from Strava activity data.
