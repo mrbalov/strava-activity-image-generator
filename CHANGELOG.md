@@ -6,6 +6,21 @@ Please, document here only changes visible to the client app.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.0.0] - 2026-03-12
+
+### [47 Removed Image Generation API Routes and Content Filtering](https://github.com/torqlab/torq/issues/47)
+
+### Breaking Changes
+- **Removed** `/api/activity-image-generator` endpoint - clients must use `@torqlab/generate-activity-image` npm package directly
+- **Removed** `/api/strava-activity-image-generation-prompt` endpoint - clients must use `@torqlab/get-activity-image-generation-prompt` npm package directly
+- **Removed** `check-forbidden-content` package from monorepo - image filtering is now handled by `@torqlab/activity-image-generation-service`
+- Server no longer provides image generation and prompt generation as API routes; these are now consumed from external npm packages
+
+### Migration Guide
+- Replace direct API calls to `/api/activity-image-generator` with the `@torqlab/generate-activity-image` package
+- Replace direct API calls to `/api/strava-activity-image-generation-prompt` with the `@torqlab/get-activity-image-generation-prompt` package
+- Content filtering validation is now handled internally by the activity image generation service
+
 ## [5.10.0] - 2026-03-12
 
 ### [47 Refactored UI API Structure and Simplified Activity Image Generation Hooks](https://github.com/torqlab/torq/issues/47)
