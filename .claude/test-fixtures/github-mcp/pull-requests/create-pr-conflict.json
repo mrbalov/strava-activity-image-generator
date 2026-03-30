@@ -1,0 +1,10 @@
+{
+  "message": "Merge conflict",
+  "documentation_url": "https://docs.github.com/rest/reference/pulls#create-a-pull-request",
+  "status": 409,
+  "errors": [
+    {
+      "message": "Pull request can't be created: There was a conflict merging the branch into main."
+    }
+  ]
+}
