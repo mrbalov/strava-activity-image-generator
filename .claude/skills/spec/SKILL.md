@@ -9,7 +9,7 @@ This skill covers how to create and implement specifications using OpenSpec.
 
 ## Three-Stage Workflow
 
-TORQ uses **OpenSpec** for formal specifications. The workflow has three stages:
+The project uses **OpenSpec** for formal specifications. The workflow has three stages:
 
 1. **Creating Changes** (Planning) — Write proposal and spec deltas
 2. **Implementing Changes** (Building) — Code based on approved spec

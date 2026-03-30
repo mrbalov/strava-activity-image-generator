@@ -1,11 +1,11 @@
 ---
 name: test
-description: Test-driven development guide for TORQ. Use this skill when writing tests, learning test patterns, understanding coverage requirements, or questions about the testing workflow.
+description: Test-driven development guide. Use this skill when writing tests, learning test patterns, understanding coverage requirements, or questions about the testing workflow.
 ---
 
 # Test-Driven Development
 
-This skill covers how to write tests in TORQ and the TDD workflow.
+This skill covers how to write tests and the TDD workflow.
 
 ## Test-Driven Development (TDD) Workflow
 

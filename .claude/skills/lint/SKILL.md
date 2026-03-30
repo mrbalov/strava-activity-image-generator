@@ -1,11 +1,11 @@
 ---
 name: lint
-description: ESLint configuration and linting guide for TORQ. Use this skill when encountering linting errors, ESLint violations, or questions about code quality rules and linting configuration.
+description: ESLint configuration and linting guide. Use this skill when encountering linting errors, ESLint violations, or questions about code quality rules and linting configuration.
 ---
 
 # Linting Guide
 
-This skill covers ESLint configuration and how to fix linting errors in TORQ.
+This skill covers ESLint configuration and how to fix linting errors.
 
 ## Quick Start
 

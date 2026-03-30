@@ -1,11 +1,11 @@
 ---
 name: check-code-style
-description: Code style and organization standards for TORQ. Use this skill when asking about function structure, file organization, type naming, naming conventions, import patterns, or any code patterns and structural questions.
+description: Code style and organization standards. Use this skill when asking about function structure, file organization, type naming, naming conventions, import patterns, or any code patterns and structural questions.
 ---
 
 # Code Style Guide
 
-This skill covers how to organize code, structure functions, define types, and follow naming conventions in TORQ.
+This skill covers how to organize code, structure functions, define types, and follow naming conventions.
 
 ## File Organization
 
