@@ -6,6 +6,24 @@ Please, document here only changes visible to the client app.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.0.1] - 2026-03-30
+
+### [0 Restructured Project Documentation to Use Instruction System](https://github.com/torqlab/torq/issues/0)
+
+### Changed
+- Reorganized project documentation structure to use a progressive-disclosure skill-based instruction system
+- Updated developer guidance to reference centralized skills in `.claude/skills/` instead of embedded markdown files
+- Restructured `openspec/project.md` to remove implementation details now housed in formal specifications
+- Moved Cursor command and skill definitions from `.cursor/` to new `.claude/` instruction system
+
+### Removed
+- Cursor commands (`openspec-apply.md`, `openspec-archive.md`, `openspec-proposal.md`)
+- Legacy Cursor-based skills (frontend-design, review-code, skill-creator, web-design-guidelines)
+- Deprecated project documentation references (`CODE_STYLE.md`, `LINTING.md`, `TESTING.md`)
+- Extensive domain context sections from project.md (now in formal specifications)
+- Detailed module specifications and data flow diagrams from project.md (now in `openspec/specs/`)
+- Legacy `CLAUDE.md` in favor of new `.claude/instructions.md` master instructions
+
 ## [6.0.0] - 2026-03-12
 
 ### [47 Removed Image Generation API Routes and Content Filtering](https://github.com/torqlab/torq/issues/47)
