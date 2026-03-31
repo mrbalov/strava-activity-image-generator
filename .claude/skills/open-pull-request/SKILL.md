@@ -142,7 +142,7 @@ Before calling `gh_create_pull_request()`:
 
 **PR Title:**
 Extract from changelog entry heading: `[Ticket-ID Title](issue-link)`
-- Format: `[ID] Title` (e.g., `[0] Add Ticket Planning and Pull Request Creation Skills`)
+- Format: `[ID] Title` (e.g., `0 Add Ticket Planning and Pull Request Creation Skills`)
 
 **PR Body:**
 Format with "# Changelog" header as first line, followed by changelog entry content:
@@ -243,7 +243,7 @@ The skill will:
 3. Extract latest entry: #0 - Add Ticket Planning and Pull Request Creation Skills
 4. Validate current branch contains ticket ID `0` ✅
 5. Use defaults: `owner=torqlab`, `repo=torq`, `base=main`
-6. Create PR with title: `[0] Add Ticket Planning and Pull Request Creation Skills`
+6. Create PR with title: `0 Add Ticket Planning and Pull Request Creation Skills`
 7. Format body with "# Changelog" header + changelog entry
 8. Create PR on GitHub and return URL
 
