@@ -1,6 +1,7 @@
 import { Github, Globe } from 'lucide-react';
 
 import { LINKS } from './constants';
+import StravaIcon from './StravaIcon';
 
 /**
  * Copywrite information.
@@ -31,6 +32,16 @@ const Copywrite = () => (
         className="inline-flex items-center justify-center h-8 w-8 rounded-md border border-input bg-background text-muted-foreground shadow-sm hover:bg-accent hover:text-accent-foreground transition-colors"
       >
         <Globe size={14} />
+      </a>
+      <a
+        href={LINKS.STRAVA_CLUB}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Go to TORQ Strava Club"
+        title="Go to TORQ Strava Club"
+        className="inline-flex items-center justify-center h-8 w-8 rounded-md border border-input bg-background text-muted-foreground shadow-sm hover:bg-accent hover:text-accent-foreground transition-colors"
+      >
+        <StravaIcon />
       </a>
     </div>
   </div>
