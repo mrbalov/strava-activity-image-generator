@@ -1,63 +1,117 @@
 ---
 id: open-pull-request
-description: Creates a pull request on GitHub with specified parameters. Use when you need to open a PR with custom title, body, branches, and repository.
-argument-hint: "title"
+description: Creates a pull request on GitHub by reading the latest changelog entry. Extracts ticket ID and description from CHANGELOG.md and formats the PR with proper "# Changelog" header. Accepts branch and repository parameters.
+argument-hint: "head"
 ---
 
 # Open Pull Request Skill
 
 ## Context
 
-You are a GitHub automation assistant specialized in creating pull requests with proper formatting and error handling. This skill provides a reusable interface for PR creation that can be invoked directly by users or orchestrated by other skills (like `plan-ticket-implementation`).
+You are a GitHub automation assistant specialized in creating pull requests directly from changelog entries. This skill provides a consistent, changelog-driven interface for PR creation that can be invoked directly by users or orchestrated by other skills (like `plan-ticket-implementation`).
+
+The skill reads the latest changelog entry from CHANGELOG.md, extracts ticket information, and creates a PR with proper formatting: the PR title and description are derived from the changelog to ensure consistency between changelog and PR documentation.
 
 ## Task
 
-- Accept PR parameters (title, body, branches, repository)
-- Validate all required parameters are present
+- Read the latest changelog entry from CHANGELOG.md
+- Extract ticket ID, title, and description from the changelog
+- Accept branch parameters (head, base, owner, repo)
+- Format PR body with "# Changelog" header followed by the changelog entry
 - Create the PR using GitHub MCP tools
 - Handle common GitHub errors gracefully
 - Return PR metadata (URL, number, status)
 
 ## Instructions
 
-### 1. Parameter Validation
+### 1. Read Latest Changelog Entry
 
-Before creating a PR, validate:
-- `title` is provided and not empty (required)
-- `body` is provided (required)
-- `owner` is provided (required) - GitHub organization/user (e.g., "torqlab")
-- `repo` is provided (required) - Repository name (e.g., "torq")
+Read `CHANGELOG.md` and extract the most recent entry:
+
+```bash
+cat CHANGELOG.md | head -50
+```
+
+Parse the entry to extract:
+- **Ticket ID**: From the section heading, e.g., `[<Ticket-ID> Title](url)` → extract the number
+- **Ticket Title**: The full title from the heading
+- **Changelog Body**: All content under the ticket heading (Added/Changed/Fixed/Removed/Security sections)
+
+**Entry Format** (example):
+```markdown
+## [6.1.0] - 2026-03-31
+
+### [0 Add Ticket Planning and Pull Request Creation Skills](https://github.com/torqlab/torq/issues/0)
+
+### Added
+- **open-pull-request skill** - Generic GitHub PR creation tool
+  ...details...
+```
+
+Extract:
+- Ticket ID: `0`
+- Ticket Title: `Add Ticket Planning and Pull Request Creation Skills`
+- Description: Everything under "### Added" onwards
+
+### 2. Parameter Validation
+
+Before creating a PR, validate required branch parameters:
 - `head` is provided and not empty (required) - Source branch name
 - `base` is provided or defaults to "main" (optional)
+- `owner` is provided (required) - GitHub organization/user (e.g., "torqlab")
+- `repo` is provided (required) - Repository name (e.g., "torq")
 
 If any required parameter is missing, report the specific missing field and ask user to provide it.
 
-### 2. Pre-Creation Checks
+### 3. Pre-Creation Checks
 
 Before calling `gh_create_pull_request()`:
 - Verify `head` branch differs from `base` branch
 - Verify repository format is valid
 - Show user a summary of what will be created:
   ```
-  Creating PR:
-  - Title: [title]
+  Creating PR from changelog entry:
+  - Ticket: #[ID] - [Title]
   - Repository: [owner]/[repo]
   - From: [head] → [base]
-  - Body preview: [first 100 chars of body]...
+  - Body: # Changelog\n\n[first 100 chars of changelog description]...
   ```
 
-### 3. PR Creation
+### 4. Construct PR Title and Body
+
+**PR Title:**
+Extract from changelog entry heading: `[Ticket-ID Title](issue-link)`
+- Format: `[ID] Title` (e.g., `[0] Add Ticket Planning and Pull Request Creation Skills`)
+
+**PR Body:**
+Format with "# Changelog" header as first line, followed by changelog entry content:
+```markdown
+# Changelog
+
+### [ID Title](issue-link)
+
+### Added
+- item 1
+- item 2
+
+### Changed
+- item 1
+```
+
+Ensure the "# Changelog" header appears on the first line of the body.
+
+### 5. PR Creation
 
 Call GitHub MCP `gh_create_pull_request()` with:
-- `title`: The provided PR title
-- `body`: The provided PR body (markdown formatted)
-- `head`: The source branch name
+- `title`: Constructed from changelog entry: `[ID] Title`
+- `body`: Body with "# Changelog" header + changelog entry content
+- `head`: The source branch name (provided parameter)
 - `base`: The target branch (defaults to "main")
 - `draft`: false (unless user specifies draft mode)
 
 **Note**: GitHub MCP is currently scoped to `torqlab/torq`. For other organizations, manual setup may be required.
 
-### 4. Error Handling
+### 6. Error Handling
 
 Handle these common GitHub errors:
 
@@ -91,7 +145,7 @@ Handle these common GitHub errors:
 - **Solution**: Wait before retrying
 - **Message**: "Rate limit exceeded. Please wait a few minutes and try again."
 
-### 5. Success Response
+### 7. Success Response
 
 On successful PR creation, return:
 ```
@@ -113,44 +167,50 @@ Next steps: Review, request changes, or merge when ready.
 
 ```
 /open-pull-request \
-  --title="Add home background images feature" \
-  --body="# Changelog\n\n- Added home background image support" \
   --owner="torqlab" \
   --repo="torq" \
-  --head="plan/91-home-background-images"
+  --head="plan/91-home-background-images" \
+  --base="main"
 ```
+
+The skill will:
+1. Read CHANGELOG.md
+2. Extract latest entry (ticket ID, title, description)
+3. Create PR with title: `[91] Add home background images support`
+4. Format body with "# Changelog" header + changelog entry
+5. Create PR on GitHub
 
 ### Programmatic Invocation (from other skills)
 
 From `plan-ticket-implementation` skill:
 
 ```
-1. Prepare PR parameters from issue context:
-   - title: From changelog entry title
-   - body: Changelog entry content with "# Changelog" header
+1. After generating changelog entry on current branch
+
+2. Invoke skill with branch parameters:
    - owner: "torqlab"
    - repo: "torq"
    - head: plan/<ticketID>-<short-title>
    - base: "main" (default)
 
-2. Invoke skill with parameters
+3. Skill reads CHANGELOG.md
 
-3. Capture returned PR URL and number
+4. Extracts latest entry and creates PR
 
-4. Use PR details in subsequent steps (e.g., posting to GitHub issue)
+5. Returns PR metadata (URL, number, status)
 ```
 
 ### With Custom Base Branch
 
 ```
 /open-pull-request \
-  --title="Fix hotfix for production issue" \
-  --body="Urgent fix for issue #456" \
   --owner="torqlab" \
   --repo="torq" \
   --head="hotfix/456-critical-fix" \
   --base="release/1.0"
 ```
+
+Skill reads latest changelog and creates PR against release/1.0 branch instead of main.
 
 ## Integration Points
 
@@ -198,11 +258,24 @@ Follows TORQ conventions:
 
 ## Important Notes
 
-- **Repository Scope**: GitHub MCP is currently scoped to `torqlab/torq` repository. The skill accepts `owner` and `repo` parameters for future extensibility, but currently only `torqlab/torq` is supported.
-- **Branch Requirements**: Both `head` and `base` branches must exist in the repository before creating the PR.
-- **Markdown Support**: PR body supports full GitHub Flavored Markdown (GFM) including code blocks, tables, links, etc.
-- **Draft PRs**: Can be created with `draft: true` parameter for work-in-progress PRs.
-- **Permissions**: Requires GitHub token with `pull_requests:write` permission (fine-grained token recommended).
+- **Changelog Required**: The skill reads CHANGELOG.md from the current working directory (repository root)
+  - CHANGELOG.md must exist and contain at least one entry
+  - Latest entry is extracted and used for PR title and body
+  - Entry format must follow Keep a Changelog standard with `### [ID Title](url)` heading
+
+- **Repository Scope**: GitHub MCP is currently scoped to `torqlab/torq` repository
+  - The skill accepts `owner` and `repo` parameters for future extensibility
+  - Currently only `torqlab/torq` is supported via GitHub MCP
+
+- **Branch Requirements**: Both `head` and `base` branches must exist in the repository before creating the PR
+
+- **PR Body Format**: Automatically prefixed with `# Changelog` on the first line
+  - Followed by the full changelog entry from CHANGELOG.md
+  - Supports full GitHub Flavored Markdown (GFM)
+
+- **Draft PRs**: Can be created with `draft: true` parameter for work-in-progress PRs
+
+- **Permissions**: Requires GitHub token with `pull_requests:write` permission (fine-grained token recommended)
 
 ## Rate Limiting
 
@@ -215,11 +288,14 @@ If rate limited (429 error), wait 1 hour for reset or check your quota with GitH
 ## Success Criteria
 
 The skill successfully creates a PR when:
-- ✅ All required parameters provided and validated
+- ✅ CHANGELOG.md exists and contains at least one entry
+- ✅ Latest changelog entry is properly formatted with `### [ID Title](url)` heading
+- ✅ Required branch parameters provided and validated
 - ✅ GitHub MCP token is valid and has correct permissions
 - ✅ Both `head` and `base` branches exist
 - ✅ No merge conflicts between branches
 - ✅ PR doesn't already exist
 - ✅ GitHub API responds successfully
+- ✅ PR is created with "# Changelog" as first line in body
 
 If any condition fails, the skill provides clear error message and guidance on resolution.
