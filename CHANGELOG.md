@@ -6,6 +6,17 @@ Please, document here only changes visible to the client app.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.2.1] - 2026-03-31
+
+### [94 Add Strava footer button](https://github.com/torqlab/torq/issues/94)
+
+### Added
+- **OpenSpec planning artifacts** for Strava club footer button feature
+  - Proposal: Requirements and implementation approach for adding Strava social link
+  - Specification: Detailed requirements for icon button, security attributes, and accessibility
+  - Tasks: Implementation checklist covering icon setup, footer integration, styling, and testing
+  - Planning branch: `plan/94-add-strava-footer-button` ready for development
+
 ## [6.2.0] - 2026-03-31
 
 ### [0 Implement Implementation Phase Skill for OpenSpec Workflow](https://github.com/torqlab/torq/issues/0)
