@@ -107,9 +107,14 @@ Call GitHub MCP `gh_create_pull_request()` with:
 - `body`: Body with "# Changelog" header + changelog entry content
 - `head`: The source branch name (provided parameter)
 - `base`: The target branch (defaults to "main")
-- `draft`: false (unless user specifies draft mode)
+- `draft`: **true** (always create as draft PR to ensure careful review of agent-created content)
 
 **Note**: GitHub MCP is currently scoped to `torqlab/torq`. For other organizations, manual setup may be required.
+
+Draft mode ensures:
+- PR signals it was created by an agent and needs careful review
+- Prevents accidental merging before human approval
+- Requires explicit conversion to "Ready for review" status
 
 ### 6. Error Handling
 
