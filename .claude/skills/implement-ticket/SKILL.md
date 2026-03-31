@@ -347,6 +347,25 @@ Branch: plan/[number]-[title] → main
 Status: Draft
 ```
 
+**Step 7c: Post Implementation PR Link to GitHub Issue**
+
+After PR is created successfully, post a comment on the GitHub issue to notify the requester:
+
+```
+gh_create_issue_comment(issueNumber, "## 🚀 Implementation PR Ready\n\nThe implementation for this ticket is now ready for review:\n\n**Implementation PR**: [#[pr-number]](https://github.com/torqlab/torq/pull/[pr-number])\n\nPlease review the implementation PR for:\n- Code changes matching the implementation plan\n- All tasks marked complete in tasks.md\n- Tests passing and lint checks passing\n- Changelog entry accuracy\n\nReview and merge when approved by the team.")
+```
+
+Display confirmation:
+```
+✅ Implementation PR Posted to Issue
+
+Issue: #[issue-number]
+PR Comment: Posted successfully
+PR Link: https://github.com/torqlab/torq/pull/[pr-number]
+
+The original issue requester has been notified of the implementation PR.
+```
+
 ### 8. Final Summary and Review Guidance
 
 **Display completion summary:**
@@ -452,9 +471,14 @@ User: /implement-ticket 91
    ✅ PR Body: # Changelog header + implementation entry
    ✅ PR in draft mode
 
+   STEP 3: Post PR link to GitHub issue
+   ✅ Post comment on issue with implementation PR link
+   ✅ Requester notified of PR ready for review
+
 10. Skill returns completion summary:
     ✅ Implementation Complete!
     PR: #456 (Implementation)
+    PR comment posted to issue #91
 
     Review checklist:
     - Review code changes in PR
@@ -542,6 +566,13 @@ The skill orchestrates existing skills which use:
 - Verify planning branch is pushed to remote
 - Suggest resolving issues before retry
 
+### Issue Comment Failed
+- Common: insufficient permissions, rate limiting
+- Check GITHUB_MCP_TOKEN has issues:write scope
+- Verify issue number is correct
+- If rate limited, wait before retry
+- PR creation still succeeds - comment posting is non-blocking
+
 ## Success Criteria
 
 The skill successfully completes when:
@@ -572,6 +603,9 @@ The skill successfully completes when:
   - ✅ PR created with "# Changelog" header format
   - ✅ PR in draft mode
   - ✅ PR links back to issue and planning PR
+- ✅ **After PR created**: Issue comment posted
+  - ✅ Implementation PR link posted to GitHub issue
+  - ✅ Requester notified of implementation PR ready for review
 - ✅ Implementation PR number and URL returned to user
 - ✅ Final summary and review guidance provided
 - ✅ User directed to review PR before merging
