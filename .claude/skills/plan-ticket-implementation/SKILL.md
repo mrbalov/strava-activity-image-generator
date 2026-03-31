@@ -265,69 +265,54 @@ git push -u origin plan/[issue_number]-[short_title]
 ✅ Pushed to origin
 ```
 
-### 7. Create PR with Implementation Plan
+### 7. Generate Changelog Entry
 
-**PR Title:**
+**Invoke the `create-changelog` skill to generate a changelog entry:**
+
 ```
-[#91] Add home background images support
-```
-
-**PR Body:**
-
-Showcase the implementation plan to reviewers:
-
-```markdown
-# Implementation Plan for Issue #[number]
-
-## Summary
-[1-2 sentence description of what's being built]
-
-## Plan Details
-
-### Why
-[From proposal.md Why section]
-
-### What Changes
-[From proposal.md What Changes - bullet list]
-
-### Implementation Approach
-[From proposal.md or user's stated approach]
-
-### Files/Components
-[User-identified files that will change]
-
-### Implementation Checklist
-[From tasks.md - shows scope of work]
-
-### Key Scenarios
-[From spec deltas - shows behavior being added]
-
----
-
-**Next Steps:**
-1. ✅ Review this plan
-2. ✅ Approve approach and scope
-3. 🔄 Merge this PR to main
-4. 🚀 Create new implementation branch from main: `feat/[issue_number]-[short-title]`
-5. 📝 Begin implementation following tasks.md checklist
-6. ✅ Complete all tasks and mark checklist done
-7. 📋 Create implementation PR with actual code changes
-
-**Branch:** `plan/[issue_number]-[short-title]`
-**Files in this PR:** Implementation plan (proposal.md, tasks.md, spec deltas)
-**After merge:** Implementation starts on new `feat/[issue_number]-[short-title]` branch
+/create-changelog
 ```
 
-**Invoke GitHub MCP to create the PR:**
-- head: plan/[issue_number]-[short_title]
-- base: main
-- title: [#issue_number] [issue_title]
-- body: [formatted plan as above]
-- draft: true (so it's clear this is for review)
+This skill will:
+1. Analyze git diff between current branch and main
+2. Extract ticket ID from branch name
+3. Generate changelog entry following "Keep a Changelog" standard
+4. Write entry to CHANGELOG.md
+5. Return changelog entry details
+
+**Expected result:**
+- CHANGELOG.md updated with new entry
+- Changelog entry contains: ticket ID, title, Added/Changed/Fixed/Removed/Security sections
+- Format: `### [ID Title](issue-link)` with proper categories
+
+### 8. Create PR via changelog-driven workflow
+
+**Invoke the `open-pull-request` skill to create the PR:**
+
+```
+/open-pull-request
+```
+
+This skill will:
+1. Read the latest changelog entry from CHANGELOG.md
+2. Extract ticket ID, title, and description
+3. Validate current branch contains ticket ID (should be: `plan/[id]-[short-title]`)
+4. Create PR with:
+   - **Title**: `[ID] Title` (from changelog)
+   - **Body**: `# Changelog` header + changelog entry content
+   - **From**: plan/[issue_number]-[short_title]
+   - **To**: main
+   - **Status**: Draft (for careful review)
 
 **Capture returned PR number and URL.**
 
-### 8. Post Plan to GitHub Issue
+This approach ensures:
+- All PRs are created consistently using changelog entries
+- PR title and body always match the changelog
+- Reuses existing PR creation logic
+- Follows TORQ conventions
+
+### 9. Post Plan to GitHub Issue
 
 **Create comprehensive issue comment:**
 
@@ -380,7 +365,7 @@ This PR (#[pr_number]) establishes the implementation plan for this issue.
 
 If comment creation fails, report the error but don't block - user can view plan via PR instead.
 
-### 9. Provide Summary to User
+### 10. Provide Summary to User
 
 **Return completion summary:**
 
@@ -451,17 +436,24 @@ User: /plan-ticket-implementation 91
    ✅ Committed to plan/91-home-background-images
    ✅ Pushed to origin
 
-7. Skill creates PR with implementation plan:
-   ✅ PR #123 created
+7. Skill invokes create-changelog skill:
+   /create-changelog
+   ✅ Changelog entry generated
+   ✅ CHANGELOG.md updated with planning details
+   ✅ package.json version updated
+
+8. Skill invokes open-pull-request skill:
+   /open-pull-request
+   ✅ PR #123 created from changelog entry
 
    PR Title: [#91] Add home background images support
-   PR Body: Shows proposal, tasks, and spec details
+   PR Body: # Changelog header + changelog entry
 
-8. Skill posts plan to issue comment:
+9. Skill posts plan to issue comment:
    ✅ Plan posted to issue #91
 
-9. Skill returns summary:
-   ✅ Ticket Planning Complete!
+10. Skill returns summary:
+    ✅ Ticket Planning Complete!
 
    Issue: #91 - Add home background images
    Branch: plan/91-home-background-images
@@ -477,29 +469,55 @@ User: /plan-ticket-implementation 91
 
 ## Integration Points
 
-### GitHub MCP Tools Used
+### Skills Used
 
-1. **`gh_get_issue(number)`**
-   - Fetch issue details by number
-   - Assumes torqlab/torq repository
-   - Returns: title, body, labels, author, state
+1. **`create-changelog` Skill**
+   - Generates changelog entry from git diff between plan branch and main
+   - Analyzes changes to identify Added/Changed/Fixed/Removed/Security categories
+   - Creates standardized changelog entry with ticket ID and title
+   - Updates CHANGELOG.md in repository root
+   - Updates version in package.json
 
-2. **`gh_create_pull_request(title, body, head, base)`**
-   - Create PR from branch
-   - Receives: PR parameters with implementation plan
-   - Returns: PR number, URL, state
+2. **`open-pull-request` Skill**
+   - Reads latest changelog entry from CHANGELOG.md
+   - Extracts ticket ID, title, and description
+   - Validates current branch matches ticket ID pattern
+   - Creates PR with changelog-driven title and body
+   - Adds "# Changelog" header to PR body
+   - Creates PR in draft mode
+   - Returns PR number and URL
 
-3. **Issue Comment Creation**
-   - Post plan summary as comment
-   - Verify availability in GITHUB_MCP_SETUP.md
+### GitHub MCP Tools Used (via `open-pull-request` skill)
+
+The `open-pull-request` skill uses:
+- `gh_create_pull_request(title, body, head, base, draft)` - Creates PR with changelog entry
+
+### Issue Comment Creation
+
+After PR is created, skill posts plan summary to GitHub issue:
+- Uses GitHub API via existing tools
+- Posts comprehensive summary of planning approach
+- Links to plan PR and branch
+- Includes next steps for implementation
 
 ### Skills Coordinated
 
-The skill now operates **independently** without invoking other skills:
-- No longer calls `create-changelog` or `open-pull-request`
-- Directly creates plan files and commits them
-- Directly creates PR via GitHub MCP
-- Streamlines the workflow into one cohesive skill
+The skill coordinates with existing TORQ skills for consistency:
+- **`create-changelog`** - Generates changelog entry from git diff
+  - Analyzes changes between branch and main
+  - Produces standardized changelog entry format
+  - Updates CHANGELOG.md and package.json version
+- **`open-pull-request`** - Creates PR from changelog entry
+  - Reads CHANGELOG.md for title and description
+  - Validates branch matches ticket ID
+  - Creates PR with "# Changelog" header format
+  - Ensures all PRs follow same structure
+
+This orchestration ensures:
+- All PRs are created consistently
+- Changelog always matches PR content
+- PR creation logic is reused and maintained in one place
+- Clear separation of concerns between planning and PR creation
 
 ### Project Conventions Applied
 
@@ -556,7 +574,10 @@ The skill successfully completes when:
 - ✅ Plan files created (proposal.md, tasks.md, spec deltas)
 - ✅ All files committed to branch
 - ✅ Branch pushed to remote
-- ✅ PR created with implementation plan
+- ✅ `create-changelog` skill invoked and changelog entry generated
+- ✅ CHANGELOG.md updated with new entry
+- ✅ `open-pull-request` skill invoked and PR created
+- ✅ PR created in draft mode with "# Changelog" header
 - ✅ Plan posted to GitHub issue (or skipped if failed)
 - ✅ Summary provided to user
 
@@ -583,15 +604,24 @@ After this skill completes:
 8. **Create implementation PR**: When ready with code changes, create separate PR with actual code and CHANGELOG.md
 9. **Archive change**: After implementation PR merges, archive via OpenSpec workflow
 
-### Two-Step PR Process
+### Two-Step Process: Planning PR Creation
 
-This skill creates the **planning PR**. The workflow then continues with:
-- **Planning PR** (this skill): Contains proposal.md, tasks.md, spec deltas, optional design.md on `plan/<id>` branch
-- **Implementation PR** (separate): Created from new `feat/<id>` branch, contains actual code changes and CHANGELOG.md
+This skill creates the **planning PR** through a two-step process:
 
-This separation ensures:
-- Approach is reviewed and approved before implementation begins
-- Implementation branch is created fresh from main with all approved plan files included
-- Clear audit trail of planning vs implementation phases
-- Implementation can reference the approved plan
-- Clear audit trail of what was planned vs what was built
+1. **Generate Changelog** (`create-changelog` skill):
+   - Analyzes plan files (proposal.md, tasks.md, spec deltas) committed to branch
+   - Generates standardized changelog entry
+   - Updates CHANGELOG.md with ticket ID and planning details
+
+2. **Create PR** (`open-pull-request` skill):
+   - Reads changelog entry from CHANGELOG.md
+   - Creates PR with changelog-driven title and body
+   - PR title: `[ID] Title` (from changelog)
+   - PR body: `# Changelog` header + changelog content
+   - Creates PR in draft mode for review
+
+This ensures:
+- All PRs follow consistent structure (changelog-driven)
+- PR content always matches changelog
+- Planning approach is clearly documented
+- Code is reused via existing skills
