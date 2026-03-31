@@ -6,6 +6,29 @@ Please, document here only changes visible to the client app.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.1.0] - 2026-03-31
+
+### [0 Add Ticket Planning and Pull Request Creation Skills](https://github.com/torqlab/torq/issues/0)
+
+### Added
+- **open-pull-request skill** - Generic GitHub PR creation tool for CLI automation
+  - Accepts title, body, owner, repo, head, base parameters
+  - Validates inputs and provides clear error messages
+  - Handles common GitHub errors (401, 403, 404, 409, 422, 429)
+  - Returns PR URL and metadata upon successful creation
+  - Supports programmatic invocation by other skills and direct user invocation
+- **plan-ticket-implementation skill** - Full ticket-to-PR workflow orchestrator
+  - Fetches GitHub issue details and collaborates on implementation planning
+  - Creates planning branch with naming convention `plan/<id>-<title>`
+  - Integrates with create-changelog skill for automated changelog generation
+  - Creates PR using open-pull-request skill with proper formatting
+  - Posts comprehensive plan summary to GitHub issue as comment
+  - Follows OpenSpec planning phase workflow for TORQ projects
+
+### Changed
+- Claude Code skills directory now includes PR automation tools
+- GitHub MCP integration now utilized for complete ticket workflow
+
 ## [6.0.1] - 2026-03-30
 
 ### [0 Restructured Project Documentation to Use Instruction System](https://github.com/torqlab/torq/issues/0)
