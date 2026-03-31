@@ -6,6 +6,18 @@ Please, document here only changes visible to the client app.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.1.1] - 2026-03-31
+
+### [0 Fix plan-ticket-implementation Skill PR Creation Flow](https://github.com/torqlab/torq/issues/0)
+
+### Fixed
+- **plan-ticket-implementation skill** now uses create-changelog and open-pull-request skills for consistent PR creation
+  - Removed custom GitHub MCP PR creation logic
+  - Now delegates to existing skills for consistency
+  - Ensures all PRs are created with changelog-driven workflow
+  - PR title and body always match the changelog entry
+  - Reuses PR creation logic instead of duplicating
+
 ## [6.1.0] - 2026-03-31
 
 ### [0 Add Ticket Planning and Pull Request Creation Skills](https://github.com/torqlab/torq/issues/0)
