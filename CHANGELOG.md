@@ -6,6 +6,15 @@ Please, document here only changes visible to the client app.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.2.0] - 2026-03-31
+
+### [94 Add Strava Footer Button](https://github.com/torqlab/torq/issues/94)
+
+### Added
+- Strava club button in website footer linking to https://www.strava.com/clubs/torqlab
+- Button uses minimalistic Strava icon with square styling consistent with other footer social icons
+- Opens Strava club link in new browser tab with `noopener` and `noreferrer` security attributes
+
 ## [6.1.0] - 2026-03-31
 
 ### [0 Add Ticket Planning and Pull Request Creation Skills](https://github.com/torqlab/torq/issues/0)
